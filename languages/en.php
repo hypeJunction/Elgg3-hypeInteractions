@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-$english = array(
+return [
 	/**
 	 * SETTINGS
 	 */
@@ -67,7 +67,7 @@ To view %s's profile, click here:
 Please do not reply to this email.",
 	'interactions:likes:notifications:subject' => '%s likes %s',
 	'interactions:likes:notifications:body' =>
-	'%s likes %s
+		'%s likes %s
 
 See original post here:
 %s
@@ -122,6 +122,5 @@ or view %s\'s profile here:
 	',
 	'interactions:river_object:title' => 'activity',
 	'interactions:river_object:title_subject' => 'activity by %s',
-);
+];
 
-add_translation("en", $english);

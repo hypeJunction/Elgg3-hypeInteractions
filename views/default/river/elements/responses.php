@@ -7,10 +7,6 @@
  * @uses $vars['responses'] Alternate override for this item
  */
 
-namespace hypeJunction\Interactions;
-
-use ElggRiverItem;
-
 if (elgg_in_context('substream-view')) {
 	return true;
 }
@@ -33,6 +29,6 @@ if (!$item instanceof ElggRiverItem) {
 	return true;
 }
 
-$object = get_river_object($item);
+$object = \hypeJunction\Interactions\InteractionsService::instance()->getRiverObject($item);
 
 echo elgg_view_comments($object);

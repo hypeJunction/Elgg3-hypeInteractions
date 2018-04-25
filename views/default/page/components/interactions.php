@@ -8,7 +8,6 @@
  * @uses $vars['limit'] Number of items to show in a tab
  * @uses $vars['expand_form'] Expand add form (if any)
  */
-namespace hypeJunction\Interactions;
 
 $entity = elgg_extract('entity', $vars, false);
 /* @var $entity ElggEntity */
@@ -34,20 +33,20 @@ if (!isset($active_tab)) {
 	}
 }
 
-$menu = elgg_view_menu('interactions', array(
+$menu = elgg_view_menu('interactions', [
 	'entity' => $entity,
 	'class' => 'elgg-menu-hz',
 	'sort_by' => 'priority',
 	'active_tab' => $active_tab,
-		));
+]);
 
 if (empty($menu)) {
 	return;
 }
 
-$controls = elgg_format_element('div', array(
+$controls = elgg_format_element('div', [
 	'class' => 'interactions-controls',
-		), $menu);
+], $menu);
 
 $class = ['interactions'];
 
@@ -56,21 +55,21 @@ if ($active_tab) {
 		$vars['expand_form'] = $expand_form;
 	}
 	if (!isset($vars['limit'])) {
-		$vars['limit'] = InteractionsService::getLimit($partial);
+		$vars['limit'] = \hypeJunction\Interactions\InteractionsService::instance()->getLimit($partial);
 	}
 	$content = elgg_view("framework/interactions/$active_tab", $vars);
-	$component = elgg_format_element('div', array(
+	$component = elgg_format_element('div', [
 		'class' => 'interactions-component elgg-state-selected',
 		'data-trait' => $active_tab,
-			), $content);
+	], $content);
 
 	$class[] = 'interactions-has-active-tab';
 }
 
-echo elgg_format_element('div', array(
+echo elgg_format_element('div', [
 	'class' => $class,
 	'id' => 'comments',
-		), $controls . $component);
+], $controls . $component);
 ?>
 
 <script>require(['page/components/interactions']);</script>

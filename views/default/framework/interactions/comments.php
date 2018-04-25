@@ -6,6 +6,7 @@
  * @uses $vars['show_add_form'] Display a form to add a new comment
  * @uses $vars['expand_form']   Collapse/expand the form
  */
+
 namespace hypeJunction\Interactions;
 
 use ElggEntity;
@@ -16,7 +17,7 @@ $entity = elgg_extract('entity', $vars, false);
 $comment = elgg_extract('comment', $vars, false);
 /* @var $comment Comment */
 
-if (!elgg_instanceof($entity)) {
+if (!$entity instanceof ElggEntity) {
 	return;
 }
 
@@ -24,14 +25,14 @@ $full_view = elgg_extract('full_view', $vars, false);
 $show_form = elgg_extract('show_add_form', $vars, true) && $entity->canComment();
 $expand_form = elgg_extract('expand_form', $vars, !elgg_in_context('widgets'));
 
-$sort = InteractionsService::getCommentsSort();
+$sort = InteractionsService::instance()->getCommentsSort();
 if ($comment && !in_array($sort, ['time_created::asc', 'time_created::desc'])) {
 	$sort = 'time_created::desc';
 }
 
-$style = InteractionsService::getLoadStyle();
-$form_position = InteractionsService::getCommentsFormPosition();
-$limit = elgg_extract('limit', $vars, InteractionsService::getLimit(!$full_view));
+$style = InteractionsService::instance()->getLoadStyle();
+$form_position = InteractionsService::instance()->getCommentsFormPosition();
+$limit = elgg_extract('limit', $vars, InteractionsService::instance()->getLimit(!$full_view));
 
 $offset_key = "comments_$entity->guid";
 $offset = get_input($offset_key, null);
@@ -45,17 +46,17 @@ if (!isset($offset)) {
 		// e.g. when trying to a access a specific 2nd level reply in a thread,
 		// we only need to calculate the offset if the comment we are trying to access is
 		// a direct child of the object we are viewing
-		$offset = InteractionsService::calculateOffset($count, $limit);
+		$offset = InteractionsService::instance()->calculateOffset($count, $limit);
 	} else {
-		$offset = InteractionsService::calculateOffset($count, $limit, $comment);
+		$offset = InteractionsService::instance()->calculateOffset($count, $limit, $comment);
 	}
 }
 
 $level = elgg_extract('level', $vars) ? : 1;
 
-$options = array(
+$options = [
 	'types' => 'object',
-	'subtypes' => array(Comment::SUBTYPE, 'hjcomment'),
+	'subtypes' => [Comment::SUBTYPE, 'hjcomment'],
 	'container_guid' => $entity->guid,
 	'list_id' => "interactions-comments-{$entity->guid}",
 	'list_class' => 'interactions-comments-list elgg-comments',
@@ -73,23 +74,15 @@ $options = array(
 	'data-guid' => $entity->guid,
 	'data-trait' => 'comments',
 	'level' => $level,
-);
-	
+];
+
 elgg_push_context('comments');
 $allow_sort = $level == 1 && (bool) elgg_get_plugin_setting('comment_sort', 'hypeInteractions');
-$list = elgg_view('lists/objects', [
-	'options' => $options,
-	'show_filter' => $allow_sort,
-	'show_sort' => $allow_sort,
-	'show_search' => $allow_sort,
-	'expand_form' => false,
-	'sort_options' => [
-		'time_created::desc',
-		'time_created::asc',
-		'likes_count::desc',
-	],
-	'sort' => get_input('sort', $sort),
-]);
+
+$collection = elgg_get_collection('collection:object:comment', $entity, $options);
+
+echo $collection->render($options);
+
 elgg_pop_context();
 
 $form = '';
@@ -101,13 +94,13 @@ if ($show_form) {
 	if (!$expand_form) {
 		$form_class[] = 'hidden';
 	}
-	$form = elgg_view_form('comment/save', array(
+	$form = elgg_view_form('comment/save', [
 		'class' => implode(' ', $form_class),
 		'data-guid' => $entity->guid,
 		'enctype' => 'multipart/form-data',
-			), array(
+	], [
 		'entity' => $entity,
-	));
+	]);
 }
 
 if ($form_position == 'before') {

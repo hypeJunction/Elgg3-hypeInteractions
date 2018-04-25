@@ -6,12 +6,10 @@
  * @uses $vars['active_tab'] Active tab
  */
 
-namespace hypeJunction\Interactions;
-
 $comment = elgg_extract('entity', $vars);
-/* @var Comment $comment */
+/* @var \hypeJunction\Interactions\Comment $comment */
 
-if (!$comment instanceof Comment) {
+if (!$comment instanceof \hypeJunction\Interactions\Comment) {
 	return true;
 }
 
@@ -44,46 +42,24 @@ if ($full) {
 	]);
 
 	$poster = $comment->getOwnerEntity();
-	/* @var $owner ElggUser */
+	/* @var $owner \ElggUser */
 
 	$poster_text = elgg_echo('byline', [$poster->name]);
 	$posted = elgg_view_friendly_time($comment->time_created);
+
 	$date = elgg_view('output/url', [
 		'text' => $posted,
 		'href' => $comment->getURL(),
 	]);
 
-	$metadata = '';
-	if (!elgg_is_active_plugin('hypeUI')) {
-		if (!elgg_in_context('widgets')) {
-			$metadata = elgg_view_menu('entity', [
-				'entity' => $comment,
-				'sort_by' => 'priority',
-				'class' => 'elgg-menu-hz',
-			]);
-		}
-		$body = elgg_view('object/elements/summary', $vars + [
-				'title' => false,
-				'subtitle' => "$poster_text $date",
-				'content' => $body . $attachments . $comments,
-				'metadata' => $metadata,
-			]);
-		$body = elgg_view_image_block($icon, $body, [
-			'class' => 'interactions-image-block',
-		]);
-	} else {
-
-		$body = elgg_view('object/elements/summary', array_merge($vars, [
-			'entity' => $comment,
-			'icon' => elgg_view_entity_icon($commenter, 'small'),
-			'access' => false,
-			'title' => false,
-			'content' => false,
-			'inline_content' => $body . $comments,
-			'social' => false,
-			'class' => 'elgg-comment',
-		]));
-	}
+	$body = elgg_view('object/elements/summary', array_merge($vars, [
+		'title' => false,
+		'subtitle' => "$poster_text $date",
+		'content' => $body . $attachments . $comments,
+		'metadata' => $metadata,
+		'icon' => $icon,
+		'class' => 'interactions-image-bock',
+	]));
 
 	$attrs = [
 		'data-guid' => $comment->guid,

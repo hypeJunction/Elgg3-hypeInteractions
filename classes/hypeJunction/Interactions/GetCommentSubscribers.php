@@ -2,66 +2,34 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Notifications\NotificationEvent;
+use Elgg\Database\Select;
+use Elgg\Hook;
+use Elgg\Notifications\SubscriptionNotificationEvent;
 
-class Notifications {
-
-	/**
-	 * Prepare a notification for when comment is created
-	 *
-	 * @param string       $hook         Equals 'prepare'
-	 * @param string       $type         Equals ''notification:create:object:comment'
-	 * @param Notification $notification Notification object
-	 * @param array        $params       Additional params
-	 *
-	 * @return Notification
-	 */
-	public static function format($hook, $type, $notification, $params) {
-
-		$event = elgg_extract('event', $params);
-		$comment = $event->getObject();
-		$recipient = elgg_extract('recipient', $params);
-		$language = elgg_extract('language', $params);
-
-		if (!$comment instanceof Comment) {
-			return;
-		}
-
-		$entity = $comment->getContainerEntity();
-		if (!$entity) {
-			return;
-		}
-
-		$messages = (new NotificationFormatter($comment, $recipient, $language))->prepare();
-
-		$notification->summary = $messages->summary;
-		$notification->subject = $messages->subject;
-		$notification->body = $messages->body;
-
-		return $notification;
-	}
+class GetCommentSubscribers {
 
 	/**
 	 * Subscribe users to comments based on original entity
 	 *
-	 * @param string $hook   "get"
-	 * @param string $type   "subscriptions"
-	 * @param array  $return Subscriptions
-	 * @param array  $params Hook params
+	 * @elgg_plugin_hook get subscriptions
 	 *
-	 * @return array
+	 * @param Hook $hook Hook
+	 *
+	 * @return array|null
 	 */
-	public static function getSubscriptions($hook, $type, $return, $params) {
+	public function __invoke(Hook $hook) {
 
-		$event = elgg_extract('event', $params);
-		if (!$event instanceof NotificationEvent) {
-			return;
+		$event = $hook->getParam('event');
+		if (!$event instanceof SubscriptionNotificationEvent) {
+			return null;
 		}
 
 		$object = $event->getObject();
 		if (!$object instanceof Comment) {
-			return;
+			return null;
 		}
+
+		$return = $hook->getValue();
 
 		$subscriptions = [];
 		$actor_subscriptions = [];
@@ -91,16 +59,16 @@ class Notifications {
 		$all_subscriptions = $return + $subscriptions + $group_subscriptions + $actor_subscriptions;
 
 		// Get user GUIDs that have subscribed to this entity via comment tracker
-		$user_guids = elgg_get_entities_from_relationship(array(
+		$user_guids = elgg_get_entities([
 			'type' => 'user',
 			'relationship_guid' => $original_container->guid,
 			'relationship' => 'comment_subscribe',
 			'inverse_relationship' => true,
 			'limit' => false,
-			'callback' => function($row) {
+			'callback' => function ($row) {
 				return (int) $row->guid;
 			},
-		));
+		]);
 
 		/* @var int[] $user_guids */
 
@@ -108,20 +76,24 @@ class Notifications {
 			// Get a comma separated list of the subscribed users
 			$user_guids_set = implode(',', $user_guids);
 
-			$dbprefix = elgg_get_config('dbprefix');
 			$site_guid = elgg_get_site_entity()->guid;
 
 			// Get relationships that are used to explicitly block specific notification methods
-			$blocked_relationships = get_data("
-				SELECT *
-				FROM {$dbprefix}entity_relationships
-				WHERE relationship LIKE 'block_comment_notify%'
-				AND guid_one IN ($user_guids_set)
-				AND guid_two = $site_guid
-			");
+
+			$qb = Select::fromTable('entity_relationships');
+			$qb->select('*')
+				->where(
+					$qb->merge([
+						$qb->compare('relationship', 'like', 'block_comment_notify%', ELGG_VALUE_STRING),
+						$qb->compare('guid_one', 'in', $user_guids_set, ELGG_VALUE_INTEGER),
+						$qb->compare('guid_two', '=', $site_guid, ELGG_VALUE_INTEGER),
+					])
+				);
+
+			$blocked_relationships = elgg()->db->getData($qb);
 
 			// Get the methods from the relationship names
-			$blocked_methods = array();
+			$blocked_methods = [];
 			foreach ($blocked_relationships as $row) {
 				$method = str_replace('block_comment_notify', '', $row->relationship);
 				$blocked_methods[$row->guid_one][] = $method;
@@ -155,34 +127,5 @@ class Notifications {
 		unset($all_subscriptions[$actor->guid]);
 
 		return $all_subscriptions;
-	}
-
-	/**
-	 * Subscribe users to notifications about the thread
-	 *
-	 * @param string      $event  "create"
-	 * @param string      $type   "object"
-	 * @param \ElggEntity $entity Object
-	 *
-	 * @return void
-	 */
-	public static function subscribe($event, $type, $entity) {
-
-		if (!$entity instanceof Comment) {
-			return;
-		}
-
-		$original_container = $entity->getOriginalContainer();
-		if (!$original_container instanceof \ElggObject) {
-			// Let core subscriptions deal with it
-			return;
-		}
-
-		if (check_entity_relationship($entity->owner_guid, 'comment_tracker_unsubscribed', $original_container->guid)) {
-			// User unsubscribed from notifications about this container
-			return;
-		}
-
-		add_entity_relationship($entity->owner_guid, 'comment_subscribe', $original_container->guid);
 	}
 }

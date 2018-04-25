@@ -1,15 +1,10 @@
 <?php
 
-namespace hypeJunction\Interactions;
-
-$guid = get_input('guid', $vars);
+$guid = elgg_extract('guid', $vars);
+elgg_entity_gatekeeper($guid);
 
 $entity = get_entity($guid);
 /* @var $entity \ElggEntity */
-
-if (!elgg_instanceof($entity)) {
-	return true;
-}
 
 if (elgg_is_xhr()) {
 	echo elgg_view('framework/interactions/likes', array(
@@ -18,15 +13,24 @@ if (elgg_is_xhr()) {
 	));
 } else {
 	$title = elgg_echo('interactions:likes:title', array($entity->getDisplayName()));
-	$content = elgg_view_entity($entity, array(
-		'full_view' => false,
-	));
-	if (!$entity instanceof Comment) {
-		$content .= elgg_view_comments($entity, true, array(
+
+	if ($entity instanceof \hypeJunction\Interactions\Comment) {
+		$content = elgg_view_entity($entity, [
+			'full_view' => true,
+		]);
+	} else {
+		// Show partial entity listing
+		$content = elgg_view_entity($entity, [
+			'full_view' => false,
+		]);
+
+		// Show comments
+		$content .= elgg_view_comments($entity, true, [
 			'entity' => $entity,
 			'active_tab' => 'likes',
-		));
+		]);
 	}
+
 	$layout = elgg_view_layout('content', array(
 		'title' => $title,
 		'content' => $content,

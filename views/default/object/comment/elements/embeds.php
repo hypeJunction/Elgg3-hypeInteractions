@@ -9,5 +9,5 @@ if (!$full) {
 }
 
 echo elgg_view('output/url_preview', [
-	'value' => $entity->description,
+	'value' => strip_tags($entity->description),
 ]);

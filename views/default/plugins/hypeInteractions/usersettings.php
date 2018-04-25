@@ -20,7 +20,7 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comments_order]',
-	'value' => hypeJunction\Interactions\InteractionsService::getCommentsSort(),
+	'value' => hypeJunction\Interactions\InteractionsService::instance()->getCommentsSort(),
 	'options_values' => [
 		'time_created::desc' => elgg_echo('sort:object:time_created::desc'),
 		'time_created::asc' => elgg_echo('sort:object:time_created::asc'),
@@ -33,7 +33,7 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comments_load_style]',
-	'value' => hypeJunction\Interactions\InteractionsService::getLoadStyle(),
+	'value' => hypeJunction\Interactions\InteractionsService::instance()->getLoadStyle(),
 	'options_values' => array(
 		'load_newer' => elgg_echo('interactions:settings:comments_load_style:load_newer'),
 		'load_older' => elgg_echo('interactions:settings:comments_load_style:load_older'),

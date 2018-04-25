@@ -1,15 +1,12 @@
 <?php
 
-use hypeJunction\Interactions\RiverObject;
-
 $guid = elgg_extract('guid', $vars);
+elgg_entity_gatekeeper($guid, 'object', \hypeJunction\Interactions\RiverObject::SUBTYPE);
+
 $entity = get_entity($guid);
 
-if (!$entity instanceof RiverObject) {
-	forward('', '404');
-}
-
 $container = $entity->getContainerEntity();
+
 elgg_set_page_owner_guid($container->guid);
 
 if ($container instanceof ElggGroup) {
@@ -29,7 +26,7 @@ $river = elgg_get_river([
 ]);
 
 if (!$river) {
-	forward('', '404');
+	throw new \Elgg\EntityNotFoundException();
 }
 
 $item = array_shift($river);
