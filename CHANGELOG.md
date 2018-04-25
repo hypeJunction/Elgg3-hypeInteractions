@@ -1,3 +1,13 @@
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/hypeJunction/Elgg3-hypeInteractions/compare/5.4.1...6.0.0) (2018-04-25)
+
+
+### Features
+
+* **releases:** upgrade for Elgg 3.0 ([569cf77](https://github.com/hypeJunction/Elgg3-hypeInteractions/commit/569cf77))
+
+
+
 <a name="5.4.1"></a>
 ## [5.4.1](https://github.com/hypeJunction/hypeInteractions/compare/5.4.0...v5.4.1) (2018-02-26)
 
