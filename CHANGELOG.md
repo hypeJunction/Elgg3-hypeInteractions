@@ -1,3 +1,13 @@
+<a name="6.0.1"></a>
+## [6.0.1](https://github.com/hypeJunction/Elgg3-hypeInteractions/compare/6.0.0...6.0.1) (2018-04-25)
+
+
+### Bug Fixes
+
+* **api:** make save() method signature match core ([56ff4b8](https://github.com/hypeJunction/Elgg3-hypeInteractions/commit/56ff4b8))
+
+
+
 <a name="6.0.0"></a>
 # [6.0.0](https://github.com/hypeJunction/Elgg3-hypeInteractions/compare/5.4.1...6.0.0) (2018-04-25)
 
