@@ -1,3 +1,13 @@
+<a name="6.0.4"></a>
+## [6.0.4](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.0.3...6.0.4) (2018-04-25)
+
+
+### Bug Fixes
+
+* **js:** do not prevent event on all handlers ([f4b862f](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/f4b862f))
+
+
+
 <a name="6.0.3"></a>
 ## [6.0.3](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.0.2...6.0.3) (2018-04-25)
 
