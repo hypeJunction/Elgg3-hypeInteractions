@@ -135,7 +135,6 @@ define(function (require) {
 		},
 
 		loadEditForm: function (e) {
-			e.preventDefault();
 			var $elem = $(this);
 
 			// If the menu was displayed in a popup module,
@@ -167,6 +166,8 @@ define(function (require) {
 				return;
 			}
 
+			e.preventDefault();
+			
 			var ajax = new Ajax();
 
 			ajax.path($elem.attr('href'))
