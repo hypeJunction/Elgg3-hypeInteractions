@@ -3,39 +3,35 @@
 /**
  * @uses $vars['entity'] Entity whose interactions are being displayed
  * @uses $vars['full_view'] Is this is full entity listing
- * @uses $vars['level'] Threading level that this view is being called from
  * @uses $vars['active_tab'] Current active tab
- * @uses $vars['limit'] Number of items to show in a tab
- * @uses $vars['expand_form'] Expand add form (if any)
  */
 
 $entity = elgg_extract('entity', $vars, false);
 /* @var $entity ElggEntity */
 
+if (!$entity instanceof ElggEntity) {
+    dump($entity);
+    return;
+}
+
 $full_view = elgg_extract('full_view', $vars, true);
-$partial = elgg_in_context('activity') || elgg_in_context('widgets') || !$full_view;
-
-$expand_form = $full_view;
-
-$level = elgg_extract('level', $vars) + 1;
-$vars['level'] = $level;
 
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 
 if (!isset($active_tab)) {
-	if ($partial && $level > 1) {
-		$active_tab = false;
-	} else if ($entity->countComments()) {
+	if ($entity->countComments()) {
 		if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
 			$active_tab = 'comments';
-			$expand_form = true;
 		}
 	}
 }
 
 $menu = elgg_view_menu('interactions', [
 	'entity' => $entity,
-	'class' => 'elgg-menu-hz',
+	'class' => [
+	    'elgg-menu-hz',
+        $entity instanceof \hypeJunction\Interactions\Comment ? 'interactions-menu-sub' : 'interactions-menu-top',
+    ],
 	'sort_by' => 'priority',
 	'active_tab' => $active_tab,
 ]);
@@ -48,16 +44,21 @@ $controls = elgg_format_element('div', [
 	'class' => 'interactions-controls',
 ], $menu);
 
-$class = ['interactions'];
+$class = elgg_extract_class($vars, ['interactions'], 'interactions_class');
+
+$level = elgg_extract('level', $vars, 0) + 1;
+
+if ($level > 1) {
+    $class[] = 'interactions-sub';
+} else {
+    $class[] = 'interactions-top';
+}
 
 if ($active_tab) {
-	if (!isset($vars['expand_form'])) {
-		$vars['expand_form'] = $expand_form;
-	}
-	if (!isset($vars['limit'])) {
-		$vars['limit'] = \hypeJunction\Interactions\InteractionsService::instance()->getLimit($partial);
-	}
+    $vars['level'] = $level;
+
 	$content = elgg_view("framework/interactions/$active_tab", $vars);
+
 	$component = elgg_format_element('div', [
 		'class' => 'interactions-component elgg-state-selected',
 		'data-trait' => $active_tab,
@@ -72,4 +73,6 @@ echo elgg_format_element('div', [
 ], $controls . $component);
 ?>
 
-<script>require(['page/components/interactions']);</script>
+<script>
+	require(['page/components/interactions'])
+</script>

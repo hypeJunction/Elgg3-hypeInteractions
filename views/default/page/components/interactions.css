@@ -1,4 +1,4 @@
-.elgg-river-responses > .interactions {
+.elgg-river-responses .interactions-top {
 	& > .interactions-controls {
 		border-top: 1px solid $(border-color-soft);
 		position: relative;
@@ -15,43 +15,81 @@
 	}
 }
 
+.elgg-listing-full-responses .interactions-top {
+	margin-top: 1rem;
+	border: 1px solid $(border-color-soft);
+	border-radius: $(global-radius, 3px);
+	position: relative;
+
+	&:before {
+	  content: "\25B2";
+	  color: #fff;
+	  position: absolute;
+	  top: calc(-0.75rem + 1px);
+	  font-size: 0.75rem;
+	  text-shadow: 0 -2px 1px $(border-color-soft);
+	  margin-left: 1rem;
+	}
+}
+
 .elgg-menu-interactions {
 	padding: 0 0.25rem;
 }
 
 .elgg-menu-interactions > li > a {
 	padding: .5rem;
-	font-size: 0.75rem;
 	text-decoration: none;
 	.elgg-icon {
 		margin-right: 0.5rem;
 	}
 }
 
-.elgg-river-item form {
-	border: none;
+.interactions .elgg-form-comment-save {
 	padding: 1rem;
-	border-top: 1px solid $(border-color-soft);
-	margin: 0 !important;
-}
-
-.elgg-item-object-comment > form {
-	padding: 0;
+	background: $(background-color-soft);
 	border: none;
+	border-top: 1px solid $(border-color-soft);
+
+	.elgg-field {
+		margin: 0;
+	}
+
+	.elgg-field + .elgg-field {
+		margin-top: 0.5rem;
+	}
+
+	.elgg-menu-item-cancel {
+		margin-left: auto;
+		order: 90;
+	}
+
+	.elgg-menu-item-submit {
+		order: 100;
+		margin-left: auto;
+	}
+
+	.elgg-menu-item-cancel + .elgg-menu-item-submit {
+		margin-left: 0.5rem;
+	}
+
+	.elgg-menu-longtext-container {
+		margin-top: -1rem;
+		padding: 0.25rem;
+	}
+
+	textarea:focus {
+		background: #fff;
+	}
 }
 
-.elgg-menu-comment-form-footer .elgg-menu-item-cancel {
-	margin-left: auto;
-	order: 90;
-}
+.interactions-sub {
+	margin-bottom: -1rem;
+	margin-right: -1rem;
 
-.elgg-menu-comment-form-footer .elgg-menu-item-submit {
-	order: 100;
-	margin-left: auto;
-}
-
-.elgg-menu-comment-form-footer .elgg-menu-item-cancel + .elgg-menu-item-submit {
-	margin-left: 0.5rem;
+	.interactions-controls a {
+		font-size: 0.75rem;
+		margin-left: -0.5rem;
+	}
 }
 
 .interactions-component {
@@ -82,4 +120,8 @@
 
 .interactions-comment-body + .elgg-list> li:last-child {
 	border-bottom: 0;
+}
+
+.interactions-image-block > .elgg-image img {
+	min-width: 40px;
 }

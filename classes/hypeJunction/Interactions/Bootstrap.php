@@ -44,7 +44,7 @@ class Bootstrap extends PluginBootstrap {
 		elgg_register_event_handler('create', 'object', SubscribeToCommentNotifications::class);
 
 		// Configure permissions
-		elgg_register_plugin_hook_handler('permissions_check:comment', 'object', CanCommentOnComment::class);
+		elgg_register_plugin_hook_handler('container_logic_check', 'object', CanCommentOnComment::class);
 		elgg_register_plugin_hook_handler('permissions_check', 'annotation', CanEditLikeAnnotation::class);
 
 		// Setup menus

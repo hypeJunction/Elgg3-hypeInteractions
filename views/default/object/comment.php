@@ -58,7 +58,7 @@ if ($full) {
 		'content' => $body . $attachments . $comments,
 		'metadata' => $metadata,
 		'icon' => $icon,
-		'class' => 'interactions-image-bock',
+		'class' => 'interactions-image-block',
 	]));
 
 	$attrs = [

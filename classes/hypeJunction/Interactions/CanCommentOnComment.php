@@ -17,7 +17,7 @@ class CanCommentOnComment {
 	 */
 	public function __invoke(Hook $hook) {
 
-		$entity = $hook->getEntityParam();
+		$entity = $hook->getParam('container');
 
 		if (!$entity instanceof Comment) {
 			return null;

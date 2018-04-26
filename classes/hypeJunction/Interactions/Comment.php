@@ -24,6 +24,10 @@ class Comment extends ElggComment {
 	 * {@inheritdoc}
 	 */
 	public function canComment($user_guid = 0, $default = null) {
+		if (!$this->canWriteToContainer($user_guid, 'object', 'comment')) {
+			return false;
+		}
+
 		return ElggObject::canComment($user_guid, $default);
 	}
 
@@ -107,7 +111,7 @@ class Comment extends ElggComment {
 		$ancestry = $this->getAncestry();
 		foreach ($ancestry as $a) {
 			$ancestor = get_entity($a);
-			if ($ancestor instanceof self) {
+			if ($ancestor instanceof ElggComment) {
 				$depth++;
 			}
 		}

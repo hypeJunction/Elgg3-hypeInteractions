@@ -14,10 +14,6 @@ if (elgg_in_context('substream-view')) {
 // allow river views to override the response content
 $responses = elgg_extract('responses', $vars, null);
 
-if ($responses === false) {
-	return true;
-}
-
 if ($responses) {
 	echo $responses;
 	return true;
@@ -29,6 +25,15 @@ if (!$item instanceof ElggRiverItem) {
 	return true;
 }
 
-$object = \hypeJunction\Interactions\InteractionsService::instance()->getRiverObject($item);
+$allow_default = true;
+if ($responses === false) {
+	$allow_default = false;
+}
+
+$object = \hypeJunction\Interactions\InteractionsService::instance()->getRiverObject($item, $allow_default);
+
+if (!$object instanceof ElggObject) {
+	return;
+}
 
 echo elgg_view_comments($object);

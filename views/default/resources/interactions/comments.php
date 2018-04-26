@@ -39,7 +39,7 @@ if (elgg_is_xhr()) {
 			'comment' => $comment,
 			'active_tab' => 'comments',
 			'show_add_form' => true,
-			'expand_form' => true,
+			'expand_form' => elgg_extract('level', $vars, 1) <= 1,
 		]);
 	}
 

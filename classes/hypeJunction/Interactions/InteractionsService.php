@@ -58,7 +58,7 @@ class InteractionsService {
 
 		$access_id = $object->access_id;
 		if ($object instanceof ElggUser) {
-			$access_id = ACCESS_FRIENDS;
+			$access_id = $object->getOwnedAccessCollection('friends')->id;
 		} else if ($object instanceof ElggGroup) {
 			$access_id = $object->group_acl;
 		}
@@ -93,17 +93,21 @@ class InteractionsService {
 	 * Get an actionable object associated with the river item
 	 * This could be a river object entity or a special entity that was created for this river item
 	 *
-	 * @param ElggRiverItem $river River item
+	 * @param ElggRiverItem $river                River item
+	 * @param bool          $allow_default_object Allow river object
 	 *
 	 * @return ElggEntity|false
 	 */
-	public function getRiverObject(ElggRiverItem $river) {
+	public function getRiverObject(ElggRiverItem $river, $allow_default_object = true) {
 
 		if (!$river instanceof ElggRiverItem) {
 			return false;
 		}
 
-		$object = $river->getObjectEntity();
+		$object = null;
+		if ($allow_default_object) {
+			$object = $river->getObjectEntity();
+		}
 
 		$views = $this->getActionableViews();
 
@@ -155,6 +159,7 @@ class InteractionsService {
 				'state' => $entity->getAnnotations([
 					'annotation_names' => 'likes',
 					'owner_guids' => (int) elgg_get_logged_in_user_guid(),
+					'count' => true,
 				]) ? 'after' : 'before',
 			]
 		];
@@ -167,6 +172,11 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getCommentsSort() {
+		$sort = get_input('sort');
+		if ($sort) {
+			return $sort;
+		}
+
 		$user_setting = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
 		$setting = $user_setting ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
 
@@ -207,6 +217,11 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getLimit($partial = true) {
+		$limit = get_input('limit');
+		if (isset($limit)) {
+			return $limit;
+		}
+
 		if ($partial) {
 			$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
 

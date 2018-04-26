@@ -28,6 +28,11 @@
 		<name>hypeAttachments</name>
 	</suggests>
 
+    <suggests>
+        <type>plugin</type>
+        <name>hypeAjax</name>
+    </suggests>
+
 	<suggests>
 		<type>plugin</type>
 		<name>likes</name>
