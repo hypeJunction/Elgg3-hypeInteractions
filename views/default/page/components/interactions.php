@@ -69,7 +69,6 @@ if ($active_tab) {
 
 echo elgg_format_element('div', [
 	'class' => $class,
-	'id' => 'comments',
 ], $controls . $component);
 ?>
 

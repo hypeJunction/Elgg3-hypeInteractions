@@ -48,9 +48,9 @@ class Bootstrap extends PluginBootstrap {
 		elgg_register_plugin_hook_handler('permissions_check', 'annotation', CanEditLikeAnnotation::class);
 
 		// Setup menus
-		//elgg_register_plugin_hook_handler('register', 'menu:entity', EntityMenu::class);
-		elgg_register_plugin_hook_handler('register', 'menu:interactions', [Menus::class, 'interactionsMenuSetup']);
-		elgg_register_plugin_hook_handler('register', 'menu:river', [Menus::class, 'riverMenuSetup']);
+		elgg_register_plugin_hook_handler('register', 'menu:interactions', InteractionsMenu::class);
+		elgg_register_plugin_hook_handler('register', 'menu:river', RiverMenu::class);
+		elgg_register_plugin_hook_handler('register', 'menu:social', SocialMenu::class);
 
 		// Prepare notifications
 		elgg_register_notification_event('object', 'comment', ['create']);
