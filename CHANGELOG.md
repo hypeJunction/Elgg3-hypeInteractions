@@ -1,3 +1,13 @@
+<a name="6.1.0"></a>
+# [6.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.0.5...6.1.0) (2018-04-27)
+
+
+### Features
+
+* **menus:** setup menus ([5c5a4a3](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/5c5a4a3))
+
+
+
 <a name="6.0.5"></a>
 ## [6.0.5](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.0.4...6.0.5) (2018-04-26)
 
