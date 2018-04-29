@@ -23,10 +23,6 @@ class ReplaceCommentsBlock {
 			return null;
 		}
 
-		if ($entity->countComments()) {
-			$params['deferred'] = true;
-		}
-
 		$view = elgg_view('page/components/interactions', $params);
 		$view = elgg_format_element('div', [
 			'id' => 'comments',

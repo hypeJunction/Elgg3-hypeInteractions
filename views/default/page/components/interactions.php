@@ -56,6 +56,7 @@ if ($level > 1) {
 
 if ($active_tab) {
     $vars['level'] = $level;
+    $vars['deferred'] = true;
 
 	$content = elgg_view("framework/interactions/$active_tab", $vars);
 
