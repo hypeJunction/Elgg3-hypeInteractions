@@ -1,3 +1,14 @@
+<a name="6.1.1"></a>
+## [6.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.1.0...6.1.1) (2018-05-07)
+
+
+### Bug Fixes
+
+* **bugs:** various bug fixes ([7e638cc](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/7e638cc))
+* **views:** defer comment view rendering and not the entire interactions block ([40beeb5](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/40beeb5))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.0.5...6.1.0) (2018-04-27)
 
