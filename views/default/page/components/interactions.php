@@ -10,11 +10,10 @@ $entity = elgg_extract('entity', $vars, false);
 /* @var $entity ElggEntity */
 
 if (!$entity instanceof ElggEntity) {
-    dump($entity);
     return;
 }
 
-$full_view = elgg_extract('full_view', $vars, true);
+$full_view = elgg_extract('full_view', $vars, false);
 
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 
@@ -56,7 +55,10 @@ if ($level > 1) {
 
 if ($active_tab) {
     $vars['level'] = $level;
-    $vars['deferred'] = true;
+
+    if ($active_tab == 'comments' && $entity->countComments()) {
+		$vars['deferred'] = true;
+	}
 
 	$content = elgg_view("framework/interactions/$active_tab", $vars);
 

@@ -17,6 +17,11 @@ class SocialMenu {
 	 */
 	public function __invoke(Hook $hook) {
 
+		$item = $hook->getParam('item');
+		if ($item instanceof \ElggRiverItem) {
+			return;
+		}
+
 		$entity = $hook->getEntityParam();
 
 		if (!$entity || $entity instanceof Comment) {

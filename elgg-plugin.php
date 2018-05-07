@@ -75,7 +75,7 @@ return [
 		'comments_load_style' => 'load_older',
 		'comments_limit' => 3,
 		'comments_load_limit' => 20,
-		'likes_in_river' => false,
+		'default_expand' => false,
 	],
 
 	'default' => [

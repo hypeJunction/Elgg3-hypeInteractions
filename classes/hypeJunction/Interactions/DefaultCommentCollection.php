@@ -54,11 +54,11 @@ class DefaultCommentCollection extends Collection {
 		$entity = $this->getTarget();
 
 		$full_view = elgg_extract('full_view', $this->params);
+		$activity = elgg_in_context('activity');
 
-		$limit = InteractionsService::instance()->getLimit(!$full_view);
+		$limit = InteractionsService::instance()->getLimit(!$full_view || $activity);
 
-		$offset_key = "comments-{$entity->guid}";
-		$offset = get_input($offset_key, null);
+		$offset = get_input('offset', null);
 
 		$count = $entity->countComments();
 
@@ -77,7 +77,6 @@ class DefaultCommentCollection extends Collection {
 			}
 		}
 
-		$options['offset_key'] = $offset_key;
 		$options['offset'] = $offset;
 		$options['limit'] = $limit;
 

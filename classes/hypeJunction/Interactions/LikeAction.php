@@ -46,10 +46,10 @@ class LikeAction {
 
 		$this->notifyUser($annotation);
 
-		if (elgg_get_plugin_setting('likes_in_river', 'hypeInteractions')) {
+		if (elgg_get_config('likes_in_river', false)) {
 			elgg_create_river_item([
-				'view' => 'framework/river/stream/like',
-				'action_type' => 'stream:like',
+				'view' => 'river/likes/object',
+				'action_type' => 'likes',
 				'subject_guid' => $user->guid,
 				'object_guid' => $entity->guid,
 				'annotation_id' => $id,

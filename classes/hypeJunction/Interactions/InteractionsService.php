@@ -158,7 +158,7 @@ class InteractionsService {
 				'count' => $entity->countAnnotations('likes'),
 				'state' => $entity->getAnnotations([
 					'annotation_names' => 'likes',
-					'owner_guids' => (int) elgg_get_logged_in_user_guid(),
+					'annotation_owner_guids' => (int) elgg_get_logged_in_user_guid(),
 					'count' => true,
 				]) ? 'after' : 'before',
 			]
