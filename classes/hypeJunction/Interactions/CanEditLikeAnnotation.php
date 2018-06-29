@@ -17,12 +17,16 @@ class CanEditLikeAnnotation {
 	 *
 	 * @param Hook $hook Hook
 	 *
-	 * @return bool
+	 * @return bool|null
 	 */
 	public function __invoke(Hook $hook) {
 
 		$annotation = $hook->getParam('annotation');
 		$user = $hook->getParam('user');
+
+		if (!$user) {
+			return null;
+		}
 
 		if ($annotation instanceof \ElggAnnotation && $annotation->name == 'likes') {
 			// only owners of original annotation (or users who can edit these owners)

@@ -8,7 +8,7 @@
 		content: "\25B2";
 		color: #fff;
 		position: absolute;
-		top: calc(-0.75rem + 1px);
+		top: -0.75rem;
 		font-size: 0.75rem;
 		text-shadow: 0 -2px 1px $(border-color-soft);
 		margin-left: 1rem;
@@ -25,7 +25,7 @@
 	  content: "\25B2";
 	  color: #fff;
 	  position: absolute;
-	  top: calc(-0.75rem + 1px);
+	  top: -0.75rem;
 	  font-size: 0.75rem;
 	  text-shadow: 0 -2px 1px $(border-color-soft);
 	  margin-left: 1rem;
@@ -73,12 +73,15 @@
 	}
 
 	.elgg-menu-longtext-container {
-		margin-top: -1rem;
 		padding: 0.25rem;
 	}
 
 	textarea:focus {
 		background: #fff;
+	}
+
+	.elgg-image {
+		margin-top: 2rem;
 	}
 }
 
@@ -89,6 +92,10 @@
 	.interactions-controls a {
 		font-size: 0.75rem;
 		margin-left: -0.5rem;
+	}
+
+	.elgg-form-comment-save {
+		background: none;
 	}
 }
 
@@ -124,4 +131,8 @@
 
 .interactions-image-block > .elgg-image img {
 	min-width: 40px;
+}
+
+.elgg-listing-full-responses .interactions {
+	margin-bottom: 1rem;
 }

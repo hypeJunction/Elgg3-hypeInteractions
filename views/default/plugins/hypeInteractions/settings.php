@@ -88,7 +88,7 @@ echo elgg_view_field([
 echo elgg_view_field([
 	'#type' => 'select',
 	'#label' => elgg_echo('interactions:settings:default_expand'),
-	'#label' => elgg_echo('interactions:settings:default_expand:help'),
+	'#help' => elgg_echo('interactions:settings:default_expand:help'),
 	'name' => 'params[default_expand]',
 	'value' => $entity->default_expand,
 	'options_values' => array(
@@ -97,6 +97,29 @@ echo elgg_view_field([
 	),
 ]);
 
+echo elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('interactions:settings:gatekeep_comments'),
+	'#help' => elgg_echo('interactions:settings:gatekeep_comments:help'),
+	'name' => 'params[gatekeep_comments]',
+	'value' => $entity->gatekeep_comments,
+	'options_values' => array(
+		0 => elgg_echo('option:no'),
+		1 => elgg_echo('option:yes'),
+	),
+]);
+
+echo elgg_view_field([
+	'#type' => 'select',
+	'#label' => elgg_echo('interactions:settings:gatekeep_likes'),
+	'#help' => elgg_echo('interactions:settings:gatekeep_likes:help'),
+	'name' => 'params[non_public_comments]',
+	'value' => $entity->non_public_comments,
+	'options_values' => array(
+		0 => elgg_echo('option:no'),
+		1 => elgg_echo('option:yes'),
+	),
+]);
 
 if (elgg_is_active_plugin('hypeAttachments')) {
 	echo elgg_view_field([

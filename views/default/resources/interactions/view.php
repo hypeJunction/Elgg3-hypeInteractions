@@ -33,11 +33,15 @@ $item = array_shift($river);
 
 $content = elgg_view($item->getView(), [
 	'item' => $item,
+	'show_responses' => false,
 	'responses' => false,
+	'full_view' => true,
 ]);
 
-if (!preg_match('/elgg-comments/', $content)) {
-	$content .= elgg_view_comments($entity);
+if (!preg_match('/elgg-comments/im', $content)) {
+	$content .= elgg_view_comments($entity, true, [
+		'active_tab' => 'comments',
+	]);
 }
 
 $layout = elgg_view_layout('content', [

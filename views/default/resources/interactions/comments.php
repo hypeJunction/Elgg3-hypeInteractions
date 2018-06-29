@@ -30,17 +30,19 @@ if (elgg_is_xhr()) {
 	} else {
 		// Show partial entity listing
 		$content = elgg_view_entity($entity, [
-			'full_view' => false,
+			'full_view' => true,
+			'show_responses' => true,
 		]);
 
-		// Show comments
-		$content .= elgg_view_comments($entity, true, [
-			'entity' => $entity,
-			'comment' => $comment,
-			'active_tab' => 'comments',
-			'show_add_form' => true,
-			'expand_form' => elgg_extract('level', $vars, 1) <= 1,
-		]);
+		if (!preg_match('/\id=\"comments\"/im', $content)) {
+			$content .= elgg_view_comments($entity, true, [
+				'entity' => $entity,
+				'comment' => $comment,
+				'active_tab' => 'comments',
+				'show_add_form' => true,
+				'expand_form' => true,
+			]);;
+		}
 	}
 
 	$layout = elgg_view_layout('content', [

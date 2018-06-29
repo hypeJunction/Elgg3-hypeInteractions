@@ -55,7 +55,7 @@ class SaveCommentAction {
 				throw new EntityNotFoundException(elgg_echo('generic_comment:notfound'));
 			}
 
-			if (!$entity->canComment()) {
+			if (!$entity->canComment() || !$entity->canWriteToContainer(0, 'object', 'comment')) {
 				throw new EntityPermissionsException(elgg_echo('actionunauthorized'));
 			}
 

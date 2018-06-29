@@ -38,8 +38,13 @@ class Comment extends ElggComment {
 		$name = $this->title;
 		if (!$name) {
 			$owner = $this->getOwnerEntity();
-			$name = elgg_echo('interactions:comment:subject', array($owner->name));
+			if ($owner) {
+				$name = elgg_echo('interactions:comment:subject', [
+					$owner->getDisplayName(),
+				]);
+			}
 		}
+
 		return $name;
 	}
 
@@ -47,26 +52,30 @@ class Comment extends ElggComment {
 	 * Returns getter options for comment attachments
 	 *
 	 * @param array $options Additional options
+	 *
 	 * @return array
 	 */
-	public function getAttachmentsFilterOptions(array $options = array()) {
-		$defaults = array(
+	public function getAttachmentsFilterOptions(array $options = []) {
+		$defaults = [
 			'relationship' => 'attached',
 			'relationship_guid' => $this->guid,
 			'inverse_relationship' => false,
-		);
+		];
+
 		return array_merge($defaults, $options);
 	}
 
 	/**
 	 * Returns an array of attached entities
 	 *
-	 * @param array $options  Additional options
+	 * @param array $options Additional options
+	 *
 	 * @return ElggEntity[]|false
 	 */
-	public function getAttachments(array $options = array()) {
+	public function getAttachments(array $options = []) {
 		$options = $this->getAttachmentsFilterOptions($options);
-		return elgg_get_entities_from_relationship($options);
+
+		return elgg_get_entities($options);
 	}
 
 	/**
@@ -74,10 +83,12 @@ class Comment extends ElggComment {
 	 * Returns a count of attachments
 	 *
 	 * @param array $options Additional options
+	 *
 	 * @return int
 	 */
-	public function hasAttachments(array $options = array()) {
+	public function hasAttachments(array $options = []) {
 		$options['count'] = true;
+
 		return $this->getAttachments($options);
 	}
 
@@ -90,6 +101,7 @@ class Comment extends ElggComment {
 		while ($container instanceof Comment) {
 			$container = $container->getContainerEntity();
 		}
+
 		return ($container instanceof Comment) ? $this->getOwnerEntity() : $container;
 	}
 
@@ -99,6 +111,7 @@ class Comment extends ElggComment {
 	 */
 	public function getOriginalOwner() {
 		$container = $this->getOriginalContainer();
+
 		return ($container instanceof ElggUser) ? $container : $container->getOwnerEntity();
 	}
 
@@ -115,6 +128,7 @@ class Comment extends ElggComment {
 				$depth++;
 			}
 		}
+
 		return $depth;
 	}
 
@@ -123,12 +137,13 @@ class Comment extends ElggComment {
 	 * @return int[]
 	 */
 	public function getAncestry() {
-		$ancestry = array();
+		$ancestry = [];
 		$container = $this;
 		while ($container instanceof ElggEntity) {
 			array_unshift($ancestry, $container->guid);
 			$container = $container->getContainerEntity();
 		}
+
 		return $ancestry;
 	}
 
@@ -136,27 +151,31 @@ class Comment extends ElggComment {
 	 * Returns getter options for comment subscribers
 	 *
 	 * @param array $options Additional options
+	 *
 	 * @return array
 	 */
-	public function getSubscriberFilterOptions(array $options = array()) {
-		$defaults = array(
+	public function getSubscriberFilterOptions(array $options = []) {
+		$defaults = [
 			'type' => 'user',
 			'relationship' => 'subscribed',
 			'relationship_guid' => $this->getOriginalContainer()->guid,
 			'inverse_relationship' => true,
-		);
+		];
+
 		return array_merge($defaults, $options);
 	}
 
 	/**
 	 * Returns an array of subscribed users
 	 *
-	 * @param array $options  Additional options
+	 * @param array $options Additional options
+	 *
 	 * @return ElggUser[]|false
 	 */
-	public function getSubscribedUsers() {
+	public function getSubscribedUsers(array $options = []) {
 		$options = $this->getSubscriberFilterOptions($options);
-		return elgg_get_entities_from_relationship($options);
+
+		return elgg_get_entities($options);
 	}
 
 	/**
@@ -170,6 +189,7 @@ class Comment extends ElggComment {
 				elgg_trigger_after_event('create', 'object', $this);
 			}
 		}
+
 		return $result;
 	}
 

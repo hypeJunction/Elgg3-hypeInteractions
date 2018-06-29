@@ -30,6 +30,10 @@ return [
 	'interactions:settings:enable_attachments:help' => 'Allow users to attach files to comments',
 	'interactions:settings:enable_url_preview' => 'Enable URL previews',
 	'interactions:settings:enable_url_preview:help' => 'Scrape URLs from comment text and add URL previews',
+	'interactions:settings:gatekeep_comments' => 'Enable comments gatekeeper',
+	'interactions:settings:gatekeep_comments:help' => 'If enabled, only logged in users will be able to view lists of comments',
+	'interactions:settings:gatekeep_likes' => 'Enable likes gatekeeper',
+	'interactions:settings:gatekeep_likes:help' => 'If enabled, only logged in users will be able to view likers',
 	'hypeInteractions:usersettings:title' => 'Comments',
 	/**
 	 * PAGES
@@ -122,5 +126,9 @@ or view %s\'s profile here:
 	',
 	'interactions:river_object:title' => 'activity',
 	'interactions:river_object:title_subject' => 'activity by %s',
+
+	'interactions:login' => 'login',
+	'interactions:comments_gatekeeper:no_results' => 'Please %s to view comments',
+	'interactions:likes_gatekeeper:no_results' => 'Please %s to view likes',
 ];
 

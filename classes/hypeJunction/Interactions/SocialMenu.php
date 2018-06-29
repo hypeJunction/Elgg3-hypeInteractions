@@ -13,6 +13,7 @@ class SocialMenu {
 	 * @elgg_plugin_hook register menu:social
 	 *
 	 * @param Hook $hook Hook
+	 *
 	 * @return void
 	 */
 	public function __invoke(Hook $hook) {
@@ -42,11 +43,12 @@ class SocialMenu {
 			'uses:comments',
 			"$entity->type:$entity->subtype",
 			$hook->getParams(),
-			!$entity->disable_comments
+			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		if ($uses_comments) {
+		$comments_count = elgg_get_total_comments($entity);
 
+		if ($uses_comments && $comments_count) {
 			$menu->add(ElggMenuItem::factory([
 				'name' => 'comments',
 				'href' => elgg_http_add_url_query_elements($interactions_url, [
@@ -54,16 +56,16 @@ class SocialMenu {
 				]),
 				'text' => false,
 				'icon' => 'comments-o',
-				'badge' => $entity->countComments(),
+				'badge' => $comments_count,
 			]));
 		}
 
 		$uses_likes = elgg_is_active_plugin('likes') && elgg_trigger_plugin_hook(
-			'likes:is_likable',
-			"$entity->type:$entity->subtype",
-			$hook->getParams(),
-			false
-		);
+				'likes:is_likable',
+				"$entity->type:$entity->subtype",
+				$hook->getParams(),
+				false
+			);
 
 		if ($uses_likes) {
 			$menu->add(ElggMenuItem::factory([
@@ -73,7 +75,7 @@ class SocialMenu {
 				]),
 				'text' => false,
 				'icon' => 'thumbs-o-up',
-				'badge' => $entity->countAnnotations('likes'),
+				'badge' => elgg_get_total_likes($entity),
 			]));
 		}
 	}

@@ -191,7 +191,13 @@ class NotificationFormatter {
 
 		$attachments = $this->comment->getAttachments(array('limit' => 0));
 		if ($attachments && count($attachments)) {
-			$attachments = array_map(__NAMESPACE__ . '\\get_linked_entity_name', $attachments);
+			$attachments = array_map(function(\ElggEntity $entity) {
+				return elgg_view('output/url', [
+					'href' => $entity->getURL(),
+					'text' => $entity->getDisplayName(),
+				]);
+			}, $attachments);
+
 			$attachments_text = implode(', ', array_filter($attachments));
 			if ($attachments_text) {
 				$comment_body .= elgg_echo('interactions:attachments:labelled', array($attachments_text));

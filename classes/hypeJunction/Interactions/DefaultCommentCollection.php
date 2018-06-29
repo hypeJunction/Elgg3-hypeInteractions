@@ -60,7 +60,7 @@ class DefaultCommentCollection extends Collection {
 
 		$offset = get_input('offset', null);
 
-		$count = $entity->countComments();
+		$count = elgg_get_total_comments($entity);
 
 		if (!isset($offset)) {
 			$comment = elgg_extract('comment', $this->params);

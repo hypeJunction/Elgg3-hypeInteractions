@@ -65,7 +65,7 @@ class Thread {
 	 * @return Comment[]|false
 	 */
 	public function getComments(array $options = array()) {
-		return elgg_get_entities_from_metadata($this->getFilterOptions($options));
+		return elgg_get_entities($this->getFilterOptions($options));
 	}
 
 	/**
@@ -104,7 +104,7 @@ class Thread {
 	 * @param array  $options Getter options
 	 * @return ElggBatch
 	 */
-	public function getAll($getter = 'elgg_get_entities_from_metadata', $options = array()) {
+	public function getAll($getter = 'elgg_get_entities', $options = array()) {
 		$options['limit'] = 0;
 		$options = $this->getFilterOptions($options);
 		return new ElggBatch($getter, $options);
@@ -121,7 +121,7 @@ class Thread {
 			e.time_created < {$this->comment->time_created}
 		";
 		$options['order_by'] = 'e.time_created ASC';
-		$comments = elgg_get_entities_from_metadata($this->getFilterOptions($options));
+		$comments = elgg_get_entities($this->getFilterOptions($options));
 		if (is_array($comments)) {
 			return array_reverse($comments);
 		}
@@ -140,7 +140,7 @@ class Thread {
 				AND e.guid != {$this->comment->guid}
 		";
 		$options['order_by'] = 'e.time_created ASC';
-		return elgg_get_entities_from_metadata($this->getFilterOptions($options));
+		return elgg_get_entities($this->getFilterOptions($options));
 	}
 
 	/**
