@@ -1,3 +1,13 @@
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.1.1...6.2.0) (2018-06-29)
+
+
+### Features
+
+* **core:** updates and fixes ([09bde74](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/09bde74))
+
+
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.1.0...6.1.1) (2018-05-07)
 
