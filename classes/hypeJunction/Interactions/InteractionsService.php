@@ -30,7 +30,7 @@ class InteractionsService {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function name() {
+	public static function name() {
 		return 'interactions';
 	}
 
