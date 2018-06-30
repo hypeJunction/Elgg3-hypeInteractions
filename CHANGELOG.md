@@ -1,3 +1,13 @@
+<a name="6.2.1"></a>
+## [6.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.2.0...6.2.1) (2018-06-30)
+
+
+### Bug Fixes
+
+* **services:** use correct method signature ([c389c12](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/commit/c389c12))
+
+
+
 <a name="6.2.0"></a>
 # [6.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.1.1...6.2.0) (2018-06-29)
 
