@@ -3,8 +3,8 @@
 namespace hypeJunction\Interactions;
 
 use DatabaseException;
-use Elgg\EntityNotFoundException;
-use Elgg\EntityPermissionsException;
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 use NotificationException;
