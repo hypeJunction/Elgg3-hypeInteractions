@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Di\ServiceFacade;
+use Elgg\Traits\Di\ServiceFacade;
 use Elgg\PluginHooksService;
 use ElggEntity;
 use ElggGroup;
