@@ -26,7 +26,7 @@ $river = elgg_get_river([
 ]);
 
 if (!$river) {
-	throw new \Elgg\EntityNotFoundException();
+	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
 }
 
 $item = array_shift($river);

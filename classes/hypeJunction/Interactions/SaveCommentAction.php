@@ -8,7 +8,7 @@ use Elgg\Exceptions\Http\EntityPermissionsException;
 use Elgg\Http\OkResponse;
 use Elgg\Exceptions\HttpException;
 use Elgg\Request;
-use Elgg\ValidationException;
+use Elgg\Exceptions\Http\ValidationException;
 
 class SaveCommentAction {
 
