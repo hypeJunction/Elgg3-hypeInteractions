@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'interactions' => \DI\object(\hypeJunction\Interactions\InteractionsService::class)
+	'interactions' => \DI\create(\hypeJunction\Interactions\InteractionsService::class)
 		->constructor(\DI\get('hooks')),
 ];
