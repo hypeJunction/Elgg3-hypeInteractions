@@ -7,7 +7,8 @@ use InvalidArgumentException;
 
 class Thread {
 
-	protected $comment;
+	/** @var mixed */
+    protected $comment;
 
 	const LIMIT = 10;
 

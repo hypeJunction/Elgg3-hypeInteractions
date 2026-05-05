@@ -15,13 +15,19 @@ class EntityCrudTest extends IntegrationTestCase {
 	public function up() {}
 	public function down() {}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'hypeinteractions';
 	}
 
 	// --- RiverObject CRUD ---
-
-	private function makeRiverObject(array $overrides = []): RiverObject {
+    /**
+     * @param array $overrides
+     * @return RiverObject
+     */
+    private function makeRiverObject(array $overrides = []): RiverObject {
 		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$o = new RiverObject();
@@ -39,12 +45,18 @@ class EntityCrudTest extends IntegrationTestCase {
 		});
 	}
 
-	public function testRiverObjectInitializesAsRiverObjectSubtype(): void {
+	/**
+     * @return void
+     */
+    public function testRiverObjectInitializesAsRiverObjectSubtype(): void {
 		$o = new RiverObject();
 		$this->assertSame('river_object', $o->getSubtype());
 	}
 
-	public function testCreatedRiverObjectHasGuid(): void {
+	/**
+     * @return void
+     */
+    public function testCreatedRiverObjectHasGuid(): void {
 		$o = $this->makeRiverObject();
 		$this->assertGreaterThan(0, $o->guid);
 		$this->assertSame('object', $o->type);
@@ -52,7 +64,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$o->delete();
 	}
 
-	public function testLoadedRiverObjectIsRiverObjectInstance(): void {
+	/**
+     * @return void
+     */
+    public function testLoadedRiverObjectIsRiverObjectInstance(): void {
 		$o = $this->makeRiverObject();
 		$guid = $o->guid;
 		_elgg_services()->entityCache->delete($guid);
@@ -61,7 +76,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$o->delete();
 	}
 
-	public function testRiverObjectTitlePersists(): void {
+	/**
+     * @return void
+     */
+    public function testRiverObjectTitlePersists(): void {
 		$o = $this->makeRiverObject(['title' => 'river event title']);
 		_elgg_services()->entityCache->delete($o->guid);
 		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
@@ -69,7 +87,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$o->delete();
 	}
 
-	public function testRiverObjectRiverIdMetadataPersists(): void {
+	/**
+     * @return void
+     */
+    public function testRiverObjectRiverIdMetadataPersists(): void {
 		$o = $this->makeRiverObject(['river_id' => 42]);
 		_elgg_services()->entityCache->delete($o->guid);
 		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
@@ -77,13 +98,19 @@ class EntityCrudTest extends IntegrationTestCase {
 		$o->delete();
 	}
 
-	public function testRiverObjectDeleteReturnsTruthy(): void {
+	/**
+     * @return void
+     */
+    public function testRiverObjectDeleteReturnsTruthy(): void {
 		$o = $this->makeRiverObject();
 		$result = elgg_call(ELGG_IGNORE_ACCESS, fn() => $o->delete());
 		$this->assertNotFalse($result);
 	}
 
-	public function testRiverObjectGetRiverItemReturnsFalseForMissing(): void {
+	/**
+     * @return void
+     */
+    public function testRiverObjectGetRiverItemReturnsFalseForMissing(): void {
 		// No matching river entry → getRiverItem() returns false.
 		$o = $this->makeRiverObject(['river_id' => 999999]);
 		$this->assertFalse($o->getRiverItem());
@@ -91,18 +118,26 @@ class EntityCrudTest extends IntegrationTestCase {
 	}
 
 	// --- Comment initializeAttributes (no full save — ElggComment
-	// requires a commentable container which is heavy to seed here) ---
-
-	public function testCommentInitializesAsCommentSubtype(): void {
+    // requires a commentable container which is heavy to seed here) ---
+    /**
+     * @return void
+     */
+    public function testCommentInitializesAsCommentSubtype(): void {
 		$c = new Comment();
 		$this->assertSame('comment', $c->getSubtype());
 	}
 
-	public function testCommentTypeConstantIsObject(): void {
+	/**
+     * @return void
+     */
+    public function testCommentTypeConstantIsObject(): void {
 		$this->assertSame('object', Comment::TYPE);
 	}
 
-	public function testCommentSubtypeConstant(): void {
+	/**
+     * @return void
+     */
+    public function testCommentSubtypeConstant(): void {
 		$this->assertSame('comment', Comment::SUBTYPE);
 	}
 }

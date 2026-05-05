@@ -1,9 +1,0 @@
-# Sibling plugins to activate alongside hypeinteractions. manifest.xml
-# declares hypeLists + hypeStash as 3.x-era deps; Elgg 4.x ignores
-# manifest runtime deps (it reads elgg-plugin.php 'plugin'.'dependencies'
-# which hypeinteractions doesn't set). hypeStash is still at 3.x baseline
-# and fatals on bootCore (DI\object() was removed in PHP-DI 6.x), so it
-# MUST NOT be mounted. hypelists is on migrate/elgg-4.x and activates
-# cleanly — keep it available in case any code path resolves
-# hypeJunction\Lists classes at runtime.
-hypelists
