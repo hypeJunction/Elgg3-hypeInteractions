@@ -2,8 +2,6 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Traits\Di\ServiceFacade;
-use Elgg\PluginHooksService;
 use ElggEntity;
 use ElggGroup;
 use ElggRiverItem;
@@ -11,26 +9,21 @@ use ElggUser;
 
 class InteractionsService {
 
-	use ServiceFacade;
-
 	/**
-	 * @var PluginHooksService
-	 */
-	protected $hooks;
-
-	/**
-	 * Constructor
+	 * Returns the service from DI container
 	 *
-	 * @param PluginHooksService $hooks Hooks
+	 * @return static
 	 */
-	public function __construct(PluginHooksService $hooks) {
-		$this->hooks = $hooks;
+	public static function instance(): self {
+		return elgg()->get(static::name());
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * Returns the DI service name
+	 *
+	 * @return string
 	 */
-	public static function name() {
+	public static function name(): string {
 		return 'interactions';
 	}
 
@@ -40,13 +33,9 @@ class InteractionsService {
 	 *
 	 * @param ElggRiverItem $river River item
 	 *
-	 * @return ElggEntity|false
+	 * @return ElggEntity|null
 	 */
-	public function createActionableRiverObject(ElggRiverItem $river) {
-
-		if (!$river instanceof ElggRiverItem) {
-			return false;
-		}
+	public function createActionableRiverObject(ElggRiverItem $river): ?ElggEntity {
 
 		$object = $river->getObjectEntity();
 
@@ -56,32 +45,31 @@ class InteractionsService {
 			return $object;
 		}
 
-		$access_id = $object->access_id;
+		$access_id = $object ? $object->access_id : ACCESS_PUBLIC;
 		if ($object instanceof ElggUser) {
-			$access_id = $object->getOwnedAccessCollection('friends')->id;
+			$acl = $object->getOwnedAccessCollection('friends');
+			$access_id = $acl ? $acl->id : ACCESS_PUBLIC;
 		} else if ($object instanceof ElggGroup) {
 			$access_id = $object->group_acl;
 		}
 
-		$object = elgg_call(ELGG_IGNORE_ACCESS, function () use ($river, $access_id) {
-			$object = new RiverObject();
-			$object->owner_guid = $river->subject_guid;
-			$object->container_guid = $object->guid;
-			$object->access_id = $access_id;
-			$object->river_id = $river->id;
-			$object->save();
+		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($river, $access_id) {
+			$river_object = new RiverObject();
+			$river_object->owner_guid = $river->subject_guid;
+			$river_object->container_guid = $river_object->guid;
+			$river_object->access_id = $access_id;
+			$river_object->river_id = $river->id;
+			$river_object->save();
 
-			return $object;
+			return $river_object;
 		});
-
-		return $object;
 	}
 
 	/**
 	 * Check if attachments are enabled
 	 * @return bool
 	 */
-	public function canAttachFiles() {
+	public function canAttachFiles(): bool {
 		if (!elgg_is_active_plugin('hypeAttachments')) {
 			return false;
 		}
@@ -96,13 +84,9 @@ class InteractionsService {
 	 * @param ElggRiverItem $river                River item
 	 * @param bool          $allow_default_object Allow river object
 	 *
-	 * @return ElggEntity|false
+	 * @return ElggEntity|null
 	 */
-	public function getRiverObject(ElggRiverItem $river, $allow_default_object = true) {
-
-		if (!$river instanceof ElggRiverItem) {
-			return false;
-		}
+	public function getRiverObject(ElggRiverItem $river, bool $allow_default_object = true): ?ElggEntity {
 
 		$object = null;
 		if ($allow_default_object) {
@@ -127,7 +111,7 @@ class InteractionsService {
 				'limit' => 1,
 			]);
 
-			return $objects ? $objects[0] : false;
+			return $objects ? $objects[0] : null;
 		});
 
 		if (!$object) {
@@ -138,7 +122,7 @@ class InteractionsService {
 			$object->setVolatileData('river_item', $river);
 		}
 
-		return has_access_to_entity($object) ? $object : false;
+		return has_access_to_entity($object) ? $object : null;
 	}
 
 	/**
@@ -148,7 +132,7 @@ class InteractionsService {
 	 *
 	 * @return array
 	 */
-	public function getStats(ElggEntity $entity) {
+	public function getStats(ElggEntity $entity): array {
 
 		$stats = [
 			'comments' => [
@@ -164,21 +148,21 @@ class InteractionsService {
 			]
 		];
 
-		return $this->hooks->trigger('get_stats', 'interactions', ['entity' => $entity], $stats);
+		return elgg_trigger_event_results('get_stats', 'interactions', ['entity' => $entity], $stats);
 	}
 
 	/**
 	 * Get configured comments order
 	 * @return string
 	 */
-	public function getCommentsSort() {
+	public function getCommentsSort(): string {
 		$sort = get_input('sort');
 		if ($sort) {
 			return $sort;
 		}
 
 		$user_setting = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
-		$setting = $user_setting ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+		$setting = $user_setting ?: elgg_get_plugin_setting('comments_order', 'hypeInteractions');
 
 		if ($setting == 'asc') {
 			$setting = 'time_created::asc';
@@ -186,46 +170,46 @@ class InteractionsService {
 			$setting = 'time_created::desc';
 		}
 
-		return $setting;
+		return (string) $setting;
 	}
 
 	/**
 	 * Get configured loading style
 	 * @return string
 	 */
-	public function getLoadStyle() {
+	public function getLoadStyle(): string {
 		$user_setting = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
 
-		return $user_setting ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+		return (string) ($user_setting ?: elgg_get_plugin_setting('comments_load_style', 'hypeInteractions'));
 	}
 
 	/**
 	 * Get comment form position
 	 * @return string
 	 */
-	public function getCommentsFormPosition() {
+	public function getCommentsFormPosition(): string {
 		$user_setting = elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
 
-		return $user_setting ? : elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+		return (string) ($user_setting ?: elgg_get_plugin_setting('comment_form_position', 'hypeInteractions'));
 	}
 
 	/**
 	 * Get number of comments to show
 	 *
-	 * @param string $partial Partial or full view
+	 * @param bool $partial Partial or full view
 	 *
-	 * @return string
+	 * @return int
 	 */
-	public function getLimit($partial = true) {
+	public function getLimit(bool $partial = true): int {
 		$limit = get_input('limit');
 		if (isset($limit)) {
-			return $limit;
+			return (int) $limit;
 		}
 
 		if ($partial) {
 			$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
 
-			return $limit ? : 3;
+			return (int) ($limit ?: 3);
 		} else {
 			$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
 
@@ -242,7 +226,7 @@ class InteractionsService {
 	 *
 	 * @return int
 	 */
-	public function calculateOffset($count, $limit, $comment = null) {
+	public function calculateOffset(int $count, int $limit, ?Comment $comment = null): int {
 
 		$order = $this->getCommentsSort();
 		$style = $this->getLoadStyle();
@@ -268,7 +252,7 @@ class InteractionsService {
 	 * Get views, which custom threads should be created for
 	 * @return array
 	 */
-	public function getActionableViews() {
+	public function getActionableViews(): array {
 		static $views;
 		if (isset($views)) {
 			return $views;
@@ -277,12 +261,16 @@ class InteractionsService {
 		$views = [];
 
 		$plugin = elgg_get_plugin_from_id('hypeInteractions');
+		if (!$plugin) {
+			return $views;
+		}
+
 		$settings = $plugin->getAllSettings();
 		foreach ($settings as $key => $value) {
 			if (!$value) {
 				continue;
 			}
-			list ($prefix, $view) = explode(':', $key);
+			[$prefix, $view] = explode(':', $key);
 			if ($prefix !== 'stream_object') {
 				continue;
 			}

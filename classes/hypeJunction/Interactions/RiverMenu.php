@@ -2,21 +2,21 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class RiverMenu {
 
 	/**
 	 * Filters river menu
 	 *
-	 * @elgg_plugin_hook register menu:river
+	 * @elgg_event register menu:river
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 * @return void
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 		/* @var $menu \Elgg\Menu\MenuItems */
 
 		$menu->remove('comment');

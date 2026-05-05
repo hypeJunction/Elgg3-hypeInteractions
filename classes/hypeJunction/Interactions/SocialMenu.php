@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Hook;
+use Elgg\Event;
 use ElggMenuItem;
 
 class SocialMenu {
@@ -10,26 +10,26 @@ class SocialMenu {
 	/**
 	 * Filters river menu
 	 *
-	 * @elgg_plugin_hook register menu:social
+	 * @elgg_event register menu:social
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return void
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$item = $hook->getParam('item');
+		$item = $event->getParam('item');
 		if ($item instanceof \ElggRiverItem) {
 			return;
 		}
 
-		$entity = $hook->getEntityParam();
+		$entity = $event->getEntityParam();
 
 		if (!$entity || $entity instanceof Comment) {
 			return;
 		}
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 		/* @var $menu \Elgg\Menu\MenuItems */
 
 		$url = $entity->getURL();
@@ -39,10 +39,10 @@ class SocialMenu {
 
 		$interactions_url = elgg_http_build_url($parts, false);
 
-		$uses_comments = elgg_trigger_plugin_hook(
+		$uses_comments = elgg_trigger_event_results(
 			'uses:comments',
 			"$entity->type:$entity->subtype",
-			$hook->getParams(),
+			$event->getParams(),
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
@@ -60,10 +60,10 @@ class SocialMenu {
 			]));
 		}
 
-		$uses_likes = elgg_is_active_plugin('likes') && elgg_trigger_plugin_hook(
+		$uses_likes = elgg_is_active_plugin('likes') && elgg_trigger_event_results(
 				'likes:is_likable',
 				"$entity->type:$entity->subtype",
-				$hook->getParams(),
+				$event->getParams(),
 				false
 			);
 

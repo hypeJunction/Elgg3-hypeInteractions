@@ -3,7 +3,7 @@
 namespace hypeJunction\Interactions;
 
 use Elgg\Database\Select;
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\Notifications\SubscriptionNotificationEvent;
 
 class GetCommentSubscribers {
@@ -11,25 +11,25 @@ class GetCommentSubscribers {
 	/**
 	 * Subscribe users to comments based on original entity
 	 *
-	 * @elgg_plugin_hook get subscriptions
+	 * @elgg_event get subscriptions
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return array|null
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$event = $hook->getParam('event');
-		if (!$event instanceof SubscriptionNotificationEvent) {
+		$notification_event = $event->getParam('event');
+		if (!$notification_event instanceof SubscriptionNotificationEvent) {
 			return null;
 		}
 
-		$object = $event->getObject();
+		$object = $notification_event->getObject();
 		if (!$object instanceof Comment) {
 			return null;
 		}
 
-		$return = $hook->getValue();
+		$return = $event->getValue();
 
 		$subscriptions = [];
 		$actor_subscriptions = [];
@@ -51,7 +51,7 @@ class GetCommentSubscribers {
 			$group_subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
 		}
 
-		$actor = $event->getActor();
+		$actor = $notification_event->getActor();
 		if ($actor instanceof \ElggUser) {
 			$actor_subscriptions = elgg_get_subscriptions_for_container($actor->guid);
 		}
