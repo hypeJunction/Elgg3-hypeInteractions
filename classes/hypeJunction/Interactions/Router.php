@@ -2,6 +2,9 @@
 
 namespace hypeJunction\Interactions;
 
+/**
+ * Handles URL and icon routing for interaction entities
+ */
 class Router {
 
 	/**
@@ -23,18 +26,19 @@ class Router {
 			if ($container instanceof Comment) {
 				return $container->getURL();
 			}
-			return elgg_normalize_url(implode('/', array(
-						'stream',
-						'comments',
-						$entity->container_guid,
-						$entity->guid,
-					))) . "#elgg-object-$entity->guid";
+
+			return elgg_normalize_url(implode('/', [
+				'stream',
+				'comments',
+				$entity->container_guid,
+				$entity->guid,
+			])) . "#elgg-object-$entity->guid";
 		} else if ($entity instanceof RiverObject) {
-			return elgg_normalize_url(implode('/', array(
+			return elgg_normalize_url(implode('/', [
 				'stream',
 				'view',
 				$entity->guid
-			)));
+			]));
 		}
 
 		return $url;
@@ -59,10 +63,10 @@ class Router {
 			if (!$owner) {
 				return;
 			}
+
 			return $owner->getIconURL($params);
 		}
 
 		return $url;
 	}
-
 }

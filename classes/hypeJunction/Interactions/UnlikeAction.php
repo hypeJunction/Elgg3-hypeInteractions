@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Request;
 
+/**
+ * Removes a like annotation from an entity
+ */
 class UnlikeAction {
 
 	/**

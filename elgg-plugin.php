@@ -3,6 +3,18 @@
 return [
 	'bootstrap' => \hypeJunction\Interactions\Bootstrap::class,
 
+	'plugin' => [
+		'id' => 'hypeinteractions',
+		'name' => 'Interactions',
+		'version' => '6.2.1',
+		'dependencies' => [
+			'hypelists' => [
+				'position' => 'after',
+				'must_be_active' => true,
+			],
+		],
+	],
+
 	'entities' => [
 		[
 			'type' => 'object',

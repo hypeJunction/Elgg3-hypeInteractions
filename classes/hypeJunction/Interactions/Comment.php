@@ -7,6 +7,9 @@ use ElggEntity;
 use ElggObject;
 use ElggUser;
 
+/**
+ * Extends ElggComment with interaction-specific behavior
+ */
 class Comment extends ElggComment {
 
 	const TYPE = 'object';
@@ -23,18 +26,18 @@ class Comment extends ElggComment {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function canComment($user_guid = 0, $default = null) {
+	public function canComment(int $user_guid = 0): bool {
 		if (!$this->canWriteToContainer($user_guid, 'object', 'comment')) {
 			return false;
 		}
 
-		return ElggObject::canComment($user_guid, $default);
+		return parent::canComment($user_guid);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getDisplayName() {
+	public function getDisplayName(): string {
 		$name = $this->title;
 		if (!$name) {
 			$owner = $this->getOwnerEntity();
@@ -45,7 +48,7 @@ class Comment extends ElggComment {
 			}
 		}
 
-		return $name;
+		return (string) $name;
 	}
 
 	/**
@@ -192,5 +195,4 @@ class Comment extends ElggComment {
 
 		return $result;
 	}
-
 }

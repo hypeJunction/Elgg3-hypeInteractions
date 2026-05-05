@@ -6,6 +6,9 @@ use Elgg\Database\Select;
 use Elgg\Event;
 use Elgg\Notifications\SubscriptionNotificationEvent;
 
+/**
+ * Event handler that returns notification subscribers for comment events
+ */
 class GetCommentSubscribers {
 
 	/**
@@ -45,6 +48,7 @@ class GetCommentSubscribers {
 				// Users subscribed to group notifications the thread was started in
 				$group_subscriptions = elgg_get_subscriptions_for_container($group->guid);
 			}
+
 			// @todo: Do we need to notify users subscribed to a thread within user container?
 			// 		  It doesn't seem that such notifications would make sense, because they are not performed by the user container
 		} else if ($original_container instanceof \ElggGroup) {

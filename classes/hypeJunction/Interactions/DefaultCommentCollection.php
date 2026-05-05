@@ -10,6 +10,9 @@ use hypeJunction\Lists\SearchFields\CreatedBetween;
 use hypeJunction\Lists\Sorters\LikesCount;
 use hypeJunction\Lists\Sorters\TimeCreated;
 
+/**
+ * Default collection for comment entities
+ */
 class DefaultCommentCollection extends Collection {
 
 	/**

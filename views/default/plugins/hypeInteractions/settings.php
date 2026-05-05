@@ -10,7 +10,7 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:max_comment_depth:help'),
 	'name' => 'params[max_comment_depth]',
 	'value' => $entity->max_comment_depth,
-	'options' => array(5, 4, 3, 2, 1),
+	'options' => [5, 4, 3, 2, 1],
 ]);
 
 echo elgg_view_field([
@@ -19,10 +19,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:comment_form_position:help'),
 	'name' => 'params[comment_form_position]',
 	'value' => $entity->comment_form_position,
-	'options_values' => array(
+	'options_values' => [
 		'before' => elgg_echo('interactions:settings:comment_form_position:before'),
 		'after' => elgg_echo('interactions:settings:comment_form_position:after'),
-	),
+	],
 ]);
 
 echo elgg_view_field([
@@ -31,10 +31,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:comments_order:help'),
 	'name' => 'params[comments_order]',
 	'value' => $entity->comments_order,
-	'options_values' => array(
+	'options_values' => [
 		'asc' => elgg_echo('interactions:settings:comments_order:chronological'),
 		'desc' => elgg_echo('interactions:settings:comments_order:reverse_chronological'),
-	),
+	],
 ]);
 
 echo elgg_view_field([
@@ -42,10 +42,10 @@ echo elgg_view_field([
 	'#label' => elgg_echo('interactions:settings:comments_load_style'),
 	'name' => 'params[comments_load_style]',
 	'value' => $entity->comments_load_style,
-	'options_values' => array(
+	'options_values' => [
 		'load_newer' => elgg_echo('interactions:settings:comments_load_style:load_newer'),
 		'load_older' => elgg_echo('interactions:settings:comments_load_style:load_older'),
-	),
+	],
 ]);
 
 echo elgg_view_field([
@@ -67,10 +67,10 @@ echo elgg_view_field([
 	'#label' => elgg_echo('interactions:settings:comments_visual_editor'),
 	'name' => 'params[comments_visual_editor]',
 	'value' => $entity->comments_visual_editor,
-	'options_values' => array(
+	'options_values' => [
 		0 => elgg_echo('option:no'),
 		1 => elgg_echo('option:yes'),
-	)
+	]
 ]);
 
 echo elgg_view_field([
@@ -79,10 +79,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:comment_sort:help'),
 	'name' => 'params[comment_sort]',
 	'value' => $entity->comment_sort,
-	'options_values' => array(
+	'options_values' => [
 		0 => elgg_echo('option:no'),
 		1 => elgg_echo('option:yes'),
-	)
+	]
 ]);
 
 echo elgg_view_field([
@@ -91,10 +91,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:default_expand:help'),
 	'name' => 'params[default_expand]',
 	'value' => $entity->default_expand,
-	'options_values' => array(
+	'options_values' => [
 		0 => elgg_echo('option:no'),
 		1 => elgg_echo('option:yes'),
-	),
+	],
 ]);
 
 echo elgg_view_field([
@@ -103,10 +103,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:gatekeep_comments:help'),
 	'name' => 'params[gatekeep_comments]',
 	'value' => $entity->gatekeep_comments,
-	'options_values' => array(
+	'options_values' => [
 		0 => elgg_echo('option:no'),
 		1 => elgg_echo('option:yes'),
-	),
+	],
 ]);
 
 echo elgg_view_field([
@@ -115,10 +115,10 @@ echo elgg_view_field([
 	'#help' => elgg_echo('interactions:settings:gatekeep_likes:help'),
 	'name' => 'params[non_public_comments]',
 	'value' => $entity->non_public_comments,
-	'options_values' => array(
+	'options_values' => [
 		0 => elgg_echo('option:no'),
 		1 => elgg_echo('option:yes'),
-	),
+	],
 ]);
 
 if (elgg_is_active_plugin('hypeAttachments')) {
@@ -128,10 +128,10 @@ if (elgg_is_active_plugin('hypeAttachments')) {
 		'#help' => elgg_echo('interactions:settings:enable_attachments:help'),
 		'name' => 'params[enable_attachments]',
 		'value' => $entity->enable_attachments,
-		'options_values' => array(
+		'options_values' => [
 			0 => elgg_echo('option:no'),
 			1 => elgg_echo('option:yes'),
-		),
+		],
 	]);
 }
 
@@ -142,10 +142,10 @@ if (elgg_is_active_plugin('hypeScraper')) {
 		'#help' => elgg_echo('interactions:settings:enable_url_preview:help'),
 		'name' => 'params[enable_url_preview]',
 		'value' => $entity->enable_url_preview,
-		'options_values' => array(
+		'options_values' => [
 			0 => elgg_echo('option:no'),
 			1 => elgg_echo('option:yes'),
-		),
+		],
 	]);
 }
 

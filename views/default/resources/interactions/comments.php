@@ -41,7 +41,8 @@ if (elgg_is_xhr()) {
 				'active_tab' => 'comments',
 				'show_add_form' => true,
 				'expand_form' => true,
-			]);;
+			]);
+			;
 		}
 	}
 

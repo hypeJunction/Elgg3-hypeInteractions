@@ -13,6 +13,7 @@ define(function (require) {
 			if (interactions.ready) {
 				return;
 			}
+
 			$(document).on('click', '.interactions-form:not(.elgg-state-expanded)', interactions.expandForm);
 			$(document).on('click', '.interactions-state-toggler', interactions.toggleState);
 
@@ -49,6 +50,7 @@ define(function (require) {
 				if (typeof stat.count !== 'undefined') {
 					interactions.updateBadge(guid, trait, stat.count);
 				}
+
 				if (typeof stat.state !== 'undefined') {
 					interactions.updateStateToggler(guid, trait, stat.state);
 				}

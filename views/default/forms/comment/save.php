@@ -71,7 +71,7 @@ $buttons[] = [
 ];
 
 if ($comment instanceof \hypeJunction\Interactions\Comment) {
-	$buttons [] = [
+	$buttons[] = [
 		'name' => 'cancel',
 		'text' => elgg_view_field([
 			'#type' => 'button',

@@ -5,10 +5,12 @@
 
 namespace hypeJunction\Interactions;
 
-
 use Elgg\Event;
 use ElggRiverItem;
 
+/**
+ * Deletes a commentable object when the associated river item is deleted
+ */
 class DeleteRiverObject {
 
 	/**
@@ -45,5 +47,4 @@ class DeleteRiverObject {
 			}
 		});
 	}
-
 }

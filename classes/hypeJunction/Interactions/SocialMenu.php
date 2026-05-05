@@ -5,6 +5,9 @@ namespace hypeJunction\Interactions;
 use Elgg\Event;
 use ElggMenuItem;
 
+/**
+ * Event handler that builds the social actions menu for river items
+ */
 class SocialMenu {
 
 	/**
@@ -35,7 +38,7 @@ class SocialMenu {
 		$url = $entity->getURL();
 
 		$parts = parse_url($url);
-		$parts['fragment'] = "comments";
+		$parts['fragment'] = 'comments';
 
 		$interactions_url = elgg_http_build_url($parts, false);
 

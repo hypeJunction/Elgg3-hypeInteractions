@@ -9,6 +9,9 @@ use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 use NotificationException;
 
+/**
+ * Adds a like annotation to an entity
+ */
 class LikeAction {
 
 	/**

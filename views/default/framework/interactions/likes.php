@@ -31,7 +31,7 @@ $offset_key = "likes_$entity->guid";
 $offset = get_input($offset_key, 0);
 $count = elgg_get_total_likes($entity);
 
-$options = array(
+$options = [
 	'guid' => $entity->guid,
 	'annotation_names' => 'likes',
 	'list_id' => "interactions-likes-{$entity->guid}",
@@ -49,6 +49,6 @@ $options = array(
 	'no_results' => elgg_echo('interactions:likes:no_results'),
 	'data-guid' => $entity->guid,
 	'data-trait' => 'likes',
-);
+];
 
 echo elgg_list_annotations($options);

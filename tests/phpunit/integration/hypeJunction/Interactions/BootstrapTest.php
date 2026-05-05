@@ -115,45 +115,45 @@ class BootstrapTest extends IntegrationTestCase {
 		$this->assertTrue(_elgg_services()->actions->exists('likes/delete'));
 	}
 
-	// --- hook / event wiring from Bootstrap::init ---
+	// --- event wiring from Bootstrap::init (all hooks merged into events in Elgg 5.x) ---
 
 	public function testEntityUrlHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('entity:url', $handlers);
 		$this->assertArrayHasKey('object', $handlers['entity:url']);
 	}
 
 	public function testEntityIconUrlHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('entity:icon:url', $handlers);
 		$this->assertArrayHasKey('object', $handlers['entity:icon:url']);
 	}
 
 	public function testCommentsAllHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('comments', $handlers);
 		$this->assertArrayHasKey('all', $handlers['comments']);
 	}
 
 	public function testContainerLogicCheckHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('container_logic_check', $handlers);
 	}
 
 	public function testAnnotationPermissionsCheckHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('permissions_check', $handlers);
 		$this->assertArrayHasKey('annotation', $handlers['permissions_check']);
 	}
 
 	public function testInteractionsMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:interactions', $handlers['register']);
 	}
 
 	public function testRiverMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:river', $handlers['register']);
 	}
@@ -171,7 +171,7 @@ class BootstrapTest extends IntegrationTestCase {
 	}
 
 	public function testRiverObjectIsLikableHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('likes:is_likable', $handlers);
 		$this->assertArrayHasKey('object:river_object', $handlers['likes:is_likable']);
 	}

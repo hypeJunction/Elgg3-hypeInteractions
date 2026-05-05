@@ -5,8 +5,10 @@ namespace hypeJunction\Interactions;
 use Elgg\Database\QueryBuilder;
 use Elgg\Event;
 
+/**
+ * Keeps river object access in sync with its container entity
+ */
 class SyncRiverObjectAccess {
-
 
 	/**
 	 * Update river object access to match that of the container

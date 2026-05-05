@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Event;
 
+/**
+ * Subscribes the actor and container owner to comment thread notifications
+ */
 class SubscribeToCommentNotifications {
 
 	/**

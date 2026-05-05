@@ -1,3 +1,24 @@
+<a name="7.0.0"></a>
+# [7.0.0] (2026-05-05)
+
+### Breaking Changes
+
+* Requires Elgg 5.x and PHP 8.2+
+* `InteractionsService` no longer injects `PluginHooksService`; hook-based event triggering replaced with `elgg_trigger_event_results()`
+* `Comment::canComment()` signature changed to `(int $user_guid = 0): bool`
+* `Comment::getDisplayName()` and `RiverObject::getDisplayName()` now declare `: string` return type
+
+### Migration: Elgg 4.x → 5.x
+
+* Converted all `elgg_register_plugin_hook_handler()` to `elgg_register_event_handler()`
+* Updated all hook handler signatures from `\Elgg\Hook` to `\Elgg\Event`
+* Replaced `elgg_trigger_plugin_hook()` with `elgg_trigger_event_results()`
+* Removed `Elgg\Traits\Di\ServiceFacade` (depends on removed `PluginHooksService`); added manual `instance()`/`name()` methods to `InteractionsService`
+* Declared `hypelists` as a required plugin dependency in `elgg-plugin.php`
+* Upgraded Docker stack: PHP 7.4→8.2, MySQL 5.7→8.0
+
+---
+
 <a name="6.2.1"></a>
 ## [6.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeInteractions/compare/6.2.0...6.2.1) (2018-06-30)
 

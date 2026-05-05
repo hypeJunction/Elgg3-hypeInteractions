@@ -71,7 +71,6 @@ if ($full) {
 
 	echo elgg_format_element('div', $attrs, $body);
 } else {
-
 	$friendlytime = elgg_view_friendly_time($comment->time_created);
 
 	$commenter_icon = elgg_view_entity_icon($commenter, 'tiny');

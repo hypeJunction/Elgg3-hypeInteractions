@@ -5,10 +5,13 @@ namespace hypeJunction\Interactions;
 use ElggBatch;
 use InvalidArgumentException;
 
+/**
+ * Represents a comment thread and provides offset calculation utilities
+ */
 class Thread {
 
 	/** @var mixed */
-    protected $comment;
+	protected $comment;
 
 	const LIMIT = 10;
 
@@ -20,6 +23,7 @@ class Thread {
 		if (!$comment instanceof Comment) {
 			throw new InvalidArgumentException(get_class() . ' expects an instance of ' . get_class(new Comment()));
 		}
+
 		$this->comment = $comment;
 	}
 
@@ -29,13 +33,14 @@ class Thread {
 	 * @param array $options Default options array
 	 * @return array
 	 */
-	public function getFilterOptions(array $options = array()) {
+	public function getFilterOptions(array $options = []) {
 		$options['types'] = $this->comment->getType();
-		$options['subtypes'] = array($this->comment->getSubtype(), 'hjcomment');
+		$options['subtypes'] = [$this->comment->getSubtype(), 'hjcomment'];
 		$options['container_guids'] = $this->comment->container_guid;
 		if (!isset($options['order_by'])) {
 			$options['order_by'] = 'e.guid ASC';
 		}
+
 		return $options;
 	}
 
@@ -50,10 +55,11 @@ class Thread {
 		if ($limit === 0) {
 			return 0;
 		}
+
 		if ($order == 'asc' || $order == 'time_created::asc') {
-			$before = $this->getCommentsBefore(array('count' => true, 'offset' => 0));
+			$before = $this->getCommentsBefore(['count' => true, 'offset' => 0]);
 		} else {
-			$before = $this->getCommentsAfter(array('count' => true, 'offset' => 0));
+			$before = $this->getCommentsAfter(['count' => true, 'offset' => 0]);
 		}
 		
 		return floor($before / $limit) * $limit;
@@ -65,7 +71,7 @@ class Thread {
 	 * @param array $options Default options array
 	 * @return Comment[]|false
 	 */
-	public function getComments(array $options = array()) {
+	public function getComments(array $options = []) {
 		return elgg_get_entities($this->getFilterOptions($options));
 	}
 
@@ -75,7 +81,7 @@ class Thread {
 	 * @param array $options Default options array
 	 * @return int
 	 */
-	public function getCount(array $options = array()) {
+	public function getCount(array $options = []) {
 		$options['count'] = true;
 		return $this->getComments($options);
 	}
@@ -95,6 +101,7 @@ class Thread {
 				$success++;
 			}
 		}
+
 		return ($success == $count);
 	}
 
@@ -105,7 +112,7 @@ class Thread {
 	 * @param array  $options Getter options
 	 * @return ElggBatch
 	 */
-	public function getAll($getter = 'elgg_get_entities', $options = array()) {
+	public function getAll($getter = 'elgg_get_entities', $options = []) {
 		$options['limit'] = 0;
 		$options = $this->getFilterOptions($options);
 		return new ElggBatch($getter, $options);
@@ -117,7 +124,7 @@ class Thread {
 	 * @param array $options Additional options
 	 * @return mixed
 	 */
-	public function getCommentsBefore(array $options = array()) {
+	public function getCommentsBefore(array $options = []) {
 		$options['wheres'][] = "
 			e.time_created < {$this->comment->time_created}
 		";
@@ -126,6 +133,7 @@ class Thread {
 		if (is_array($comments)) {
 			return array_reverse($comments);
 		}
+
 		return $comments;
 	}
 
@@ -135,7 +143,7 @@ class Thread {
 	 * @param array $options Additional options
 	 * @return mixed
 	 */
-	public function getCommentsAfter(array $options = array()) {
+	public function getCommentsAfter(array $options = []) {
 		$options['wheres'][] = "
 			e.time_created >= {$this->comment->time_created}
 				AND e.guid != {$this->comment->guid}
@@ -150,14 +158,14 @@ class Thread {
 	 * @param array $options Additional options
 	 * @return array
 	 */
-	public function getAttachmentsFilterOptions(array $options = array()) {
+	public function getAttachmentsFilterOptions(array $options = []) {
 
 		$dbprefix = elgg_get_config('dbprefix');
 
 		$options['joins'][] = "JOIN {$dbprefix}entity_relationships er ON er.guid_two = e.guid";
 		$options['joins'][] = "JOIN {$dbprefix}entities e2 ON er.guid_one = e2.guid";
 		$options['wheres'][] = "er.relationship = 'attached'";
-		$options['wheres'][] = "e2.container_guid = e.container_guid";
+		$options['wheres'][] = 'e2.container_guid = e.container_guid';
 
 		return $options;
 	}
@@ -168,7 +176,7 @@ class Thread {
 	 * @param array $options Additional options
 	 * @return ElggEntity[]|false
 	 */
-	public function getAttachments(array $options = array()) {
+	public function getAttachments(array $options = []) {
 		$options = $this->getAttachmentsFilterOptions($options);
 		return elgg_get_entities($options);
 	}
@@ -179,9 +187,8 @@ class Thread {
 	 * @param array $options Additional options
 	 * @return int
 	 */
-	public function hasAttachments(array $options = array()) {
+	public function hasAttachments(array $options = []) {
 		$options['count'] = true;
 		return $this->getAttachments($options);
 	}
-
 }

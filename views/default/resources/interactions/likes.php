@@ -7,12 +7,12 @@ $entity = get_entity($guid);
 /* @var $entity \ElggEntity */
 
 if (elgg_is_xhr()) {
-	echo elgg_view('framework/interactions/likes', array(
+	echo elgg_view('framework/interactions/likes', [
 		'entity' => $entity,
 		'active_tab' => ($comment) ? 'likes' : false,
-	));
+	]);
 } else {
-	$title = elgg_echo('interactions:likes:title', array($entity->getDisplayName()));
+	$title = elgg_echo('interactions:likes:title', [$entity->getDisplayName()]);
 
 	if ($entity instanceof \hypeJunction\Interactions\Comment) {
 		$content = elgg_view_entity($entity, [
@@ -31,12 +31,12 @@ if (elgg_is_xhr()) {
 		]);
 	}
 
-	$layout = elgg_view_layout('content', array(
+	$layout = elgg_view_layout('content', [
 		'title' => $title,
 		'content' => $content,
 		'filter' => false,
 		'sidebar' => false,
-	));
+	]);
 
 	echo elgg_view_page($title, $layout);
 }

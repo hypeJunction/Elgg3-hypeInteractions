@@ -5,6 +5,9 @@ namespace hypeJunction\Interactions;
 use Elgg\Event;
 use Elgg\Notifications\Notification;
 
+/**
+ * Event handler that formats comment notification messages
+ */
 class FormatCommentNotification {
 
 	/**

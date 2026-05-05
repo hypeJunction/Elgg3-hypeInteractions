@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Event;
 
+/**
+ * Event handler that controls whether users can comment on a comment
+ */
 class CanCommentOnComment {
 
 	/**

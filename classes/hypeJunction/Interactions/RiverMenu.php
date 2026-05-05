@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Event;
 
+/**
+ * Event handler that adds interaction items to the river menu
+ */
 class RiverMenu {
 
 	/**

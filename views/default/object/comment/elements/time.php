@@ -9,6 +9,6 @@ if (!$entity instanceof Comment) {
 
 $time = elgg_view_friendly_time($entity->time_created);
 
-echo elgg_format_element('span', array(
+echo elgg_format_element('span', [
 	'class' => 'interactions-comment-time',
-		), $time);
+], $time);

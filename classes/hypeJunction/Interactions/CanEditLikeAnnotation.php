@@ -1,13 +1,12 @@
 <?php
-/**
- *
- */
 
 namespace hypeJunction\Interactions;
 
-
 use Elgg\Event;
 
+/**
+ * Event handler that controls edit permissions for like annotations
+ */
 class CanEditLikeAnnotation {
 
 	/**

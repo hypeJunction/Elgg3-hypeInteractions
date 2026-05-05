@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Event;
 
+/**
+ * Event handler that builds the interactions menu for entities
+ */
 class InteractionsMenu {
 
 	/**

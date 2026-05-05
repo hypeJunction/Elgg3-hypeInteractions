@@ -5,6 +5,9 @@ namespace hypeJunction\Interactions;
 use Elgg\Event;
 use ElggRiverItem;
 
+/**
+ * Creates a commentable object associated with a river item
+ */
 class CreateRiverObject {
 
 	/**

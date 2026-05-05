@@ -4,6 +4,9 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Event;
 
+/**
+ * Event handler that replaces the default comments block with the interactions version
+ */
 class ReplaceCommentsBlock {
 
 	/**

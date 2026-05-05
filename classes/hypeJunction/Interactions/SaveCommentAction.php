@@ -10,12 +10,15 @@ use Elgg\Exceptions\HttpException;
 use Elgg\Request;
 use Elgg\Exceptions\Http\ValidationException;
 
+/**
+ * Saves a new or updated comment entity
+ */
 class SaveCommentAction {
 
 	/**
 	 * Save comment
 	 *
-	 * @param Request $request
+	 * @param Request $request Request
 	 *
 	 * @return OkResponse
 	 * @throws EntityNotFoundException

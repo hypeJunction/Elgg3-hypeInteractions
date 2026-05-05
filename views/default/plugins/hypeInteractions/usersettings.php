@@ -9,10 +9,10 @@ echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comment_form_position]',
 	'value' => $entity->getUserSetting('comment_form_position', $user->guid, 'after'),
-	'options_values' => array(
+	'options_values' => [
 		'before' => elgg_echo('interactions:settings:comment_form_position:before'),
 		'after' => elgg_echo('interactions:settings:comment_form_position:after'),
-	),
+	],
 	'#label' => elgg_echo('interactions:settings:comment_form_position'),
 	'#help' => elgg_echo('interactions:settings:comment_form_position:help'),
 ]);
@@ -34,10 +34,10 @@ echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comments_load_style]',
 	'value' => hypeJunction\Interactions\InteractionsService::instance()->getLoadStyle(),
-	'options_values' => array(
+	'options_values' => [
 		'load_newer' => elgg_echo('interactions:settings:comments_load_style:load_newer'),
 		'load_older' => elgg_echo('interactions:settings:comments_load_style:load_older'),
-	),
+	],
 	'#label' => elgg_echo('interactions:settings:comments_load_style'),
 ]);
 

@@ -21,7 +21,7 @@ $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 
 if (!isset($active_tab)) {
 	if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
-	    $active_tab = 'comments';
+		$active_tab = 'comments';
 	}
 }
 
@@ -63,13 +63,13 @@ if ($level > 1) {
 }
 
 if ($active_tab) {
-    $params = [
-        'entity' => $entity,
-        'level' => $level,
-        'full_view' => $full_view,
-        'active_tab' => $active_tab,
-        'deferred' => true,
-    ];
+	$params = [
+		'entity' => $entity,
+		'level' => $level,
+		'full_view' => $full_view,
+		'active_tab' => $active_tab,
+		'deferred' => true,
+	];
 
 	$content = elgg_view("framework/interactions/$active_tab", $params);
 

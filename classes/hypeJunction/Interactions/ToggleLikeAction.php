@@ -4,12 +4,15 @@ namespace hypeJunction\Interactions;
 
 use Elgg\Request;
 
+/**
+ * Toggles a like annotation on/off for an entity
+ */
 class ToggleLikeAction {
 
 	/**
 	 * Toggle like
 	 *
-	 * @param Request $request
+	 * @param Request $request Request
 	 *
 	 * @return \Elgg\Http\ResponseBuilder
 	 */

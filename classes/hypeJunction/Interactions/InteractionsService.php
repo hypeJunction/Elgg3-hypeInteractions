@@ -7,6 +7,9 @@ use ElggGroup;
 use ElggRiverItem;
 use ElggUser;
 
+/**
+ * Service providing comment, like, and stats utilities for interactions
+ */
 class InteractionsService {
 
 	/**
@@ -270,14 +273,15 @@ class InteractionsService {
 			if (!$value) {
 				continue;
 			}
+
 			[$prefix, $view] = explode(':', $key);
 			if ($prefix !== 'stream_object') {
 				continue;
 			}
+
 			$views[] = $view;
 		}
 
 		return $views;
 	}
-
 }

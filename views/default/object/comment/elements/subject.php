@@ -9,4 +9,4 @@ if (!$entity instanceof Comment) {
 
 echo elgg_format_element('span', [
 	'class' => 'interactions-comment-subject',
-		], $entity->getDisplayName());
+], $entity->getDisplayName());

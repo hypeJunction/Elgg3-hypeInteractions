@@ -4,20 +4,21 @@ namespace hypeJunction\Interactions;
 
 use Elgg\PluginBootstrap;
 
+/**
+ * Plugin bootstrap: registers events, routes, and services
+ */
 class Bootstrap extends PluginBootstrap {
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function load() {
-
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function boot() {
-
 	}
 
 	/**
@@ -78,27 +79,23 @@ class Bootstrap extends PluginBootstrap {
 	 * {@inheritdoc}
 	 */
 	public function shutdown() {
-
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function activate() {
-
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function deactivate() {
-
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
 	public function upgrade() {
-
 	}
 }
