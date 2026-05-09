@@ -62,6 +62,8 @@ class Bootstrap extends PluginBootstrap {
 
 		// Actionable river items
 		elgg_register_plugin_hook_handler('likes:is_likable', 'object:river_object', [\Elgg\Values::class, 'getTrue']);
+
+		elgg_register_event_handler('seeds', 'database', [Seeder::class, 'addSeed']);
 	}
 
 	/**
