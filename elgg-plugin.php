@@ -68,6 +68,15 @@ return [
 		]
 	],
 
+	'capabilities' => [
+		'river_emittable' => [
+			'object:comment' => true,
+			'object:river_object' => true,
+			'object:hjcomment' => true,
+			'object:hjstream' => true,
+		],
+	],
+
 	'settings' => [
 		'max_comment_depth' => 1,
 		'comment_form_position' => 'after',
