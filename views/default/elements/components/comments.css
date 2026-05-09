@@ -1,3 +1,7 @@
+:root {
+	--interactions-color-white: #fff;
+}
+
 /* **************************************
     Comments
 ************************************** */
@@ -8,6 +12,6 @@
 		background: var(--elgg-state-notice-background-color);
 	}
 	to {
-		background: white;
+		background: var(--interactions-color-white);
 	}
 }
