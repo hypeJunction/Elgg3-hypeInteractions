@@ -3,7 +3,7 @@
 	"version": "6.2.1",
 	"type": "elgg-plugin",
 	"description": "Real time likes and comments",
-	"homepage": "http://hypejunction.com/",
+	"homepage": "https://github.com/hypeJunction/Elgg3-hypeInteractions",
 	"keywords": [
 		"elgg",
 		"plugin",
@@ -17,7 +17,7 @@
 	"authors": [
 		{
 			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
+			"email": "ismayil.khayredinov@gmail.com"
 		}
 	],
 	"extra": {
