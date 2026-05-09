@@ -2,7 +2,7 @@ hypeInteractions
 ================
 ![Elgg 5.x](https://img.shields.io/badge/Elgg-5.x-orange.svg?style=flat-square)
 
-Enhanced commenting and liking UX for Elgg
+Enhanced commenting and liking UX for Elgg — real-time comments, likes, and multi-level threads.
 
 ## Screenshots ##
 

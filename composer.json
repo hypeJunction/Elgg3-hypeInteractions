@@ -2,7 +2,7 @@
 	"name": "hypejunction/hypeinteractions",
 	"version": "6.2.1",
 	"type": "elgg-plugin",
-	"description": "Real time likes and comments",
+	"description": "Enhanced commenting and liking UX for Elgg — real-time comments, likes, and multi-level threads.",
 	"homepage": "https://github.com/hypeJunction/Elgg3-hypeInteractions",
 	"keywords": [
 		"elgg",
