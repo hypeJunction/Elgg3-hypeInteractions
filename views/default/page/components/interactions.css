@@ -1,33 +1,38 @@
+:root {
+	--interactions-color-white: #fff;
+	--interactions-border-radius: 3px;
+}
+
 .elgg-river-responses .interactions-top {
 	& > .interactions-controls {
-		border-top: 1px solid $(border-color-soft);
+		border-top: 1px solid var(--elgg-border-color-soft);
 		position: relative;
 	}
 
 	& > .interactions-controls:before {
 		content: "\25B2";
-		color: #fff;
+		color: var(--interactions-color-white);
 		position: absolute;
 		top: -0.75rem;
 		font-size: 0.75rem;
-		text-shadow: 0 -2px 1px $(border-color-soft);
+		text-shadow: 0 -2px 1px var(--elgg-border-color-soft);
 		margin-left: 1rem;
 	}
 }
 
 .elgg-listing-full-responses .interactions-top {
 	margin-top: 1rem;
-	border: 1px solid $(border-color-soft);
-	border-radius: $(global-radius, 3px);
+	border: 1px solid var(--elgg-border-color-soft);
+	border-radius: var(--elgg-global-radius, 3px);
 	position: relative;
 
 	&:before {
 	  content: "\25B2";
-	  color: #fff;
+	  color: var(--interactions-color-white);
 	  position: absolute;
 	  top: -0.75rem;
 	  font-size: 0.75rem;
-	  text-shadow: 0 -2px 1px $(border-color-soft);
+	  text-shadow: 0 -2px 1px var(--elgg-border-color-soft);
 	  margin-left: 1rem;
 	}
 }
@@ -46,9 +51,9 @@
 
 .interactions .elgg-form-comment-save {
 	padding: 1rem;
-	background: $(background-color-soft);
+	background: var(--elgg-background-color-soft);
 	border: none;
-	border-top: 1px solid $(border-color-soft);
+	border-top: 1px solid var(--elgg-border-color-soft);
 
 	.elgg-field {
 		margin: 0;
@@ -77,7 +82,7 @@
 	}
 
 	textarea:focus {
-		background: #fff;
+		background: var(--interactions-color-white);
 	}
 
 	.elgg-image {
@@ -108,21 +113,21 @@
 }
 
 .interactions-comments-list > li {
-	border-top: 1px solid $(border-color-soft);
+	border-top: 1px solid var(--elgg-border-color-soft);
 	border-bottom: none;
 }
 
 .interactions-comments-list + .elgg-no-results {
-	border-top: 1px solid $(border-color-soft);
+	border-top: 1px solid var(--elgg-border-color-soft);
 	margin: 0;
 	font-size: 75%;
 }
 
 .interactions-comment-body + .elgg-list {
 	margin: 1rem 0 0.5rem;
-	background: $(background-color-soft);
+	background: var(--elgg-background-color-soft);
 	border: none;
-	border-radius: 3px;
+	border-radius: var(--interactions-border-radius);
 }
 
 .interactions-comment-body + .elgg-list> li:last-child {

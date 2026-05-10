@@ -1,27 +1,42 @@
 {
-	"name": "hypejunction/hypeinteractions",
-	"version": "6.2.1",
-	"type": "elgg-plugin",
-	"description": "Real time likes and comments",
-	"homepage": "http://hypejunction.com/",
-	"keywords": [
-		"elgg", "plugin", "comments", "likes", "stream", "feed", "ajax"
-	],
-	"license": "proprietary",
-	"authors": [{
-			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
-		}],
-	"extra": {
-		"installer-name": "hypeInteractions"
-	},
-	"require": {
-		"composer/installers": "~1.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	}
+    "name": "hypejunction/hypeinteractions",
+    "version": "6.2.1",
+    "type": "elgg-plugin",
+    "description": "Real time likes and comments",
+    "homepage": "https://github.com/hypeJunction/Elgg3-hypeInteractions",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "comments",
+        "likes",
+        "stream",
+        "feed",
+        "ajax"
+    ],
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "ismayil.khayredinov@gmail.com"
+        }
+    ],
+    "extra": {
+        "installer-name": "hypeinteractions"
+    },
+    "require": {
+        "php": ">=8.3",
+        "composer/installers": "^2.0",
+        "elgg/elgg": "~7.0.0",
+        "ext-intl": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    }
 }
-

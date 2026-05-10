@@ -85,7 +85,4 @@ echo elgg_format_element('div', [
 	'class' => $class,
 ], $controls . $component);
 ?>
-
-<script>
-	require(['page/components/interactions'])
-</script>
+<?php elgg_import_esm('js/page/components/interactions'); ?>
