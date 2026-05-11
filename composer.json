@@ -21,7 +21,7 @@
 		}
 	],
 	"extra": {
-		"installer-name": "hypeInteractions"
+		"installer-name": "hypeinteractions"
 	},
 	"require": {
 		"php": ">=8.1",
