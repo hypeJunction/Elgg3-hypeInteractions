@@ -6,23 +6,14 @@
 namespace hypeJunction\Interactions;
 
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class CanEditLikeAnnotation {
 
-	/**
-	 * Fixes editing permissions on likes
-	 *
-	 * @elgg_plugin_hook permissions_check annotation
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return bool|null
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(\Elgg\Event $event) {
 
-		$annotation = $hook->getParam('annotation');
-		$user = $hook->getParam('user');
+		$annotation = $event->getParam('annotation');
+		$user = $event->getParam('user');
 
 		if (!$user) {
 			return null;
