@@ -12,10 +12,18 @@ use Elgg\Database\Seeds\Seed;
  */
 class Seeder extends Seed {
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function seed() {
+	public static function getType(): string {
+		return 'comment';
+	}
+
+	public function getCountOptions(): array {
+		return [
+			'type' => 'object',
+			'subtype' => 'comment',
+		];
+	}
+
+	public function seed(): void {
 		$this->advance($this->getCount());
 
 		while ($this->seedsCount() < $this->getCount()) {
@@ -40,10 +48,7 @@ class Seeder extends Seed {
 		}
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function unseed() {
+	public function unseed(): void {
 		$entities = elgg_get_entities([
 			'type' => 'object',
 			'subtype' => 'comment',

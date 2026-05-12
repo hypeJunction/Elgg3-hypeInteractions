@@ -2,23 +2,14 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class ReplaceCommentsBlock {
 
-	/**
-	 * Replace core comments block
-	 *
-	 * @elgg_plugin_hook comments all
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return string
-	 */
-	public function __invoke(Hook $hook) {
-		$params = $hook->getParams();
+	public function __invoke(\Elgg\Event $event) {
+		$params = $event->getParams();
 
-		$entity = $hook->getEntityParam();
+		$entity = $event->getParam('entity');
 		if (!$entity instanceof \ElggEntity) {
 			return null;
 		}

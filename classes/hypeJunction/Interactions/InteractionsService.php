@@ -2,8 +2,6 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Traits\Di\ServiceFacade;
-use Elgg\PluginHooksService;
 use ElggEntity;
 use ElggGroup;
 use ElggRiverItem;
@@ -11,27 +9,15 @@ use ElggUser;
 
 class InteractionsService {
 
-	use ServiceFacade;
-
 	/**
-	 * @var PluginHooksService
+	 * Returns service instance from Elgg DI container
+	 * @return static
 	 */
-	protected $hooks;
-
-	/**
-	 * Constructor
-	 *
-	 * @param PluginHooksService $hooks Hooks
-	 */
-	public function __construct(PluginHooksService $hooks) {
-		$this->hooks = $hooks;
+	public static function instance(): static {
+		return elgg()->interactions;
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public static function name() {
-		return 'interactions';
+	public function __construct() {
 	}
 
 	/**
@@ -164,7 +150,7 @@ class InteractionsService {
 			]
 		];
 
-		return $this->hooks->trigger('get_stats', 'interactions', ['entity' => $entity], $stats);
+		return elgg_trigger_event_results('get_stats', 'interactions', ['entity' => $entity], $stats);
 	}
 
 	/**

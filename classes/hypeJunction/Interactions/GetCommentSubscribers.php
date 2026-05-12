@@ -3,33 +3,24 @@
 namespace hypeJunction\Interactions;
 
 use Elgg\Database\Select;
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\Notifications\SubscriptionNotificationEvent;
 
 class GetCommentSubscribers {
 
-	/**
-	 * Subscribe users to comments based on original entity
-	 *
-	 * @elgg_plugin_hook get subscriptions
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return array|null
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(\Elgg\Event $event) {
 
-		$event = $hook->getParam('event');
-		if (!$event instanceof SubscriptionNotificationEvent) {
+		$notification_event = $event->getParam('event');
+		if (!$notification_event instanceof SubscriptionNotificationEvent) {
 			return null;
 		}
 
-		$object = $event->getObject();
+		$object = $notification_event->getObject();
 		if (!$object instanceof Comment) {
 			return null;
 		}
 
-		$return = $hook->getValue();
+		$return = $event->getValue();
 
 		$subscriptions = [];
 		$actor_subscriptions = [];
@@ -45,13 +36,11 @@ class GetCommentSubscribers {
 				// Users subscribed to group notifications the thread was started in
 				$group_subscriptions = elgg_get_subscriptions_for_container($group->guid);
 			}
-			// @todo: Do we need to notify users subscribed to a thread within user container?
-			// 		  It doesn't seem that such notifications would make sense, because they are not performed by the user container
 		} else if ($original_container instanceof \ElggGroup) {
 			$group_subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
 		}
 
-		$actor = $event->getActor();
+		$actor = $notification_event->getActor();
 		if ($actor instanceof \ElggUser) {
 			$actor_subscriptions = elgg_get_subscriptions_for_container($actor->guid);
 		}
@@ -123,8 +112,7 @@ class GetCommentSubscribers {
 			}
 		}
 
-		// Do not notify the actor
-		unset($all_subscriptions[$actor->guid]);
+		unset($all_subscriptions[$notification_event->getActor()->guid]);
 
 		return $all_subscriptions;
 	}

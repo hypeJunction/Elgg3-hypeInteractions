@@ -2,22 +2,13 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class CanCommentOnComment {
 
-	/**
-	 * Disallows commenting on comments once a certain depth has been reached
-	 *
-	 * @elgg_plugin_hook permissions_check:comment object
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return bool|null
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(\Elgg\Event $event) {
 
-		$entity = $hook->getParam('container');
+		$entity = $event->getParam('container');
 
 		if (!$entity instanceof Comment) {
 			return null;

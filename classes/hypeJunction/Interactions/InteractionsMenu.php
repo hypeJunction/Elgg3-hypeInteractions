@@ -2,37 +2,28 @@
 
 namespace hypeJunction\Interactions;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 class InteractionsMenu {
 
-	/**
-	 * Setups entity interactions menu
-	 *
-	 * @elgg_plugin_hook register menu:interactions
-	 *
-	 * @param Hook $hook Hook
-	 *
-	 * @return void
-	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(\Elgg\Event $event) {
 
-		$entity = $hook->getEntityParam();
+		$entity = $event->getParam('entity');
 
 		if (!$entity instanceof \ElggEntity) {
 			return;
 		}
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 		/* @var $menu \Elgg\Menu\MenuItems */
 
-		$active_tab = $hook->getParam('active_tab');
+		$active_tab = $event->getParam('active_tab');
 
 		// Commenting
-		$uses_comments = elgg_trigger_plugin_hook(
+		$uses_comments = elgg_trigger_event_results(
 			'uses:comments',
 			"$entity->type:$entity->subtype",
-			$hook->getParams(),
+			$event->getParams(),
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
@@ -69,10 +60,10 @@ class InteractionsMenu {
 			}
 		}
 
-		$uses_likes = elgg_trigger_plugin_hook(
+		$uses_likes = elgg_trigger_event_results(
 			'likes:is_likable',
 			"$entity->type:$entity->subtype",
-			$hook->getParams(),
+			$event->getParams(),
 			false
 		);
 
