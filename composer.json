@@ -1,44 +1,44 @@
 {
-	"name": "hypejunction/hypeinteractions",
-	"version": "6.2.1",
-	"type": "elgg-plugin",
-	"description": "Real time likes and comments",
-	"homepage": "http://hypejunction.com/",
-	"keywords": [
-		"elgg",
-		"plugin",
-		"comments",
-		"likes",
-		"stream",
-		"feed",
-		"ajax"
-	],
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
-		}
-	],
-	"extra": {
-		"installer-name": "hypeInteractions",
-		"elgg-plugin": {
-			"id": "hypeinteractions"
-		}
-	},
-	"require": {
-		"composer/installers": "^2.0",
-		"php": ">=7.4",
-		"elgg/elgg": "^4.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	}
+    "name": "hypejunction/hypeinteractions",
+    "version": "4.0.0",
+    "type": "elgg-plugin",
+    "description": "Real time likes and comments",
+    "homepage": "http://hypejunction.com/",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "comments",
+        "likes",
+        "stream",
+        "feed",
+        "ajax"
+    ],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "info@hypejunction.com"
+        }
+    ],
+    "extra": {
+        "installer-name": "hypeInteractions",
+        "elgg-plugin": {
+            "id": "hypeinteractions"
+        }
+    },
+    "require": {
+        "composer/installers": "^2.0",
+        "php": ">=7.4",
+        "elgg/elgg": "^4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
 }
