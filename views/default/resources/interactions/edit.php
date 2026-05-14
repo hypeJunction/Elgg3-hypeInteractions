@@ -5,11 +5,11 @@ $comment = get_entity($guid);
 /* @var \hypeJunction\Interactions\Comment $comment */
 
 if (!$comment instanceof \hypeJunction\Interactions\Comment) {
-	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
+	throw new \Elgg\EntityNotFoundException();
 }
 
 if (!$comment->canEdit()) {
-	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
+	throw new \Elgg\EntityPermissionsException();
 }
 
 $entity = $comment->getContainerEntity();

@@ -3,12 +3,12 @@
 namespace hypeJunction\Interactions;
 
 use DatabaseException;
-use Elgg\Exceptions\Http\EntityNotFoundException;
-use Elgg\Exceptions\Http\EntityPermissionsException;
+use Elgg\EntityNotFoundException;
+use Elgg\EntityPermissionsException;
 use Elgg\Http\OkResponse;
-use Elgg\Exceptions\HttpException;
+use Elgg\HttpException;
 use Elgg\Request;
-use Elgg\Exceptions\Http\ValidationException;
+use Elgg\ValidationException;
 
 class SaveCommentAction {
 

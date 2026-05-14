@@ -16,17 +16,12 @@ composer require hypejunction/hypeinteractions
 
 Download the zip, extract into your Elgg `mod/` directory, and activate in the admin panel.
 
-
-## License
-
-GPL-2.0-or-later
-
 ## Compatibility
 
 | Plugin version | Elgg version |
 |---|---|
-| 7.0.0   | 7.x  |
-| 6.0.0   | 6.x  |
-| 5.0.0   | 5.x  |
-| 4.0.0   | 4.x  |
-| 3.0.0   | 3.x  |
+| current | 7.x |
+
+## License
+
+GPL-2.0-or-later

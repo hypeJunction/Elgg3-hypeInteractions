@@ -10,3 +10,13 @@ robots.txt
 /mod/
 composer.lock
 Gemfile.lock
+
+# Test runner artifacts
+tests/.phpunit.result.cache
+tests/.phpunit.cache/
+tests/playwright/node_modules/
+tests/playwright/playwright-report/
+tests/playwright/test-results/
+
+# Docker scaffold local env
+docker/.env
