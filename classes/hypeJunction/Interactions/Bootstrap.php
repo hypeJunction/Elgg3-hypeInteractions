@@ -53,7 +53,7 @@ class Bootstrap extends PluginBootstrap {
 		elgg_register_event_handler('register', 'menu:social', SocialMenu::class);
 
 		// Prepare notifications
-		elgg_register_notification_event('object', 'comment', ['create']);
+		elgg_register_notification_event('object', 'comment', 'create');
 		elgg_register_event_handler('prepare', 'notification:create:object:comment', FormatCommentNotification::class);
 		elgg_register_event_handler('get', 'subscriptions', GetCommentSubscribers::class);
 
