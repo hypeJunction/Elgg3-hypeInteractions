@@ -2,7 +2,7 @@
     "name": "hypejunction/hypeinteractions",
     "version": "5.0.0",
     "type": "elgg-plugin",
-    "description": "Enhanced commenting and liking UX for Elgg — real-time comments, likes, and multi-level threads.",
+    "description": "Enhanced commenting and liking UX for Elgg \u2014 real-time comments, likes, and multi-level threads.",
     "homepage": "https://github.com/hypeJunction/Elgg3-hypeInteractions",
     "keywords": [
         "elgg",
@@ -21,7 +21,7 @@
         }
     ],
     "extra": {
-        "installer-name": "hypeInteractions",
+        "installer-name": "hypeinteractions",
         "elgg-plugin": {
             "id": "hypeinteractions"
         }
