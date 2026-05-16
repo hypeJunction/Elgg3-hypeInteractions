@@ -21,7 +21,7 @@
         }
     ],
     "extra": {
-        "installer-name": "hypeInteractions",
+        "installer-name": "hypeinteractions",
         "elgg-plugin": {
             "id": "hypeinteractions"
         }
