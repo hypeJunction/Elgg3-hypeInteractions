@@ -37,7 +37,8 @@ class SocialMenu {
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		$comments_count = elgg_get_total_comments($entity);
+		// elgg_get_total_comments removed in 7.x; use ElggEntity::countComments()
+		$comments_count = $entity instanceof \ElggEntity ? $entity->countComments() : 0;
 
 		if ($uses_comments && $comments_count) {
 			$menu->add(ElggMenuItem::factory([
@@ -66,7 +67,7 @@ class SocialMenu {
 				]),
 				'text' => false,
 				'icon' => 'thumbs-o-up',
-				'badge' => elgg_get_total_likes($entity),
+				'badge' => $entity instanceof \ElggEntity ? $entity->countAnnotations('likes') : 0,
 			]));
 		}
 	}
