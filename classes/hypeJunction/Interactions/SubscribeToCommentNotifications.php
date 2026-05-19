@@ -30,7 +30,7 @@ class SubscribeToCommentNotifications {
 			return;
 		}
 
-		if (check_entity_relationship($entity->owner_guid, 'comment_tracker_unsubscribed', $original_container->guid)) {
+		if ((get_entity($entity->owner_guid)?->hasRelationship($original_container->guid, 'comment_tracker_unsubscribed') ?? false)) {
 			// User unsubscribed from notifications about this container
 			return;
 		}
