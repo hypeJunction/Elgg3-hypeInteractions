@@ -26,7 +26,8 @@
         "php": ">=8.3",
         "composer/installers": "^2.0",
         "elgg/elgg": "~7.0.0",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "hypejunction/hypelists": "^7.0 || ^3.5"
     },
     "config": {
         "allow-plugins": {

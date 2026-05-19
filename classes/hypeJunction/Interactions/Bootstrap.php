@@ -24,7 +24,7 @@ class Bootstrap extends PluginBootstrap {
 	 * {@inheritdoc}
 	 */
 	public function init() {
-		elgg_register_collection('collection:object:comment', DefaultCommentCollection::class);
+		\elgg_register_collection('collection:object:comment', DefaultCommentCollection::class);
 
 		elgg_extend_view('elgg.css', 'page/components/interactions.css');
 
