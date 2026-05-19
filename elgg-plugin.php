@@ -1,6 +1,16 @@
 <?php
 
 return [
+	'plugin' => [
+		'name' => 'hypeInteractions',
+		'version' => '4.0.0',
+		'dependencies' => [
+			'hypelists' => [
+				'must_be_active' => true,
+			],
+		],
+	],
+
 	'bootstrap' => \hypeJunction\Interactions\Bootstrap::class,
 
 	'entities' => [
