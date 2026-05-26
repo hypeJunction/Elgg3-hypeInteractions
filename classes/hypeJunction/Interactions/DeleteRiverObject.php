@@ -28,8 +28,8 @@ class DeleteRiverObject {
 			return;
 		}
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($river) {
-			$objects = elgg_get_entities([
+		\elgg_call(ELGG_IGNORE_ACCESS, function () use ($river) {
+			$objects = \elgg_get_entities([
 				'types' => RiverObject::TYPE,
 				'subtypes' => [RiverObject::SUBTYPE, 'hjstream'],
 				'metadata_name_value_pairs' => [

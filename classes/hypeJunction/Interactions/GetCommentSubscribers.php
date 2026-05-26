@@ -42,28 +42,28 @@ class GetCommentSubscribers {
 
 		if ($original_container instanceof \ElggObject) {
 			// Users subscribed to the original post in the thread
-			$subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
+			$subscriptions = \elgg_get_subscriptions_for_container($original_container->guid);
 			$group = $original_container->getContainerEntity();
 			if ($group instanceof \ElggGroup) {
 				// Users subscribed to group notifications the thread was started in
-				$group_subscriptions = elgg_get_subscriptions_for_container($group->guid);
+				$group_subscriptions = \elgg_get_subscriptions_for_container($group->guid);
 			}
 
 			// @todo: Do we need to notify users subscribed to a thread within user container?
 			// 		  It doesn't seem that such notifications would make sense, because they are not performed by the user container
 		} else if ($original_container instanceof \ElggGroup) {
-			$group_subscriptions = elgg_get_subscriptions_for_container($original_container->guid);
+			$group_subscriptions = \elgg_get_subscriptions_for_container($original_container->guid);
 		}
 
 		$actor = $notification_event->getActor();
 		if ($actor instanceof \ElggUser) {
-			$actor_subscriptions = elgg_get_subscriptions_for_container($actor->guid);
+			$actor_subscriptions = \elgg_get_subscriptions_for_container($actor->guid);
 		}
 
 		$all_subscriptions = $return + $subscriptions + $group_subscriptions + $actor_subscriptions;
 
 		// Get user GUIDs that have subscribed to this entity via comment tracker
-		$user_guids = elgg_get_entities([
+		$user_guids = \elgg_get_entities([
 			'type' => 'user',
 			'relationship_guid' => $original_container->guid,
 			'relationship' => 'comment_subscribe',
@@ -80,7 +80,7 @@ class GetCommentSubscribers {
 			// Get a comma separated list of the subscribed users
 			$user_guids_set = implode(',', $user_guids);
 
-			$site_guid = elgg_get_site_entity()->guid;
+			$site_guid = \elgg_get_site_entity()->guid;
 
 			// Get relationships that are used to explicitly block specific notification methods
 
@@ -103,7 +103,7 @@ class GetCommentSubscribers {
 				$blocked_methods[$row->guid_one][] = $method;
 			}
 
-			$registered_methods = _elgg_services()->notifications->getMethods();
+			$registered_methods = \_elgg_services()->notifications->getMethods();
 
 			foreach ($user_guids as $user_guid) {
 				// All available notification methods on the site

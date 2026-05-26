@@ -29,11 +29,11 @@ class SaveCommentAction {
 	 */
 	public function __invoke(Request $request) {
 
-		$poster = elgg_get_logged_in_user_entity();
+		$poster = \elgg_get_logged_in_user_entity();
 
 		$description = $request->getParam('generic_comment', false);
 		if (empty($description)) {
-			throw new ValidationException(elgg_echo('generic_comment:blank'));
+			throw new ValidationException(\elgg_echo('generic_comment:blank'));
 		}
 
 		$comment_guid = $request->getParam('comment_guid', null);
@@ -44,22 +44,22 @@ class SaveCommentAction {
 			$comment = get_entity($comment_guid);
 
 			if (!$comment instanceof Comment) {
-				throw new EntityNotFoundException(elgg_echo('generic_comment:notfound'));
+				throw new EntityNotFoundException(\elgg_echo('generic_comment:notfound'));
 			}
 
 			if (!$comment->canEdit()) {
-				throw new EntityNotFoundException(elgg_echo('actionunauthorized'));
+				throw new EntityNotFoundException(\elgg_echo('actionunauthorized'));
 			}
 
 			$entity = $comment->getContainerEntity();
 		} else {
 			$entity = get_entity($entity_guid);
 			if (!$entity) {
-				throw new EntityNotFoundException(elgg_echo('generic_comment:notfound'));
+				throw new EntityNotFoundException(\elgg_echo('generic_comment:notfound'));
 			}
 
 			if (!$entity->canComment() || !$entity->canWriteToContainer(0, 'object', 'comment')) {
-				throw new EntityPermissionsException(elgg_echo('actionunauthorized'));
+				throw new EntityPermissionsException(\elgg_echo('actionunauthorized'));
 			}
 
 			$comment = new Comment();
@@ -70,16 +70,16 @@ class SaveCommentAction {
 
 		$comment->description = $description;
 
-		$title = elgg_get_title_input();
+		$title = \elgg_get_title_input();
 		if ($title) {
 			$comment->title = $title;
 		}
 
 		if (!$comment->save()) {
-			throw new HttpException(elgg_echo('generic_comment:failure'));
+			throw new HttpException(\elgg_echo('generic_comment:failure'));
 		}
 
-		if (elgg_is_active_plugin('hypeAttachments')) {
+		if (\elgg_is_active_plugin('hypeAttachments')) {
 			hypeapps_attach_uploaded_files($comment, 'uploads', [
 				'origin' => 'comment',
 				'container_guid' => $comment->guid,
@@ -89,7 +89,7 @@ class SaveCommentAction {
 
 		if ($new_comment) {
 			// Add to river
-			elgg_create_river_item([
+			\elgg_create_river_item([
 				'action_type' => 'create',
 				'subject_guid' => $poster->guid,
 				'object_guid' => $comment->guid,
@@ -99,16 +99,16 @@ class SaveCommentAction {
 
 		$output = '';
 
-		if (elgg_is_xhr()) {
-			elgg_push_context('comments');
+		if (\elgg_is_xhr()) {
+			\elgg_push_context('comments');
 			if ($comment_guid) {
 				// editing a comment
-				$view = elgg_view_entity($comment, [
+				$view = \elgg_view_entity($comment, [
 					'full_view' => true,
 				]);
 			} else {
 				// new comment
-				$view = elgg_view('framework/interactions/comments', [
+				$view = \elgg_view('framework/interactions/comments', [
 					'entity' => $entity,
 					'comment' => $comment,
 				]);
@@ -120,9 +120,9 @@ class SaveCommentAction {
 				'stats' => InteractionsService::instance()->getStats($entity),
 			];
 
-			elgg_pop_context();
+			\elgg_pop_context();
 		}
 
-		return elgg_ok_response($output, elgg_echo('generic_comment:posted'), $comment->getURL());
+		return \elgg_ok_response($output, \elgg_echo('generic_comment:posted'), $comment->getURL());
 	}
 }

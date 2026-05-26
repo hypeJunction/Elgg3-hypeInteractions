@@ -2,154 +2,154 @@
 
 namespace hypeJunction\Interactions;
 
-$entity = elgg_extract('entity', $vars);
+$entity = \elgg_extract('entity', $vars);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:max_comment_depth'),
-	'#help' => elgg_echo('interactions:settings:max_comment_depth:help'),
+	'#label' => \elgg_echo('interactions:settings:max_comment_depth'),
+	'#help' => \elgg_echo('interactions:settings:max_comment_depth:help'),
 	'name' => 'params[max_comment_depth]',
 	'value' => $entity->max_comment_depth,
 	'options' => [5, 4, 3, 2, 1],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:comment_form_position'),
-	'#help' => elgg_echo('interactions:settings:comment_form_position:help'),
+	'#label' => \elgg_echo('interactions:settings:comment_form_position'),
+	'#help' => \elgg_echo('interactions:settings:comment_form_position:help'),
 	'name' => 'params[comment_form_position]',
 	'value' => $entity->comment_form_position,
 	'options_values' => [
-		'before' => elgg_echo('interactions:settings:comment_form_position:before'),
-		'after' => elgg_echo('interactions:settings:comment_form_position:after'),
+		'before' => \elgg_echo('interactions:settings:comment_form_position:before'),
+		'after' => \elgg_echo('interactions:settings:comment_form_position:after'),
 	],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:comments_order'),
-	'#help' => elgg_echo('interactions:settings:comments_order:help'),
+	'#label' => \elgg_echo('interactions:settings:comments_order'),
+	'#help' => \elgg_echo('interactions:settings:comments_order:help'),
 	'name' => 'params[comments_order]',
 	'value' => $entity->comments_order,
 	'options_values' => [
-		'asc' => elgg_echo('interactions:settings:comments_order:chronological'),
-		'desc' => elgg_echo('interactions:settings:comments_order:reverse_chronological'),
+		'asc' => \elgg_echo('interactions:settings:comments_order:chronological'),
+		'desc' => \elgg_echo('interactions:settings:comments_order:reverse_chronological'),
 	],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:comments_load_style'),
+	'#label' => \elgg_echo('interactions:settings:comments_load_style'),
 	'name' => 'params[comments_load_style]',
 	'value' => $entity->comments_load_style,
 	'options_values' => [
-		'load_newer' => elgg_echo('interactions:settings:comments_load_style:load_newer'),
-		'load_older' => elgg_echo('interactions:settings:comments_load_style:load_older'),
+		'load_newer' => \elgg_echo('interactions:settings:comments_load_style:load_newer'),
+		'load_older' => \elgg_echo('interactions:settings:comments_load_style:load_older'),
 	],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'text',
-	'#label' => elgg_echo('interactions:settings:comments_limit'),
+	'#label' => \elgg_echo('interactions:settings:comments_limit'),
 	'name' => 'params[comments_limit]',
 	'value' => $entity->comments_limit,
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'text',
-	'#label' => elgg_echo('interactions:settings:comments_load_limit'),
+	'#label' => \elgg_echo('interactions:settings:comments_load_limit'),
 	'name' => 'params[comments_load_limit]',
 	'value' => $entity->comments_load_limit,
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:comments_visual_editor'),
+	'#label' => \elgg_echo('interactions:settings:comments_visual_editor'),
 	'name' => 'params[comments_visual_editor]',
 	'value' => $entity->comments_visual_editor,
 	'options_values' => [
-		0 => elgg_echo('option:no'),
-		1 => elgg_echo('option:yes'),
+		0 => \elgg_echo('option:no'),
+		1 => \elgg_echo('option:yes'),
 	]
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:comment_sort'),
-	'#help' => elgg_echo('interactions:settings:comment_sort:help'),
+	'#label' => \elgg_echo('interactions:settings:comment_sort'),
+	'#help' => \elgg_echo('interactions:settings:comment_sort:help'),
 	'name' => 'params[comment_sort]',
 	'value' => $entity->comment_sort,
 	'options_values' => [
-		0 => elgg_echo('option:no'),
-		1 => elgg_echo('option:yes'),
+		0 => \elgg_echo('option:no'),
+		1 => \elgg_echo('option:yes'),
 	]
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:default_expand'),
-	'#help' => elgg_echo('interactions:settings:default_expand:help'),
+	'#label' => \elgg_echo('interactions:settings:default_expand'),
+	'#help' => \elgg_echo('interactions:settings:default_expand:help'),
 	'name' => 'params[default_expand]',
 	'value' => $entity->default_expand,
 	'options_values' => [
-		0 => elgg_echo('option:no'),
-		1 => elgg_echo('option:yes'),
+		0 => \elgg_echo('option:no'),
+		1 => \elgg_echo('option:yes'),
 	],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:gatekeep_comments'),
-	'#help' => elgg_echo('interactions:settings:gatekeep_comments:help'),
+	'#label' => \elgg_echo('interactions:settings:gatekeep_comments'),
+	'#help' => \elgg_echo('interactions:settings:gatekeep_comments:help'),
 	'name' => 'params[gatekeep_comments]',
 	'value' => $entity->gatekeep_comments,
 	'options_values' => [
-		0 => elgg_echo('option:no'),
-		1 => elgg_echo('option:yes'),
+		0 => \elgg_echo('option:no'),
+		1 => \elgg_echo('option:yes'),
 	],
 ]);
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'select',
-	'#label' => elgg_echo('interactions:settings:gatekeep_likes'),
-	'#help' => elgg_echo('interactions:settings:gatekeep_likes:help'),
+	'#label' => \elgg_echo('interactions:settings:gatekeep_likes'),
+	'#help' => \elgg_echo('interactions:settings:gatekeep_likes:help'),
 	'name' => 'params[non_public_comments]',
 	'value' => $entity->non_public_comments,
 	'options_values' => [
-		0 => elgg_echo('option:no'),
-		1 => elgg_echo('option:yes'),
+		0 => \elgg_echo('option:no'),
+		1 => \elgg_echo('option:yes'),
 	],
 ]);
 
-if (elgg_is_active_plugin('hypeAttachments')) {
-	echo elgg_view_field([
+if (\elgg_is_active_plugin('hypeAttachments')) {
+	echo \elgg_view_field([
 		'#type' => 'select',
-		'#label' => elgg_echo('interactions:settings:enable_attachments'),
-		'#help' => elgg_echo('interactions:settings:enable_attachments:help'),
+		'#label' => \elgg_echo('interactions:settings:enable_attachments'),
+		'#help' => \elgg_echo('interactions:settings:enable_attachments:help'),
 		'name' => 'params[enable_attachments]',
 		'value' => $entity->enable_attachments,
 		'options_values' => [
-			0 => elgg_echo('option:no'),
-			1 => elgg_echo('option:yes'),
+			0 => \elgg_echo('option:no'),
+			1 => \elgg_echo('option:yes'),
 		],
 	]);
 }
 
-if (elgg_is_active_plugin('hypeScraper')) {
-	echo elgg_view_field([
+if (\elgg_is_active_plugin('hypeScraper')) {
+	echo \elgg_view_field([
 		'#type' => 'select',
-		'#label' => elgg_echo('interactions:settings:enable_url_preview'),
-		'#help' => elgg_echo('interactions:settings:enable_url_preview:help'),
+		'#label' => \elgg_echo('interactions:settings:enable_url_preview'),
+		'#help' => \elgg_echo('interactions:settings:enable_url_preview:help'),
 		'name' => 'params[enable_url_preview]',
 		'value' => $entity->enable_url_preview,
 		'options_values' => [
-			0 => elgg_echo('option:no'),
-			1 => elgg_echo('option:yes'),
+			0 => \elgg_echo('option:no'),
+			1 => \elgg_echo('option:yes'),
 		],
 	]);
 }
 
-$dbprefix = elgg_get_config('dbprefix');
+$dbprefix = \elgg_get_config('dbprefix');
 $query = "SELECT DISTINCT view FROM {$dbprefix}river";
 $data = get_data($query);
 
@@ -165,9 +165,9 @@ foreach ($data as $row) {
 	];
 }
 
-echo elgg_view_field([
+echo \elgg_view_field([
 	'#type' => 'fieldset',
-	'#label' => elgg_echo('interactions:settings:actionable_stream_object'),
-	'#help' => elgg_echo('interactions:settings:actionable_stream_object:help'),
+	'#label' => \elgg_echo('interactions:settings:actionable_stream_object'),
+	'#help' => \elgg_echo('interactions:settings:actionable_stream_object:help'),
 	'fields' => $view_fields,
 ]);

@@ -36,7 +36,7 @@ class RiverObject extends ElggObject {
 
 		$id = $this->river_id;
 
-		$items = elgg_get_river([
+		$items = \elgg_get_river([
 			'ids' => $id,
 			'limit' => 1,
 		]);
@@ -51,10 +51,10 @@ class RiverObject extends ElggObject {
 	public function getDisplayName(): string {
 		$item = $this->getRiverItem();
 		if (!$item) {
-			return elgg_echo('interactions:river_object:title');
+			return \elgg_echo('interactions:river_object:title');
 		}
 
 		$subject = $item->getSubjectEntity();
-		return elgg_echo('interactions:river_object:title_subject', [$subject->getDisplayName()]);
+		return \elgg_echo('interactions:river_object:title_subject', [$subject->getDisplayName()]);
 	}
 }

@@ -20,7 +20,7 @@ class ToggleLikeAction {
 
 		$entity = $request->getEntityParam();
 
-		if (elgg_annotation_exists($entity->guid, 'likes')) {
+		if (\elgg_annotation_exists($entity->guid, 'likes')) {
 			$controller = new UnlikeAction();
 		} else {
 			$controller = new LikeAction();

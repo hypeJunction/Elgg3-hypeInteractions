@@ -29,8 +29,8 @@ class SyncRiverObjectAccess {
 
 		// need to override access in case comments ended up with ACCESS_PRIVATE
 		// and to ensure write permissions
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity) {
-			$batch = elgg_get_entities([
+		\elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity) {
+			$batch = \elgg_get_entities([
 				'type' => 'object',
 				'subtype' => RiverObject::class,
 				'container_guid' => $entity->guid,

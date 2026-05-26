@@ -72,7 +72,7 @@ class Thread {
 	 * @return Comment[]|false
 	 */
 	public function getComments(array $options = []) {
-		return elgg_get_entities($this->getFilterOptions($options));
+		return \elgg_get_entities($this->getFilterOptions($options));
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Thread {
 			e.time_created < {$this->comment->time_created}
 		";
 		$options['order_by'] = 'e.time_created ASC';
-		$comments = elgg_get_entities($this->getFilterOptions($options));
+		$comments = \elgg_get_entities($this->getFilterOptions($options));
 		if (is_array($comments)) {
 			return array_reverse($comments);
 		}
@@ -149,7 +149,7 @@ class Thread {
 				AND e.guid != {$this->comment->guid}
 		";
 		$options['order_by'] = 'e.time_created ASC';
-		return elgg_get_entities($this->getFilterOptions($options));
+		return \elgg_get_entities($this->getFilterOptions($options));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Thread {
 	 */
 	public function getAttachmentsFilterOptions(array $options = []) {
 
-		$dbprefix = elgg_get_config('dbprefix');
+		$dbprefix = \elgg_get_config('dbprefix');
 
 		$options['joins'][] = "JOIN {$dbprefix}entity_relationships er ON er.guid_two = e.guid";
 		$options['joins'][] = "JOIN {$dbprefix}entities e2 ON er.guid_one = e2.guid";
@@ -178,7 +178,7 @@ class Thread {
 	 */
 	public function getAttachments(array $options = []) {
 		$options = $this->getAttachmentsFilterOptions($options);
-		return elgg_get_entities($options);
+		return \elgg_get_entities($options);
 	}
 
 	/**

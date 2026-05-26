@@ -18,7 +18,7 @@ class Router {
 	 */
 	public static function urlHandler($hook, $type, $url, $params) {
 
-		$entity = elgg_extract('entity', $params);
+		$entity = \elgg_extract('entity', $params);
 		/* @var ElggEntity $entity */
 
 		if ($entity instanceof Comment) {
@@ -27,14 +27,14 @@ class Router {
 				return $container->getURL();
 			}
 
-			return elgg_normalize_url(implode('/', [
+			return \elgg_normalize_url(implode('/', [
 				'stream',
 				'comments',
 				$entity->container_guid,
 				$entity->guid,
 			])) . "#elgg-object-$entity->guid";
 		} else if ($entity instanceof RiverObject) {
-			return elgg_normalize_url(implode('/', [
+			return \elgg_normalize_url(implode('/', [
 				'stream',
 				'view',
 				$entity->guid
@@ -55,7 +55,7 @@ class Router {
 	 */
 	public static function iconUrlHandler($hook, $type, $url, $params) {
 
-		$entity = elgg_extract('entity', $params);
+		$entity = \elgg_extract('entity', $params);
 		/* @var ElggEntity $entity */
 
 		if ($entity instanceof Comment) {
