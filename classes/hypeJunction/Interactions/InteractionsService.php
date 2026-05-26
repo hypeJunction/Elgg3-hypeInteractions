@@ -139,7 +139,7 @@ class InteractionsService {
 
 		$stats = [
 			'comments' => [
-				'count' => \elgg_get_total_comments($entity),
+				'count' => $entity->countComments(),
 			],
 			'likes' => [
 				'count' => \elgg_get_total_likes($entity),

@@ -39,7 +39,7 @@ class InteractionsMenu {
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		$comments_count = \elgg_get_total_comments($entity);
+		$comments_count = $entity->countComments();
 		$can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 		if ($uses_comments) {
