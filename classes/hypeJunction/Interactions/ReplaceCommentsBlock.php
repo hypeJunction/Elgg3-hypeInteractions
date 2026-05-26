@@ -23,8 +23,8 @@ class ReplaceCommentsBlock {
 			return null;
 		}
 
-		$view = elgg_view('page/components/interactions', $params);
-		$view = elgg_format_element('div', [
+		$view = \elgg_view('page/components/interactions', $params);
+		$view = \elgg_format_element('div', [
 			'id' => 'comments',
 		], $view);
 

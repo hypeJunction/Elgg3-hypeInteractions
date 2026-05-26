@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Interactions;
 
-$entity = elgg_extract('entity', $vars);
+$entity = \elgg_extract('entity', $vars);
 /* @var RiverObject $entity */
 
 if (!$entity instanceof RiverObject) {
@@ -10,4 +10,4 @@ if (!$entity instanceof RiverObject) {
 }
 
 $river_item = $entity->getRiverItem();
-echo elgg_view_river_item($river_item);
+echo \elgg_view_river_item($river_item);

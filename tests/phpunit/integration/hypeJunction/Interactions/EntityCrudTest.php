@@ -22,7 +22,7 @@ class EntityCrudTest extends IntegrationTestCase {
 	// --- RiverObject CRUD ---
 
 	private function makeRiverObject(array $overrides = []): RiverObject {
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$o = new RiverObject();
 			$o->owner_guid = $overrides['owner_guid'] ?? $user->guid;
@@ -55,31 +55,31 @@ class EntityCrudTest extends IntegrationTestCase {
 	public function testLoadedRiverObjectIsRiverObjectInstance(): void {
 		$o = $this->makeRiverObject();
 		$guid = $o->guid;
-		_elgg_services()->entityCache->delete($guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
+		\_elgg_services()->entityCache->delete($guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
 		$this->assertInstanceOf(RiverObject::class, $loaded);
 		$o->delete();
 	}
 
 	public function testRiverObjectTitlePersists(): void {
 		$o = $this->makeRiverObject(['title' => 'river event title']);
-		_elgg_services()->entityCache->delete($o->guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
+		\_elgg_services()->entityCache->delete($o->guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
 		$this->assertSame('river event title', (string) $loaded->title);
 		$o->delete();
 	}
 
 	public function testRiverObjectRiverIdMetadataPersists(): void {
 		$o = $this->makeRiverObject(['river_id' => 42]);
-		_elgg_services()->entityCache->delete($o->guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
+		\_elgg_services()->entityCache->delete($o->guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($o->guid));
 		$this->assertSame('42', (string) $loaded->river_id);
 		$o->delete();
 	}
 
 	public function testRiverObjectDeleteReturnsTruthy(): void {
 		$o = $this->makeRiverObject();
-		$result = elgg_call(ELGG_IGNORE_ACCESS, fn() => $o->delete());
+		$result = \elgg_call(ELGG_IGNORE_ACCESS, fn() => $o->delete());
 		$this->assertNotFalse($result);
 	}
 

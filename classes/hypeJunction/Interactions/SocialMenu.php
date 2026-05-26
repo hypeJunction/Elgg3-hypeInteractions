@@ -37,21 +37,21 @@ class SocialMenu {
 		$parts = parse_url($url);
 		$parts['fragment'] = "comments";
 
-		$interactions_url = elgg_http_build_url($parts, false);
+		$interactions_url = \elgg_http_build_url($parts, false);
 
-		$uses_comments = elgg_trigger_plugin_hook(
+		$uses_comments = \elgg_trigger_plugin_hook(
 			'uses:comments',
 			"$entity->type:$entity->subtype",
 			$hook->getParams(),
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		$comments_count = elgg_get_total_comments($entity);
+		$comments_count = \elgg_get_total_comments($entity);
 
 		if ($uses_comments && $comments_count) {
 			$menu->add(ElggMenuItem::factory([
 				'name' => 'comments',
-				'href' => elgg_http_add_url_query_elements($interactions_url, [
+				'href' => \elgg_http_add_url_query_elements($interactions_url, [
 					'active_tab' => 'comments',
 				]),
 				'text' => false,
@@ -60,7 +60,7 @@ class SocialMenu {
 			]));
 		}
 
-		$uses_likes = elgg_is_active_plugin('likes') && elgg_trigger_plugin_hook(
+		$uses_likes = \elgg_is_active_plugin('likes') && \elgg_trigger_plugin_hook(
 				'likes:is_likable',
 				"$entity->type:$entity->subtype",
 				$hook->getParams(),
@@ -70,12 +70,12 @@ class SocialMenu {
 		if ($uses_likes) {
 			$menu->add(ElggMenuItem::factory([
 				'name' => 'likes',
-				'href' => elgg_http_add_url_query_elements($interactions_url, [
+				'href' => \elgg_http_add_url_query_elements($interactions_url, [
 					'active_tab' => 'likes',
 				]),
 				'text' => false,
 				'icon' => 'thumbs-o-up',
-				'badge' => elgg_get_total_likes($entity),
+				'badge' => \elgg_get_total_likes($entity),
 			]));
 		}
 	}
