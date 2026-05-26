@@ -35,7 +35,7 @@ if ($entity instanceof ElggComment) {
 	return;
 }
 
-$comments_count = elgg_get_total_comments($entity);
+$comments_count = $entity->countComments();
 $can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 if (!$comments_count && !$can_comment) {
@@ -53,7 +53,7 @@ $sort = $svc->getCommentsSort();
 $form_position = $svc->getCommentsFormPosition();
 
 $allow_sort = false;
-if (!$entity instanceof ElggComment && elgg_get_total_comments($entity) > 20) {
+if (!$entity instanceof ElggComment && $entity->countComments() > 20) {
 	$allow_sort = (bool) elgg_get_plugin_setting('comment_sort', 'hypeInteractions');
 }
 

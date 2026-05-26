@@ -37,7 +37,7 @@ class SocialMenu {
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		$comments_count = \elgg_get_total_comments($entity);
+		$comments_count = $entity->countComments();
 
 		if ($uses_comments && $comments_count) {
 			$menu->add(ElggMenuItem::factory([
