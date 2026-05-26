@@ -27,27 +27,27 @@ class LikeAction {
 		$entity = $request->getEntityParam();
 
 		if (!$entity) {
-			throw new EntityNotFoundException(elgg_echo('likes:notfound'));
+			throw new EntityNotFoundException(\elgg_echo('likes:notfound'));
 		}
 
-		$user = elgg_get_logged_in_user_entity();
+		$user = \elgg_get_logged_in_user_entity();
 
-		if (elgg_annotation_exists($entity->guid, 'likes')) {
-			throw new EntityPermissionsException(elgg_echo('likes:alreadyliked'));
+		if (\elgg_annotation_exists($entity->guid, 'likes')) {
+			throw new EntityPermissionsException(\elgg_echo('likes:alreadyliked'));
 		}
 
 		$id = $entity->annotate('likes', 1, '', $user->guid, $entity->access_id);
 
 		if (!$id) {
-			return elgg_error_response(elgg_echo('likes:failure'));
+			return \elgg_error_response(\elgg_echo('likes:failure'));
 		}
 
-		$annotation = elgg_get_annotation_from_id($id);
+		$annotation = \elgg_get_annotation_from_id($id);
 
 		$this->notifyUser($annotation);
 
-		if (elgg_get_config('likes_in_river', false)) {
-			elgg_create_river_item([
+		if (\elgg_get_config('likes_in_river', false)) {
+			\elgg_create_river_item([
 				'view' => 'river/likes/object',
 				'action_type' => 'likes',
 				'subject_guid' => $user->guid,
@@ -61,10 +61,10 @@ class LikeAction {
 			'stats' => InteractionsService::instance()->getStats($entity),
 		];
 
-		$msg = elgg_echo('likes:likes');
+		$msg = \elgg_echo('likes:likes');
 		$url = "stream/likes/$entity->guid";
 
-		return elgg_ok_response($data, $msg, $url);
+		return \elgg_ok_response($data, $msg, $url);
 	}
 
 	/**
@@ -84,37 +84,37 @@ class LikeAction {
 		}
 
 		$language = $user->language;
-		$user_url = elgg_view('output/url', [
+		$user_url = \elgg_view('output/url', [
 			'text' => $user->name,
 			'href' => $user->getURL(),
 		]);
 
 		if ($entity instanceof Comment) {
-			$target = elgg_echo('interactions:comment');
+			$target = \elgg_echo('interactions:comment');
 		} else {
-			$target = elgg_echo('interactions:post');
+			$target = \elgg_echo('interactions:post');
 		}
 
 		$entity_title = $entity->getDisplayName();
 
-		$entity_url = elgg_view('output/url', [
+		$entity_url = \elgg_view('output/url', [
 			'text' => $entity_title,
-			'href' => elgg_http_add_url_query_elements($entity->getURL(), [
+			'href' => \elgg_http_add_url_query_elements($entity->getURL(), [
 				'active_tab' => 'likes',
 			]),
 		]);
 
-		$entity_url = elgg_echo('interactions:ownership:your', [$target], $language) . ' ' . $entity_url;
+		$entity_url = \elgg_echo('interactions:ownership:your', [$target], $language) . ' ' . $entity_url;
 
-		$entity_ownership = elgg_echo('interactions:ownership:your', [$target], $language);
-		$entity_ownership_url = elgg_view('output/url', [
+		$entity_ownership = \elgg_echo('interactions:ownership:your', [$target], $language);
+		$entity_ownership_url = \elgg_view('output/url', [
 			'text' => $entity_ownership,
-			'href' => elgg_http_add_url_query_elements($entity->getURL(), [
+			'href' => \elgg_http_add_url_query_elements($entity->getURL(), [
 				'active_tab' => 'likes',
 			]),
 		]);
 
-		$summary = elgg_echo('interactions:likes:notifications:subject', [
+		$summary = \elgg_echo('interactions:likes:notifications:subject', [
 			$user_url,
 			$entity_ownership_url,
 		], $language);
@@ -123,7 +123,7 @@ class LikeAction {
 
 		$owner = $entity->getOwnerEntity();
 
-		$body = elgg_echo('interactions:likes:notifications:body', [
+		$body = \elgg_echo('interactions:likes:notifications:body', [
 			$user_url,
 			$entity_url,
 			$entity->getURL(),

@@ -39,7 +39,7 @@ class Comment extends ElggComment {
 		if (!$name) {
 			$owner = $this->getOwnerEntity();
 			if ($owner) {
-				$name = elgg_echo('interactions:comment:subject', [
+				$name = \elgg_echo('interactions:comment:subject', [
 					$owner->getDisplayName(),
 				]);
 			}
@@ -75,7 +75,7 @@ class Comment extends ElggComment {
 	public function getAttachments(array $options = []) {
 		$options = $this->getAttachmentsFilterOptions($options);
 
-		return elgg_get_entities($options);
+		return \elgg_get_entities($options);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class Comment extends ElggComment {
 	public function getSubscribedUsers(array $options = []) {
 		$options = $this->getSubscriberFilterOptions($options);
 
-		return elgg_get_entities($options);
+		return \elgg_get_entities($options);
 	}
 
 	/**
@@ -183,10 +183,10 @@ class Comment extends ElggComment {
 	 */
 	public function save($update_last_action = true) {
 		$result = false;
-		if (elgg_trigger_before_event('create', 'object', $this)) {
+		if (\elgg_trigger_before_event('create', 'object', $this)) {
 			$result = parent::save($update_last_action);
 			if ($result) {
-				elgg_trigger_after_event('create', 'object', $this);
+				\elgg_trigger_after_event('create', 'object', $this);
 			}
 		}
 

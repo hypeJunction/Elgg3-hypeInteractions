@@ -14,14 +14,14 @@ class Router {
 			if ($container instanceof Comment) {
 				return $container->getURL();
 			}
-			return elgg_normalize_url(implode('/', [
+			return \elgg_normalize_url(implode('/', [
 				'stream',
 				'comments',
 				$entity->container_guid,
 				$entity->guid,
 			])) . "#elgg-object-$entity->guid";
 		} else if ($entity instanceof RiverObject) {
-			return elgg_normalize_url(implode('/', [
+			return \elgg_normalize_url(implode('/', [
 				'stream',
 				'view',
 				$entity->guid,

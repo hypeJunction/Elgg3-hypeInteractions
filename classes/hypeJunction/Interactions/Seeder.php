@@ -49,7 +49,7 @@ class Seeder extends Seed {
 	}
 
 	public function unseed(): void {
-		$entities = elgg_get_entities([
+		$entities = \elgg_get_entities([
 			'type' => 'object',
 			'subtype' => 'comment',
 			'metadata_name' => '__faker',

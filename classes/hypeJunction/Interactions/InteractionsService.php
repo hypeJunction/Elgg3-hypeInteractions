@@ -56,7 +56,7 @@ class InteractionsService {
 			$access_id = $object->group_acl;
 		}
 
-		$object = elgg_call(ELGG_IGNORE_ACCESS, function () use ($river, $access_id) {
+		$object = \elgg_call(ELGG_IGNORE_ACCESS, function () use ($river, $access_id) {
 			$object = new RiverObject();
 			$object->owner_guid = $river->subject_guid;
 			$object->container_guid = $object->guid;
@@ -75,11 +75,11 @@ class InteractionsService {
 	 * @return bool
 	 */
 	public function canAttachFiles() {
-		if (!elgg_is_active_plugin('hypeAttachments')) {
+		if (!\elgg_is_active_plugin('hypeAttachments')) {
 			return false;
 		}
 
-		return (bool) elgg_get_plugin_setting('enable_attachments', 'hypeInteractions', true);
+		return (bool) \elgg_get_plugin_setting('enable_attachments', 'hypeInteractions', true);
 	}
 
 	/**
@@ -109,8 +109,8 @@ class InteractionsService {
 		}
 
 		// wrapping this in ignore access so that we do not accidentally create duplicate river objects
-		$object = elgg_call(ELGG_IGNORE_ACCESS, function () use ($river) {
-			$objects = elgg_get_entities([
+		$object = \elgg_call(ELGG_IGNORE_ACCESS, function () use ($river) {
+			$objects = \elgg_get_entities([
 				'types' => RiverObject::TYPE,
 				'subtypes' => [RiverObject::SUBTYPE, 'hjstream'],
 				'metadata_name_value_pairs' => [
@@ -145,19 +145,19 @@ class InteractionsService {
 
 		$stats = [
 			'comments' => [
-				'count' => elgg_get_total_comments($entity),
+				'count' => \elgg_get_total_comments($entity),
 			],
 			'likes' => [
-				'count' => elgg_get_total_likes($entity),
+				'count' => \elgg_get_total_likes($entity),
 				'state' => $entity->getAnnotations([
 					'annotation_names' => 'likes',
-					'annotation_owner_guids' => (int) elgg_get_logged_in_user_guid(),
+					'annotation_owner_guids' => (int) \elgg_get_logged_in_user_guid(),
 					'count' => true,
 				]) ? 'after' : 'before',
 			]
 		];
 
-		return elgg_trigger_event_results('get_stats', 'interactions', ['entity' => $entity], $stats);
+		return \elgg_trigger_event_results('get_stats', 'interactions', ['entity' => $entity], $stats);
 	}
 
 	/**
@@ -170,8 +170,8 @@ class InteractionsService {
 			return $sort;
 		}
 
-		$user_setting = elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
-		$setting = $user_setting ? : elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
+		$setting = $user_setting ? : \elgg_get_plugin_setting('comments_order', 'hypeInteractions');
 
 		if ($setting == 'asc') {
 			$setting = 'time_created::asc';
@@ -187,9 +187,9 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getLoadStyle() {
-		$user_setting = elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
 
-		return $user_setting ? : elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+		return $user_setting ? : \elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
 	}
 
 	/**
@@ -197,9 +197,9 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getCommentsFormPosition() {
-		$user_setting = elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
 
-		return $user_setting ? : elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+		return $user_setting ? : \elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
 	}
 
 	/**
@@ -216,11 +216,11 @@ class InteractionsService {
 		}
 
 		if ($partial) {
-			$limit = elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
+			$limit = \elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
 
 			return $limit ? : 3;
 		} else {
-			$limit = elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
+			$limit = \elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
 
 			return min(max((int) $limit, 20), 200);
 		}
@@ -269,7 +269,7 @@ class InteractionsService {
 
 		$views = [];
 
-		$plugin = elgg_get_plugin_from_id('hypeInteractions');
+		$plugin = \elgg_get_plugin_from_id('hypeInteractions');
 		$settings = $plugin->getAllSettings();
 		foreach ($settings as $key => $value) {
 			if (!$value) {

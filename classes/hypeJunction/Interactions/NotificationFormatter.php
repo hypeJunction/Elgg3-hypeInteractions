@@ -64,20 +64,20 @@ class NotificationFormatter {
 
 		$object_type = $this->getObjectType();
 
-		$object_link = elgg_view('output/url', array(
+		$object_link = \elgg_view('output/url', array(
 			'text' => $this->object->getDisplayName(),
-			'href' => elgg_http_add_url_query_elements($this->object->getURL(), array(
+			'href' => \elgg_http_add_url_query_elements($this->object->getURL(), array(
 				'active_tab' => 'comments',
 			)),
 		));
 
 		if ($this->author->guid == $this->object->owner_guid) {
-			$object_summary_title = elgg_echo('interactions:ownership:own', array($object_type), $this->language);
+			$object_summary_title = \elgg_echo('interactions:ownership:own', array($object_type), $this->language);
 		} else if ($this->recipient->guid == $this->object->owner_guid) {
-			$object_summary_title = elgg_echo('interactions:ownership:your', array($object_type), $this->language);
+			$object_summary_title = \elgg_echo('interactions:ownership:your', array($object_type), $this->language);
 		} else {
-			$object_owner = $this->object->getOwnerEntity() ? : elgg_get_site_entity();
-			$object_summary_title = elgg_echo('interactions:ownership:owner', array($object_owner->getDisplayName(), $object_type), $this->language);
+			$object_owner = $this->object->getOwnerEntity() ? : \elgg_get_site_entity();
+			$object_summary_title = \elgg_echo('interactions:ownership:owner', array($object_owner->getDisplayName(), $object_type), $this->language);
 		}
 
 		if ($this->object instanceof Comment) {
@@ -87,23 +87,23 @@ class NotificationFormatter {
 		}
 
 		if ($this->root->guid !== $this->object->guid) {
-			$root_link = elgg_view('output/url', array(
+			$root_link = \elgg_view('output/url', array(
 				'text' => $this->root->getDisplayName(),
-				'href' => elgg_http_add_url_query_elements($this->root->getURL(), array(
+				'href' => \elgg_http_add_url_query_elements($this->root->getURL(), array(
 					'active_tab' => 'comments',
 				)),
 			));
-			$object_full_title .= ' ' . elgg_echo('interactions:comment:in_thread', array($root_link));
+			$object_full_title .= ' ' . \elgg_echo('interactions:comment:in_thread', array($root_link));
 		}
 
-		$author_link = elgg_view('output/url', array(
+		$author_link = \elgg_view('output/url', array(
 			'text' => $this->author->name,
 			'href' => $this->author->getURL(),
 		));
 
-		$object_summary_link = elgg_view('output/url', array(
+		$object_summary_link = \elgg_view('output/url', array(
 			'text' => $object_summary_title,
-			'href' => elgg_http_add_url_query_elements($this->object->getURL(), array(
+			'href' => \elgg_http_add_url_query_elements($this->object->getURL(), array(
 				'active_tab' => 'comments',
 			)),
 		));
@@ -111,13 +111,13 @@ class NotificationFormatter {
 		$action_type = $this->getActionType();
 
 		$notification = new \stdClass();
-		$notification->summary = elgg_echo('interactions:response:email:subject', array(
+		$notification->summary = \elgg_echo('interactions:response:email:subject', array(
 			$author_link,
 			$action_type,
 			$object_summary_link
 				), $this->language);
 		$notification->subject = strip_tags($notification->summary);
-		$notification->body = elgg_echo('interactions:response:email:body', array(
+		$notification->body = \elgg_echo('interactions:response:email:body', array(
 			$author_link,
 			$action_type,
 			$object_full_title,
@@ -146,11 +146,11 @@ class NotificationFormatter {
 			"interactions:action:$comment_subtype",
 		];
 		foreach ($keys as $key) {
-			if (elgg_language_key_exists($key)) {
-				return elgg_echo($key, array(), $this->language);
+			if (\elgg_language_key_exists($key)) {
+				return \elgg_echo($key, array(), $this->language);
 			}
 		}
-		return elgg_echo('interactions:action:comment', $this->language);
+		return \elgg_echo('interactions:action:comment', $this->language);
 	}
 
 	/**
@@ -165,11 +165,11 @@ class NotificationFormatter {
 			$this->object instanceof Comment ? "interactions:comment" : "interactions:post",
 		];
 		foreach ($keys as $key) {
-			if (elgg_language_key_exists($key, $this->language)) {
-				return elgg_echo($key, array(), $this->language);
+			if (\elgg_language_key_exists($key, $this->language)) {
+				return \elgg_echo($key, array(), $this->language);
 			}
 		}
-		return elgg_echo('interactions:post', $this->language);
+		return \elgg_echo('interactions:post', $this->language);
 	}
 
 	/**
@@ -177,7 +177,7 @@ class NotificationFormatter {
 	 * @return string
 	 */
 	protected function getComment() {
-		$comment_body = elgg_view('output/longtext', array(
+		$comment_body = \elgg_view('output/longtext', array(
 			'value' => $this->comment->description,
 		));
 //		if (elgg_view_exists('output/linkify')) {
@@ -185,14 +185,14 @@ class NotificationFormatter {
 //				'value' => $comment_body
 //			));
 //		}
-		$comment_body .= elgg_view('output/attached', array(
+		$comment_body .= \elgg_view('output/attached', array(
 			'entity' => $this->comment,
 		));
 
 		$attachments = $this->comment->getAttachments(array('limit' => 0));
 		if ($attachments && count($attachments)) {
 			$attachments = array_map(function(\ElggEntity $entity) {
-				return elgg_view('output/url', [
+				return \elgg_view('output/url', [
 					'href' => $entity->getURL(),
 					'text' => $entity->getDisplayName(),
 				]);
@@ -200,7 +200,7 @@ class NotificationFormatter {
 
 			$attachments_text = implode(', ', array_filter($attachments));
 			if ($attachments_text) {
-				$comment_body .= elgg_echo('interactions:attachments:labelled', array($attachments_text));
+				$comment_body .= \elgg_echo('interactions:attachments:labelled', array($attachments_text));
 			}
 		}
 

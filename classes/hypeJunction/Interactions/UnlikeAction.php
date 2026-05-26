@@ -20,7 +20,7 @@ class UnlikeAction {
 		$likes = [];
 
 		if ($id) {
-			$like = elgg_get_annotation_from_id($id);
+			$like = \elgg_get_annotation_from_id($id);
 			$entity = get_entity($like->entity_guid);
 		}
 
@@ -31,9 +31,9 @@ class UnlikeAction {
 			$entity = get_entity($guid);
 
 			if ($entity) {
-				$likes = elgg_get_annotations([
+				$likes = \elgg_get_annotations([
 					'guid' => $entity->guid,
-					'annotation_owner_guid' => elgg_get_logged_in_user_guid(),
+					'annotation_owner_guid' => \elgg_get_logged_in_user_guid(),
 					'annotation_name' => 'likes',
 					'limit' => 0,
 				]);
@@ -50,16 +50,16 @@ class UnlikeAction {
 		}
 
 		if ($error) {
-			return elgg_error_response(elgg_echo('likes:notdeleted'));
+			return \elgg_error_response(\elgg_echo('likes:notdeleted'));
 		} else {
 			$data = [
 				'guid' => $entity->guid,
 				'stats' => InteractionsService::instance()->getStats($entity)
 			];
 
-			$msg = elgg_echo('likes:deleted');
+			$msg = \elgg_echo('likes:deleted');
 
-			return elgg_ok_response($data, $msg);
+			return \elgg_ok_response($data, $msg);
 		}
 	}
 }

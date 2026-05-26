@@ -23,7 +23,7 @@ class DefaultCommentCollection extends Collection {
 	 * {@inheritdoc}
 	 */
 	public function getDisplayName() {
-		return elgg_echo('collection:object:collection');
+		return \elgg_echo('collection:object:collection');
 	}
 
 	/**
@@ -53,17 +53,17 @@ class DefaultCommentCollection extends Collection {
 	public function getQueryOptions(array $options = []) {
 		$entity = $this->getTarget();
 
-		$full_view = elgg_extract('full_view', $this->params);
-		$activity = elgg_in_context('activity');
+		$full_view = \elgg_extract('full_view', $this->params);
+		$activity = \elgg_in_context('activity');
 
 		$limit = InteractionsService::instance()->getLimit(!$full_view || $activity);
 
 		$offset = get_input('offset', null);
 
-		$count = elgg_get_total_comments($entity);
+		$count = \elgg_get_total_comments($entity);
 
 		if (!isset($offset)) {
-			$comment = elgg_extract('comment', $this->params);
+			$comment = \elgg_extract('comment', $this->params);
 
 			if ($comment->container_guid != $entity->guid) {
 				// Comment serves as a pointer that allows us to access a specific comment within a tree
@@ -92,7 +92,7 @@ class DefaultCommentCollection extends Collection {
 	 * {@inheritdoc}
 	 */
 	public function getURL() {
-		return elgg_generate_url($this->getId(), [
+		return \elgg_generate_url($this->getId(), [
 			'guid' => $this->getTarget()->guid,
 		]);
 	}
@@ -105,7 +105,7 @@ class DefaultCommentCollection extends Collection {
 
 		return array_merge([
 			'full_view' => true,
-			'no_results' => elgg_echo('interactions:comments:no_results'),
+			'no_results' => \elgg_echo('interactions:comments:no_results'),
 			'pagination_type' => 'infinite',
 			'list_class' => 'interactions-comments-list elgg-comments',
 			'list_type' => 'list',
@@ -121,7 +121,7 @@ class DefaultCommentCollection extends Collection {
 	 * {@inheritdoc}
 	 */
 	public function getFilterOptions() {
-		if (!elgg_is_logged_in()) {
+		if (!\elgg_is_logged_in()) {
 			return [];
 		}
 
