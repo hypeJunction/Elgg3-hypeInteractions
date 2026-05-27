@@ -10,15 +10,13 @@ class Router {
 	/**
 	 * Handles entity URLs
 	 *
-	 * @param string $hook   "entity:url"
-	 * @param string $type   "object"
-	 * @param string $url    Current URL
-	 * @param array  $params Hook params
+	 * @param \Elgg\Event $event "entity:url" / "object"
 	 * @return string Filtered URL
 	 */
-	public static function urlHandler($hook, $type, $url, $params) {
+	public static function urlHandler(\Elgg\Event $event) {
 
-		$entity = \elgg_extract('entity', $params);
+		$url = $event->getValue();
+		$entity = $event->getParam('entity');
 		/* @var ElggEntity $entity */
 
 		if ($entity instanceof Comment) {
@@ -47,15 +45,14 @@ class Router {
 	/**
 	 * Replaces comment icons
 	 *
-	 * @param string $hook   "entity:icon:url"
-	 * @param string $type   "object"
-	 * @param string $url    Current URL
-	 * @param array  $params Hook params
+	 * @param \Elgg\Event $event "entity:icon:url" / "object"
 	 * @return string
 	 */
-	public static function iconUrlHandler($hook, $type, $url, $params) {
+	public static function iconUrlHandler(\Elgg\Event $event) {
 
-		$entity = \elgg_extract('entity', $params);
+		$url = $event->getValue();
+		$params = $event->getParams();
+		$entity = $event->getParam('entity');
 		/* @var ElggEntity $entity */
 
 		if ($entity instanceof Comment) {
