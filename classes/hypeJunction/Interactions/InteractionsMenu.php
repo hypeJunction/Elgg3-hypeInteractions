@@ -36,7 +36,7 @@ class InteractionsMenu {
 			$entity instanceof \ElggObject && !$entity->disable_comments
 		);
 
-		$comments_count = elgg_get_total_comments($entity);
+		$comments_count = function_exists('elgg_get_total_comments') ? elgg_get_total_comments($entity) : 0;
 		$can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 		if ($uses_comments) {
@@ -78,7 +78,7 @@ class InteractionsMenu {
 
 		if (elgg_is_active_plugin('likes') && $uses_likes) {
 			// Liking and unliking
-			$likes_count = elgg_get_total_likes($entity);
+			$likes_count = function_exists('elgg_get_total_likes') ? elgg_get_total_likes($entity) : 0;
 			$can_like = $entity->canAnnotate(0, 'likes');
 			$does_like = elgg_annotation_exists($entity->guid, 'likes');
 

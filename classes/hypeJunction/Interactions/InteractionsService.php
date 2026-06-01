@@ -152,10 +152,10 @@ class InteractionsService {
 
 		$stats = [
 			'comments' => [
-				'count' => elgg_get_total_comments($entity),
+				'count' => function_exists('elgg_get_total_comments') ? elgg_get_total_comments($entity) : 0,
 			],
 			'likes' => [
-				'count' => elgg_get_total_likes($entity),
+				'count' => function_exists('elgg_get_total_likes') ? elgg_get_total_likes($entity) : 0,
 				'state' => $entity->getAnnotations([
 					'annotation_names' => 'likes',
 					'annotation_owner_guids' => (int) elgg_get_logged_in_user_guid(),
