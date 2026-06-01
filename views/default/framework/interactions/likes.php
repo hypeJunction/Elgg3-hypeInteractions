@@ -29,7 +29,7 @@ if (!\elgg_instanceof($entity)) {
 $limit = get_input('limit', 20);
 $offset_key = "likes_$entity->guid";
 $offset = get_input($offset_key, 0);
-$count = \elgg_get_total_likes($entity);
+$count = function_exists('elgg_get_total_likes') ? \elgg_get_total_likes($entity) : 0;
 
 $options = [
 	'guid' => $entity->guid,

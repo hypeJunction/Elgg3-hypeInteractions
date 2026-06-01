@@ -78,7 +78,7 @@ class SocialMenu {
 				]),
 				'text' => false,
 				'icon' => 'thumbs-o-up',
-				'badge' => \elgg_get_total_likes($entity),
+				'badge' => (function_exists('elgg_get_total_likes') ? \elgg_get_total_likes($entity) : 0),
 			]));
 		}
 	}
