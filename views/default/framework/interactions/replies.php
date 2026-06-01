@@ -31,7 +31,7 @@ if (!$entity instanceof ElggComment) {
 $comment = elgg_extract('comment', $vars);
 /* @var $comment \hypeJunction\Interactions\Comment */
 
-$comments_count = elgg_get_total_comments($entity);
+$comments_count = function_exists('elgg_get_total_comments') ? elgg_get_total_comments($entity) : 0;
 $can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 if (!$comments_count && !$can_comment) {
