@@ -13,7 +13,13 @@ class Router {
 	 * @param array  $params Hook params
 	 * @return string Filtered URL
 	 */
-	public static function urlHandler($hook, $type, $url, $params) {
+	public static function urlHandler($hook, $type = null, $url = null, $params = null) {
+
+		if ($hook instanceof \Elgg\Hook) {
+			$type = $hook->getType();
+			$url = $hook->getValue();
+			$params = $hook->getParams();
+		}
 
 		$entity = \elgg_extract('entity', $params);
 		/* @var ElggEntity $entity */
@@ -49,7 +55,13 @@ class Router {
 	 * @param array  $params Hook params
 	 * @return string
 	 */
-	public static function iconUrlHandler($hook, $type, $url, $params) {
+	public static function iconUrlHandler($hook, $type = null, $url = null, $params = null) {
+
+		if ($hook instanceof \Elgg\Hook) {
+			$type = $hook->getType();
+			$url = $hook->getValue();
+			$params = $hook->getParams();
+		}
 
 		$entity = \elgg_extract('entity', $params);
 		/* @var ElggEntity $entity */
