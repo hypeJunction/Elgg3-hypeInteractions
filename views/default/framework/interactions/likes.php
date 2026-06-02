@@ -22,7 +22,7 @@ if (!\elgg_is_logged_in()) {
 $entity = \elgg_extract('entity', $vars, false);
 /* @var $entity ElggEntity */
 
-if (!\elgg_instanceof($entity)) {
+if (!$entity instanceof ElggEntity) {
 	return true;
 }
 
