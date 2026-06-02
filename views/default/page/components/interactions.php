@@ -20,7 +20,7 @@ $full_view = elgg_extract('full_view', $vars, false);
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 
 if (!isset($active_tab)) {
-	if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
+	if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeinteractions')) {
 	    $active_tab = 'comments';
 	}
 }

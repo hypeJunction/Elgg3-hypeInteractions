@@ -10,7 +10,8 @@ class RiverObject extends ElggObject {
 	const TYPE = 'object';
 	const SUBTYPE = 'river_object';
 
-	private $_river_item;
+	/** @var mixed */
+    private $_river_item;
 	
 	/**
 	 * {@inheritdoc}

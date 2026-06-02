@@ -6,6 +6,7 @@ define(function (require) {
 	var elgg = require('elgg');
 	var $ = require('jquery');
 	var Ajax = require('elgg/Ajax');
+	var i18n = require('elgg/i18n');
 
 	var interactions = {
 		ready: false,
@@ -76,7 +77,7 @@ define(function (require) {
 				'state': state
 			}).attr({
 				'data-state': state
-			}).text(elgg.echo(['interactions', trait, state].join(':')));
+			}).text(i18n.echo(['interactions', trait, state].join(':')));
 		},
 
 		toggleState: function (e) {

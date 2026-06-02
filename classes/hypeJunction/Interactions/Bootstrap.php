@@ -36,7 +36,7 @@ class Bootstrap extends PluginBootstrap {
 		\elgg_register_plugin_hook_handler('comments', 'all', ReplaceCommentsBlock::class);
 
 		// Create an actionable river object
-		\elgg_register_event_handler('created', 'river', CreateRiverObject::class);
+		\elgg_register_event_handler('create:after', 'river', CreateRiverObject::class);
 		\elgg_register_event_handler('delete:after', 'river', DeleteRiverObject::class);
 		\elgg_register_plugin_hook_handler('update:after', 'all', SyncRiverObjectAccess::class);
 
@@ -69,8 +69,8 @@ class Bootstrap extends PluginBootstrap {
 	 */
 	public function ready() {
 		// Clean up
-		\elgg_unregister_plugin_hook_handler('register', 'menu:social', '_elgg_comments_social_menu_setup');
-		\elgg_unregister_plugin_hook_handler('register', 'menu:social', 'likes_social_menu_setup');
+		\elgg_unregister_plugin_hook_handler('register', 'menu:social', 'Elgg\Menus\Social::registerComments');
+		\elgg_unregister_plugin_hook_handler('register', 'menu:social', 'Elgg\Likes\Menus\Social::register');
 		\elgg_unextend_view('elgg.css', 'likes/css');
 	}
 

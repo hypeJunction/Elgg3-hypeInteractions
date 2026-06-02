@@ -86,7 +86,7 @@ class InteractionsService {
 			return false;
 		}
 
-		return (bool) \elgg_get_plugin_setting('enable_attachments', 'hypeInteractions', true);
+		return (bool) \elgg_get_plugin_setting('enable_attachments', 'hypeinteractions', true);
 	}
 
 	/**
@@ -177,8 +177,8 @@ class InteractionsService {
 			return $sort;
 		}
 
-		$user_setting = \elgg_get_plugin_user_setting('comments_order', 0, 'hypeInteractions');
-		$setting = $user_setting ? : \elgg_get_plugin_setting('comments_order', 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comments_order', 0, 'hypeinteractions');
+		$setting = $user_setting ? : \elgg_get_plugin_setting('comments_order', 'hypeinteractions');
 
 		if ($setting == 'asc') {
 			$setting = 'time_created::asc';
@@ -194,9 +194,9 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getLoadStyle() {
-		$user_setting = \elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comments_load_style', 0, 'hypeinteractions');
 
-		return $user_setting ? : \elgg_get_plugin_setting('comments_load_style', 'hypeInteractions');
+		return $user_setting ? : \elgg_get_plugin_setting('comments_load_style', 'hypeinteractions');
 	}
 
 	/**
@@ -204,9 +204,9 @@ class InteractionsService {
 	 * @return string
 	 */
 	public function getCommentsFormPosition() {
-		$user_setting = \elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeInteractions');
+		$user_setting = \elgg_get_plugin_user_setting('comment_form_position', 0, 'hypeinteractions');
 
-		return $user_setting ? : \elgg_get_plugin_setting('comment_form_position', 'hypeInteractions');
+		return $user_setting ? : \elgg_get_plugin_setting('comment_form_position', 'hypeinteractions');
 	}
 
 	/**
@@ -223,11 +223,11 @@ class InteractionsService {
 		}
 
 		if ($partial) {
-			$limit = \elgg_get_plugin_setting('comments_limit', 'hypeInteractions');
+			$limit = \elgg_get_plugin_setting('comments_limit', 'hypeinteractions');
 
 			return $limit ? : 3;
 		} else {
-			$limit = \elgg_get_plugin_setting('comments_load_limit', 'hypeInteractions');
+			$limit = \elgg_get_plugin_setting('comments_load_limit', 'hypeinteractions');
 
 			return min(max((int) $limit, 20), 200);
 		}
@@ -276,7 +276,7 @@ class InteractionsService {
 
 		$views = [];
 
-		$plugin = \elgg_get_plugin_from_id('hypeInteractions');
+		$plugin = \elgg_get_plugin_from_id('hypeinteractions');
 		$settings = $plugin->getAllSettings();
 		foreach ($settings as $key => $value) {
 			if (!$value) {

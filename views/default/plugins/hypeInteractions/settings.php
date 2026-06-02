@@ -151,7 +151,7 @@ if (\elgg_is_active_plugin('hypeScraper')) {
 
 $dbprefix = \elgg_get_config('dbprefix');
 $query = "SELECT DISTINCT view FROM {$dbprefix}river";
-$data = get_data($query);
+$data = elgg()->db->getData($query);
 
 $view_fields = [];
 foreach ($data as $row) {
