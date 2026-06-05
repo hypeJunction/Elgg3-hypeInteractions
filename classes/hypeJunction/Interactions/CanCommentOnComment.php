@@ -14,7 +14,7 @@ class CanCommentOnComment {
 			return null;
 		}
 
-		$max_depth = (int) elgg_get_plugin_setting('max_comment_depth', 'hypeInteractions');
+		$max_depth = (int) elgg_get_plugin_setting('max_comment_depth', 'hypeinteractions');
 
 		if ($entity->getDepthToOriginalContainer() >= $max_depth) {
 			return false;
