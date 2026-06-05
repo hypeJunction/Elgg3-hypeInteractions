@@ -7,7 +7,7 @@
  */
 
 if (!elgg_is_logged_in()) {
-	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeInteractions')) {
+	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeinteractions')) {
 		$link = elgg_view('output/url', [
 			'href' => elgg_get_login_url(),
 			'text' => elgg_echo('interactions:login'),

@@ -5,7 +5,7 @@ namespace hypeJunction\Interactions;
 use ElggEntity;
 
 if (!\elgg_is_logged_in()) {
-	if (\elgg_get_plugin_setting('gatekeep_likes', 'hypeInteractions')) {
+	if (\elgg_get_plugin_setting('gatekeep_likes', 'hypeinteractions')) {
 		$link = \elgg_view('output/url', [
 			'href' => \elgg_get_login_url(),
 			'text' => \elgg_echo('interactions:login'),
