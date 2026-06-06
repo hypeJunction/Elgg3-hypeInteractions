@@ -32,18 +32,18 @@ class InteractionsMenu {
 
 		if ($uses_comments) {
 			if ($can_comment) {
-				$menu->add(\ElggMenuItem::factory([
+				$menu[] = \ElggMenuItem::factory([
 					'name' => 'comments',
 					'text' => ($entity instanceof Comment) ? elgg_echo('interactions:reply:create') : elgg_echo('interactions:comment:create'),
 					'href' => "stream/comments/$entity->guid",
 					'priority' => 200,
 					'data-trait' => 'comments',
 					'item_class' => 'interactions-action',
-				]));
+				]);
 			}
 
 			if ($can_comment || $comments_count) {
-				$menu->add(\ElggMenuItem::factory([
+				$menu[] = \ElggMenuItem::factory([
 					'name' => 'comments:badge',
 					'text' => elgg_view('framework/interactions/elements/badge', [
 						'entity' => $entity,
@@ -56,7 +56,7 @@ class InteractionsMenu {
 					'priority' => 100,
 					'data-trait' => 'comments',
 					'item_class' => 'interactions-tab',
-				]));
+				]);
 			}
 		}
 
@@ -77,7 +77,7 @@ class InteractionsMenu {
 				$before_text = elgg_echo('interactions:likes:before');
 				$after_text = elgg_echo('interactions:likes:after');
 
-				$menu->add(\ElggMenuItem::factory([
+				$menu[] = \ElggMenuItem::factory([
 					'name' => 'likes',
 					'text' => ($does_like) ? $after_text : $before_text,
 					'href' => "action/stream/like?guid=$entity->guid",
@@ -89,11 +89,11 @@ class InteractionsMenu {
 					'data-guid' => $entity->guid,
 					'data-trait' => 'likes',
 					'data-state' => ($does_like) ? 'after' : 'before',
-				]));
+				]);
 			}
 
 			if ($can_like || $likes_count) {
-				$menu->add(\ElggMenuItem::factory([
+				$menu[] = \ElggMenuItem::factory([
 					'name' => 'likes:badge',
 					'text' => elgg_view('framework/interactions/elements/badge', [
 						'entity' => $entity,
@@ -106,8 +106,10 @@ class InteractionsMenu {
 					'data-trait' => 'likes',
 					'priority' => 300,
 					'item_class' => 'interactions-tab',
-				]));
+				]);
 			}
 		}
+
+		return $menu;
 	}
 }
