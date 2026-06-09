@@ -68,7 +68,7 @@ class InteractionsService {
 	 * @return bool
 	 */
 	public function canAttachFiles() {
-		if (!elgg_is_active_plugin('hypeAttachments')) {
+		if (!elgg_is_active_plugin('hypeattachments')) {
 			return false;
 		}
 
@@ -124,7 +124,7 @@ class InteractionsService {
 			$object->setVolatileData('river_item', $river);
 		}
 
-		return has_access_to_entity($object) ? $object : false;
+		return elgg_has_access_to_entity($object->guid) ? $object : false;
 	}
 
 	/**
@@ -263,6 +263,10 @@ class InteractionsService {
 		$views = [];
 
 		$plugin = elgg_get_plugin_from_id('hypeinteractions');
+		if (!$plugin instanceof \ElggPlugin) {
+			return $views;
+		}
+
 		$settings = $plugin->getAllSettings();
 		foreach ($settings as $key => $value) {
 			if (!$value) {

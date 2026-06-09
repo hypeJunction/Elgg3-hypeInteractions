@@ -41,7 +41,7 @@ class SocialMenu {
 		$comments_count = $entity instanceof \ElggEntity ? $entity->countComments() : 0;
 
 		if ($uses_comments && $comments_count) {
-			$menu[] = ElggMenuItem::factory([
+			$menu->add(ElggMenuItem::factory([
 				'name' => 'comments',
 				'href' => elgg_http_add_url_query_elements($interactions_url, [
 					'active_tab' => 'comments',
@@ -49,7 +49,7 @@ class SocialMenu {
 				'text' => false,
 				'icon' => 'comments-o',
 				'badge' => $comments_count,
-			]);
+			]));
 		}
 
 		$uses_likes = elgg_is_active_plugin('likes') && elgg_trigger_event_results(
@@ -60,7 +60,7 @@ class SocialMenu {
 			);
 
 		if ($uses_likes) {
-			$menu[] = ElggMenuItem::factory([
+			$menu->add(ElggMenuItem::factory([
 				'name' => 'likes',
 				'href' => elgg_http_add_url_query_elements($interactions_url, [
 					'active_tab' => 'likes',
@@ -68,9 +68,7 @@ class SocialMenu {
 				'text' => false,
 				'icon' => 'thumbs-o-up',
 				'badge' => $entity instanceof \ElggEntity ? $entity->countAnnotations('likes') : 0,
-			]);
+			]));
 		}
-
-		return $menu;
 	}
 }

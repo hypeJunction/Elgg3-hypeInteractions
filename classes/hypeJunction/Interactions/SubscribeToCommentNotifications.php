@@ -30,11 +30,16 @@ class SubscribeToCommentNotifications {
 			return;
 		}
 
-		if ((get_entity($entity->owner_guid)?->getRelationship($original_container->guid, 'comment_tracker_unsubscribed') ?? null)) {
+		$owner = $entity->getOwnerEntity();
+		if (!$owner instanceof \ElggUser) {
+			return;
+		}
+
+		if ($owner->getRelationship($original_container->guid, 'comment_tracker_unsubscribed')) {
 			// User unsubscribed from notifications about this container
 			return;
 		}
 
-		add_entity_relationship($entity->owner_guid, 'comment_subscribe', $original_container->guid);
+		$owner->addRelationship($original_container->guid, 'comment_subscribe');
 	}
 }

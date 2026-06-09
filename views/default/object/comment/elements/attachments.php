@@ -1,6 +1,6 @@
 <?php
 
-if (!elgg_is_active_plugin('hypeAttachments')) {
+if (!elgg_is_active_plugin('hypeattachments')) {
 	return;
 }
 

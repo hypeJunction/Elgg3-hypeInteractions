@@ -1,6 +1,6 @@
 <?php
 
-$guid = elgg_extract('guid', $vars);
+$guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($guid, 'object', \hypeJunction\Interactions\RiverObject::SUBTYPE);
 
 $entity = get_entity($guid);
@@ -26,7 +26,7 @@ $river = elgg_get_river([
 ]);
 
 if (!$river) {
-	throw new \Elgg\EntityNotFoundException();
+	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
 }
 
 $item = array_shift($river);

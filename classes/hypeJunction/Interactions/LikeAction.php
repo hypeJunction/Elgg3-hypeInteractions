@@ -2,12 +2,11 @@
 
 namespace hypeJunction\Interactions;
 
-use DatabaseException;
-use Elgg\EntityNotFoundException;
-use Elgg\EntityPermissionsException;
+use Elgg\Exceptions\DatabaseException;
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
-use NotificationException;
 
 class LikeAction {
 
@@ -19,7 +18,6 @@ class LikeAction {
 	 * @return ResponseBuilder
 	 * @throws EntityNotFoundException
 	 * @throws EntityPermissionsException
-	 * @throws NotificationException
 	 * @throws DatabaseException
 	 */
 	public function __invoke(Request $request) {
@@ -73,7 +71,6 @@ class LikeAction {
 	 * @param \ElggAnnotation $annotation Like annotation
 	 *
 	 * @return array
-	 * @throws NotificationException
 	 */
 	protected function notifyUser(\ElggAnnotation $annotation) {
 		$user = $annotation->getOwnerEntity();
@@ -131,10 +128,15 @@ class LikeAction {
 			$user->getURL(),
 		], $owner->language);
 
-		return notify_user($entity->owner_guid, $user->guid, $subject, $body, [
-			'action' => 'create',
-			'object' => $annotation,
+		if (!$owner instanceof \ElggUser) {
+			return [];
+		}
+
+		return elgg_notify_user($owner, 'create', $annotation, [
+			'subject' => $subject,
+			'body' => $body,
 			'summary' => $summary,
-		]);
+			'object' => $annotation,
+		], $user);
 	}
 }

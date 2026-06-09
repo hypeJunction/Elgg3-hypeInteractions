@@ -1,15 +1,15 @@
 <?php
 
-$guid = elgg_extract('guid', $vars);
-$comment = get_entity($guid);
+$guid = (int) elgg_extract('guid', $vars);
+$comment = $guid ? get_entity($guid) : null;
 /* @var \hypeJunction\Interactions\Comment $comment */
 
 if (!$comment instanceof \hypeJunction\Interactions\Comment) {
-	throw new \Elgg\EntityNotFoundException();
+	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
 }
 
 if (!$comment->canEdit()) {
-	throw new \Elgg\EntityPermissionsException();
+	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
 }
 
 $entity = $comment->getContainerEntity();
