@@ -23,18 +23,18 @@ class Comment extends ElggComment {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function canComment($user_guid = 0, $default = null) {
+	public function canComment(int $user_guid = 0): bool {
 		if (!$this->canWriteToContainer($user_guid, 'object', 'comment')) {
 			return false;
 		}
 
-		return ElggObject::canComment($user_guid, $default);
+		return parent::canComment($user_guid);
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getDisplayName() {
+	public function getDisplayName(): string {
 		$name = $this->title;
 		if (!$name) {
 			$owner = $this->getOwnerEntity();
@@ -45,7 +45,7 @@ class Comment extends ElggComment {
 			}
 		}
 
-		return $name;
+		return (string) $name;
 	}
 
 	/**
@@ -181,10 +181,10 @@ class Comment extends ElggComment {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function save($update_last_action = true) {
+	public function save(): bool {
 		$result = false;
 		if (\elgg_trigger_before_event('create', 'object', $this)) {
-			$result = parent::save($update_last_action);
+			$result = parent::save();
 			if ($result) {
 				\elgg_trigger_after_event('create', 'object', $this);
 			}

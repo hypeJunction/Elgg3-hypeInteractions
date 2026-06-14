@@ -44,7 +44,7 @@ class RiverObject extends ElggObject {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getDisplayName() {
+	public function getDisplayName(): string {
 		$item = $this->getRiverItem();
 		if (!$item) {
 			return \elgg_echo('interactions:river_object:title');
