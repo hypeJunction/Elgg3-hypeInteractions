@@ -8,7 +8,7 @@ $user = elgg_extract('user', $vars);
 echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comment_form_position]',
-	'value' => $entity->getUserSetting('comment_form_position', $user->guid, 'after'),
+	'value' => elgg_get_plugin_user_setting('comment_form_position', $user->guid, $entity->getID(), 'after'),
 	'options_values' => array(
 		'before' => elgg_echo('interactions:settings:comment_form_position:before'),
 		'after' => elgg_echo('interactions:settings:comment_form_position:after'),
