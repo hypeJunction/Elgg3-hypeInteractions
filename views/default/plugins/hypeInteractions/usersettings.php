@@ -3,12 +3,12 @@
 $entity = elgg_extract('entity', $vars);
 /* @var $entity ElggPlugin */
 
-$user = elgg_extract('user', $vars);
+$user_guid = (int) elgg_extract('user_guid', $vars, elgg_get_logged_in_user_guid());
 
 echo elgg_view_field([
 	'#type' => 'select',
 	'name' => 'params[comment_form_position]',
-	'value' => elgg_get_plugin_user_setting('comment_form_position', $user->guid, $entity->getID(), 'after'),
+	'value' => elgg_get_plugin_user_setting('comment_form_position', $user_guid, $entity->getID(), 'after'),
 	'options_values' => array(
 		'before' => elgg_echo('interactions:settings:comment_form_position:before'),
 		'after' => elgg_echo('interactions:settings:comment_form_position:after'),
