@@ -98,8 +98,4 @@ return [
 		'comments_load_limit' => 20,
 		'default_expand' => false,
 	],
-
-	'default' => [
-		'js/framework/interactions/lib.js' => __DIR__ . '/views/default/page/components/interactions.js',
-	]
 ];
