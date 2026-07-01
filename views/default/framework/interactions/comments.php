@@ -9,7 +9,7 @@
 use hypeJunction\Interactions\InteractionsService;
 
 if (!elgg_is_logged_in()) {
-	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeInteractions')) {
+	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeinteractions')) {
 		$link = elgg_view('output/url', [
 			'href' => elgg_get_login_url(),
 			'text' => elgg_echo('interactions:login'),
@@ -35,7 +35,7 @@ if ($entity instanceof ElggComment) {
 	return;
 }
 
-$comments_count = elgg_get_total_comments($entity);
+$comments_count = $entity->countComments();
 $can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 if (!$comments_count && !$can_comment) {
@@ -53,8 +53,8 @@ $sort = $svc->getCommentsSort();
 $form_position = $svc->getCommentsFormPosition();
 
 $allow_sort = false;
-if (!$entity instanceof ElggComment && elgg_get_total_comments($entity) > 20) {
-	$allow_sort = (bool) elgg_get_plugin_setting('comment_sort', 'hypeInteractions');
+if (!$entity instanceof ElggComment && $entity->countComments() > 20) {
+	$allow_sort = (bool) elgg_get_plugin_setting('comment_sort', 'hypeinteractions');
 }
 
 $collection = elgg_get_collection('collection:object:comment', $entity, [

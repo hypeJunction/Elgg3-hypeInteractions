@@ -7,7 +7,7 @@
  */
 
 if (!elgg_is_logged_in()) {
-	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeInteractions')) {
+	if (elgg_get_plugin_setting('gatekeep_comments', 'hypeinteractions')) {
 		$link = elgg_view('output/url', [
 			'href' => elgg_get_login_url(),
 			'text' => elgg_echo('interactions:login'),
@@ -31,7 +31,7 @@ if (!$entity instanceof ElggComment) {
 $comment = elgg_extract('comment', $vars);
 /* @var $comment \hypeJunction\Interactions\Comment */
 
-$comments_count = elgg_get_total_comments($entity);
+$comments_count = $entity->countComments();
 $can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 if (!$comments_count && !$can_comment) {

@@ -42,7 +42,7 @@ $body = elgg_view('object/comment/elements/body', $params);
 
 $attachments = elgg_view('object/comment/elements/attachments', $params);
 
-if (elgg_get_plugin_setting('enable_url_preview', 'hypeInteractions')) {
+if (elgg_get_plugin_setting('enable_url_preview', 'hypeinteractions')) {
 	$attachments .= elgg_view('object/comment/elements/embeds', $params);
 }
 

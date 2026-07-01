@@ -5,7 +5,7 @@ namespace hypeJunction\Interactions;
 use ElggEntity;
 
 if (!elgg_is_logged_in()) {
-	if (elgg_get_plugin_setting('gatekeep_likes', 'hypeInteractions')) {
+	if (elgg_get_plugin_setting('gatekeep_likes', 'hypeinteractions')) {
 		$link = elgg_view('output/url', [
 			'href' => elgg_get_login_url(),
 			'text' => elgg_echo('interactions:login'),
@@ -22,14 +22,14 @@ if (!elgg_is_logged_in()) {
 $entity = elgg_extract('entity', $vars, false);
 /* @var $entity ElggEntity */
 
-if (!elgg_instanceof($entity)) {
+if (!$entity instanceof \ElggEntity) {
 	return true;
 }
 
 $limit = get_input('limit', 20);
 $offset_key = "likes_$entity->guid";
 $offset = get_input($offset_key, 0);
-$count = elgg_get_total_likes($entity);
+$count = $entity->countAnnotations('likes');
 
 $options = array(
 	'guid' => $entity->guid,

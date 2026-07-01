@@ -1,6 +1,6 @@
 <?php
 
-$guid = elgg_extract('guid', $vars);
+$guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($guid);
 
 $entity = get_entity($guid);
@@ -9,7 +9,7 @@ $entity = get_entity($guid);
 if (elgg_is_xhr()) {
 	echo elgg_view('framework/interactions/likes', array(
 		'entity' => $entity,
-		'active_tab' => ($comment) ? 'likes' : false,
+		'active_tab' => 'likes',
 	));
 } else {
 	$title = elgg_echo('interactions:likes:title', array($entity->getDisplayName()));

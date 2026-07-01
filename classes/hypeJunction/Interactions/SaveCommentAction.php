@@ -2,13 +2,13 @@
 
 namespace hypeJunction\Interactions;
 
-use DatabaseException;
-use Elgg\EntityNotFoundException;
-use Elgg\EntityPermissionsException;
+use Elgg\Exceptions\DatabaseException;
+use Elgg\Exceptions\Http\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
+use Elgg\Exceptions\Http\ValidationException;
+use Elgg\Exceptions\HttpException;
 use Elgg\Http\OkResponse;
-use Elgg\HttpException;
 use Elgg\Request;
-use Elgg\ValidationException;
 
 class SaveCommentAction {
 
@@ -38,7 +38,7 @@ class SaveCommentAction {
 		$new_comment = !$comment_guid;
 
 		if (!$new_comment) {
-			$comment = get_entity($comment_guid);
+			$comment = get_entity((int) $comment_guid);
 
 			if (!$comment instanceof Comment) {
 				throw new EntityNotFoundException(elgg_echo('generic_comment:notfound'));
@@ -50,7 +50,7 @@ class SaveCommentAction {
 
 			$entity = $comment->getContainerEntity();
 		} else {
-			$entity = get_entity($entity_guid);
+			$entity = $entity_guid ? get_entity((int) $entity_guid) : null;
 			if (!$entity) {
 				throw new EntityNotFoundException(elgg_echo('generic_comment:notfound'));
 			}
@@ -76,7 +76,7 @@ class SaveCommentAction {
 			throw new HttpException(elgg_echo('generic_comment:failure'));
 		}
 
-		if (elgg_is_active_plugin('hypeAttachments')) {
+		if (elgg_is_active_plugin('hypeattachments')) {
 			hypeapps_attach_uploaded_files($comment, 'uploads', [
 				'origin' => 'comment',
 				'container_guid' => $comment->guid,

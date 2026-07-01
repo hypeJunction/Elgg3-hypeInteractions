@@ -20,13 +20,13 @@ $full_view = elgg_extract('full_view', $vars, false);
 $active_tab = elgg_extract('active_tab', $vars, get_input('active_tab'));
 
 if (!isset($active_tab)) {
-	if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeInteractions')) {
+	if ($full_view || elgg_get_plugin_setting('default_expand', 'hypeinteractions')) {
 	    $active_tab = 'comments';
 	}
 }
 
 if ($active_tab === 'comments') {
-	$comments_count = elgg_get_total_comments($entity);
+	$comments_count = $entity->countComments();
 	$can_comment = $entity->canComment() && $entity->canWriteToContainer(0, 'object', 'comment');
 
 	if (!$comments_count && !$can_comment) {

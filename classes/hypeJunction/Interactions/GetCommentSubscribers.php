@@ -107,7 +107,7 @@ class GetCommentSubscribers {
 
 		// Do not send any notifications, if user has explicitly unsubscribed
 		foreach ($all_subscriptions as $guid => $methods) {
-			if (check_entity_relationship($guid, 'comment_tracker_unsubscribed', $original_container->guid)) {
+			if ((get_entity($guid)?->getRelationship($original_container->guid, 'comment_tracker_unsubscribed') ?? null)) {
 				unset($all_subscriptions[$guid]);
 			}
 		}

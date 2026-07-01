@@ -1,6 +1,18 @@
 <?php
 
 return [
+	'plugin' => [
+		'id' => 'hypeinteractions',
+		'name' => 'Interactions',
+		'version' => '7.0.0',
+		'dependencies' => [
+			'hypelists' => [
+				'position' => 'after',
+				'must_be_active' => true,
+			],
+		],
+	],
+
 	'bootstrap' => \hypeJunction\Interactions\Bootstrap::class,
 
 	'entities' => [
@@ -86,8 +98,4 @@ return [
 		'comments_load_limit' => 20,
 		'default_expand' => false,
 	],
-
-	'default' => [
-		'js/framework/interactions/lib.js' => __DIR__ . '/views/default/page/components/interactions.js',
-	]
 ];

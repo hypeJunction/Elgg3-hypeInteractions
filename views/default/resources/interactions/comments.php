@@ -1,14 +1,14 @@
 <?php
 
-$entity_guid = elgg_extract('guid', $vars);
+$entity_guid = (int) elgg_extract('guid', $vars);
 elgg_entity_gatekeeper($entity_guid);
 
 $entity = get_entity($entity_guid);
 /* @var $entity ElggEntity */
 
-$comment_guid = elgg_extract('comment_guid', $vars);
+$comment_guid = (int) elgg_extract('comment_guid', $vars);
 
-$comment = get_entity($comment_guid);
+$comment = $comment_guid ? get_entity($comment_guid) : null;
 /* @var $comment \hypeJunction\Interactions\Comment */
 
 if (elgg_is_xhr()) {

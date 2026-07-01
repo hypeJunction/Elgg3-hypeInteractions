@@ -18,17 +18,19 @@ class UnlikeAction {
 		$id = (int) $request->getParam('id');
 
 		$likes = [];
+		$like = null;
+		$entity = null;
 
 		if ($id) {
 			$like = elgg_get_annotation_from_id($id);
-			$entity = get_entity($like->entity_guid);
+			$entity = $like ? get_entity((int) $like->entity_guid) : null;
 		}
 
 		if ($like) {
 			$likes[] = $like;
 		} else {
-			$guid = $request->getParam('guid');
-			$entity = get_entity($guid);
+			$guid = (int) $request->getParam('guid');
+			$entity = $guid ? get_entity($guid) : null;
 
 			if ($entity) {
 				$likes = elgg_get_annotations([

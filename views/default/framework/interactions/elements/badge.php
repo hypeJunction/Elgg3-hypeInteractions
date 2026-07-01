@@ -23,7 +23,7 @@ if ($icon) {
 		'attach' => 'paperclip',
 		'pencil' => 'pencil',
 	];
-	$text = elgg_view_icon(elgg_extract($icon, $map, $icon), 'interactions-icon') . $text;
+	$text = elgg_view_icon(elgg_extract($icon, $map, $icon), ['class' => 'interactions-icon']) . $text;
 }
 
 $badge = elgg_format_element('span', array(
