@@ -39,7 +39,7 @@
   },
   "autoload": {
     "psr-4": {
-      "hypeJunction\\\\Interactions\\\\": "classes/hypeJunction/Interactions/"
+      "hypeJunction\\Interactions\\": "classes/hypeJunction/Interactions/"
     }
   }
 }
