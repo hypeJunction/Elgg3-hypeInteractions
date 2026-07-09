@@ -80,7 +80,7 @@ if ($full) {
 	$entity_title = $entity->title ? $entity->title : elgg_echo('untitled');
 	$entity_link = "<a href=\"{$entity->getURL()}\">$entity_title</a>";
 
-	$excerpt = elgg_get_excerpt($comment->description, 80);
+	$excerpt = elgg_get_excerpt((string) $comment->description, 80);
 	$posted = elgg_echo('generic_comment:on', [$commenter_link, $entity_link]);
 
 	$body = elgg_format_element('span', ['class' => 'elgg-subtext'], "$posted ($friendlytime): $excerpt");
